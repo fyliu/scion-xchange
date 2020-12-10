@@ -4,6 +4,7 @@
   "description": "Node.js Demo for JWT Authentication with PostgreSQL",
   "main": "server.js",
   "scripts": {
+    "start": "node server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
@@ -25,5 +26,8 @@
     "pg": "^8.5.1",
     "pg-hstore": "^2.3.3",
     "sequelize": "^6.3.5"
+  },
+  "engines": {
+    "node": "14.x"
   }
 }
