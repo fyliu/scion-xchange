@@ -1,0 +1,8 @@
+[submodule "backend"]
+	path = backend
+	url = https://github.com/fyliu/node-js-jwt-authentication-postgresql.git
+	branch = crfg
+[submodule "frontend"]
+	path = frontend
+	url = https://github.com/fyliu/react-hooks-jwt-auth.git
+	branch = crfg
