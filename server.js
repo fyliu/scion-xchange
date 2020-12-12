@@ -2,14 +2,17 @@ require('dotenv').config();
 const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
+const path = require('path');
 
 const app = express();
+const CLIENT_FILES = path.join(__dirname, '..', 'frontend', 'build');
 
 var corsOptions = {
   origin: "http://localhost:8081"
 };
 
 app.use(cors(corsOptions));
+app.use(express.static(CLIENT_FILES));
 
 // parse requests of content-type - application/json
 app.use(bodyParser.json());
