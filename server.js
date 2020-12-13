@@ -6,13 +6,22 @@ const path = require('path');
 const app = express();
 const CLIENT_FILES = path.join(__dirname, '..', 'frontend', 'build');
 
-app.use(express.static(CLIENT_FILES));
+app.use(function (req, res, next) {
+  res.setHeader(
+    'Content-Security-Policy-Report-Only',
+    "default-src 'self'; font-src 'self'; img-src 'self'; script-src 'self'; style-src 'self'; frame-src 'self'"
+  );
+  next();
+});
 
 // parse requests of content-type - application/json
 app.use(bodyParser.json());
 
 // parse requests of content-type - application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: true }));
+
+// serve client files
+app.use(express.static(CLIENT_FILES));
 
 // database
 const db = require("./app/models");
