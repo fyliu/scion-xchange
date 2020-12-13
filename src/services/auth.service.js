@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const PORT = process.env.PORT || 8080;
-const API_URL = 'http://localhost:' + PORT + '/api/auth/';
+const API_URL = 'https://scion-x-change.herokuapp.com/api/auth/';
 
 const register = (username, email, password) => {
   return axios.post(API_URL + "signup", {
