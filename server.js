@@ -1,17 +1,11 @@
 require('dotenv').config();
 const express = require("express");
 const bodyParser = require("body-parser");
-const cors = require("cors");
 const path = require('path');
 
 const app = express();
 const CLIENT_FILES = path.join(__dirname, '..', 'frontend', 'build');
 
-var corsOptions = {
-  origin: 'https://scion-x-change.herokuapp.com',
-};
-
-app.use(cors(corsOptions));
 app.use(express.static(CLIENT_FILES));
 
 // parse requests of content-type - application/json
