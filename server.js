@@ -8,7 +8,7 @@ const app = express();
 const CLIENT_FILES = path.join(__dirname, '..', 'frontend', 'build');
 
 var corsOptions = {
-  origin: "http://localhost:8081"
+  origin: 'https://scion-x-change.herokuapp.com',
 };
 
 app.use(cors(corsOptions));
