@@ -14,7 +14,7 @@
     "authentication",
     "postgresql"
   ],
-  "author": "bezkoder",
+  "author": "fyliu",
   "license": "ISC",
   "dependencies": {
     "bcryptjs": "^2.4.3",
