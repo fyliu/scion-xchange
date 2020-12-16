@@ -9,16 +9,16 @@ const sequelize = new Sequelize(
     dialectOptions: {
       ssl: {
         require: true,
-        rejectUnauthorized: false,
-      },
+        rejectUnauthorized: false
+      }
     },
 
     pool: {
       max: +process.env.DB_pool_max,
       min: +process.env.DB_pool_min,
       acquire: +process.env.DB_pool_acquire,
-      idle: +process.env.DB_pool_idle,
-    },
+      idle: +process.env.DB_pool_idle
+    }
   }
 );
 
