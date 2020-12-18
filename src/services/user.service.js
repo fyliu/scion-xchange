@@ -1,8 +1,9 @@
 import axios from "axios";
 import authHeader from "./auth-header";
 
-const PORT = process.env.PORT || 8080;
-const API_URL = "http://localhost:" + PORT + "/api/test/";
+//const PORT = process.env.PORT || 8080;
+//const API_URL = "http://localhost:" + PORT + "/api/test/";
+const API_URL = "/api/test/";
 //const API_URL = 'https://scion-x-change.herokuapp.com/api/test/';
 
 const getPublicContent = () => {
@@ -25,5 +26,5 @@ export default {
   getPublicContent,
   getUserBoard,
   getModeratorBoard,
-  getAdminBoard,
+  getAdminBoard
 };

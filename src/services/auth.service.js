@@ -1,14 +1,15 @@
 import axios from "axios";
 
-const PORT = process.env.PORT || 8080;
-const API_URL = "http://localhost:" + PORT + "/api/auth/";
+//const PORT = process.env.PORT || 8080;
+//const API_URL = "http://localhost:" + PORT + "/api/auth/";
+const API_URL = "/api/auth/";
 //const API_URL = 'https://scion-x-change.herokuapp.com/api/auth/';
 
 const register = (username, email, password) => {
   return axios.post(API_URL + "signup", {
     username,
     email,
-    password,
+    password
   });
 };
 
@@ -16,9 +17,9 @@ const login = (username, password) => {
   return axios
     .post(API_URL + "signin", {
       username,
-      password,
+      password
     })
-    .then((response) => {
+    .then(response => {
       if (response.data.accessToken) {
         localStorage.setItem("user", JSON.stringify(response.data));
       }
@@ -39,5 +40,5 @@ export default {
   register,
   login,
   logout,
-  getCurrentUser,
+  getCurrentUser
 };
