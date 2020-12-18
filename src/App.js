@@ -12,6 +12,9 @@ import Profile from "./components/Profile";
 import BoardUser from "./components/BoardUser";
 import BoardModerator from "./components/BoardModerator";
 import BoardAdmin from "./components/BoardAdmin";
+import PlantsList from "./components/PlantsList";
+import AddPlant from "./components/AddPlant";
+import Plant from "./components/Plant";
 
 const App = () => {
   const [showModeratorBoard, setShowModeratorBoard] = useState(false);
@@ -62,11 +65,24 @@ const App = () => {
           )}
 
           {currentUser && (
-            <li className="nav-item">
-              <Link to={"/user"} className="nav-link">
-                User
-              </Link>
-            </li>
+            <>
+              <li className="nav-item">
+                <Link to={"/user"} className="nav-link">
+                  User
+                </Link>
+              </li>
+
+              <li className="nav-item">
+                <Link to={"/plants"} className="nav-link">
+                  Plants
+                </Link>
+              </li>
+              <li className="nav-item">
+                <Link to={"/add-plant"} className="nav-link">
+                  Add Plant
+                </Link>
+              </li>
+            </>
           )}
         </div>
 
@@ -106,6 +122,9 @@ const App = () => {
           <Route exact path="/login" component={Login} />
           <Route exact path="/register" component={Register} />
           <Route exact path="/profile" component={Profile} />
+          <Route exact path="/plants" component={PlantsList} />
+          <Route exact path="/add-plant" component={AddPlant} />
+          <Route path="/plants/:id" component={Plant} />
           <Route path="/user" component={BoardUser} />
           <Route path="/mod" component={BoardModerator} />
           <Route path="/admin" component={BoardAdmin} />
