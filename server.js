@@ -1,17 +1,20 @@
 require("dotenv").config();
 const express = require("express");
 const bodyParser = require("body-parser");
-const cors = require("cors");
+//const cors = require("cors");
 const path = require("path");
 
 const app = express();
 const CLIENT_FILES = path.join(__dirname, "..", "frontend", "build");
 
-var corsOptions = {
-  origin: "http://localhost:8081"
-};
+//var corsOptions = {
+//  origin: "http://localhost:8081"
+//};
 
-app.use(cors(corsOptions));
+//app.use(cors(corsOptions));
+
+console.log("NODE_ENV");
+console.log(process.env.NODE_ENV);
 
 // Static file declaration for production mode
 if (process.env.NODE_ENV === "production") {
