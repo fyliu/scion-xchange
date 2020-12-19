@@ -18,6 +18,9 @@ const sequelize = new Sequelize(
       min: +process.env.DB_pool_min,
       acquire: +process.env.DB_pool_acquire,
       idle: +process.env.DB_pool_idle
+    },
+    define: {
+      timestamps: false
     }
   }
 );
