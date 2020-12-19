@@ -13,9 +13,6 @@ const CLIENT_FILES = path.join(__dirname, "..", "frontend", "build");
 
 //app.use(cors(corsOptions));
 
-console.log("NODE_ENV");
-console.log(process.env.NODE_ENV);
-
 // Static file declaration for production mode
 if (process.env.NODE_ENV === "production") {
   app.use(express.static(CLIENT_FILES));
