@@ -66,11 +66,11 @@ const App = () => {
 
           {currentUser && (
             <>
-              <li className="nav-item">
+              {/* <li className="nav-item">
                 <Link to={"/user"} className="nav-link">
                   User
                 </Link>
-              </li>
+              </li> */}
 
               <li className="nav-item">
                 <Link to={"/plants"} className="nav-link">
