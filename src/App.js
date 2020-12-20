@@ -15,6 +15,7 @@ import BoardAdmin from "./components/BoardAdmin";
 import PlantsList from "./components/PlantsList";
 import AddPlant from "./components/AddPlant";
 import Plant from "./components/Plant";
+import Offer from "./components/Offer";
 
 const App = () => {
   const [showModeratorBoard, setShowModeratorBoard] = useState(false);
@@ -73,6 +74,11 @@ const App = () => {
               </li> */}
 
               <li className="nav-item">
+                <Link to={"/offer"} className="nav-link">
+                  Offering
+                </Link>
+              </li>
+              <li className="nav-item">
                 <Link to={"/plants"} className="nav-link">
                   Plants
                 </Link>
@@ -124,6 +130,7 @@ const App = () => {
           <Route exact path="/profile" component={Profile} />
           <Route exact path="/plants" component={PlantsList} />
           <Route exact path="/add-plant" component={AddPlant} />
+          <Route exact path="/offer" component={Offer} />
           <Route path="/plants/:id" component={Plant} />
           <Route path="/user" component={BoardUser} />
           <Route path="/mod" component={BoardModerator} />
