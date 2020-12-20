@@ -45,6 +45,7 @@ app.get("/", (req, res) => {
 require("./app/routes/auth.routes")(app);
 require("./app/routes/user.routes")(app);
 require("./app/routes/plant.routes")(app);
+const plants = require("./data/plant");
 
 // default route
 app.get("*", (req, res) => {
@@ -73,14 +74,5 @@ function initial() {
     name: "admin"
   });
 
-  Plant.bulkCreate([
-    {
-      name: "DongKui",
-      species: "Myrica rubra (Yangmei)"
-    },
-    {
-      name: "Fuerte",
-      species: "Persea americana (Avocado)"
-    }
-  ]);
+  Plant.bulkCreate(plants);
 }
