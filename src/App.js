@@ -42,11 +42,11 @@ const App = () => {
           Scion Exchange
         </Link>
         <div className="navbar-nav mr-auto">
-          <li className="nav-item">
+          {/* <li className="nav-item">
             <Link to={"/home"} className="nav-link">
               Home
             </Link>
-          </li>
+          </li> */}
 
           {showModeratorBoard && (
             <li className="nav-item">
