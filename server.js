@@ -27,6 +27,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // database
 const db = require("./app/models");
 const Role = db.role;
+const Plant = db.plant;
 
 // db.sequelize.sync();
 // force: true will drop the table if it already exists
@@ -71,4 +72,15 @@ function initial() {
     id: 3,
     name: "admin"
   });
+
+  Plant.bulkCreate([
+    {
+      name: "DongKui",
+      species: "Myrica rubra (Yangmei)"
+    },
+    {
+      name: "Fuerte",
+      species: "Persea americana (Avocado)"
+    }
+  ]);
 }
