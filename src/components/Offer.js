@@ -1,88 +1,52 @@
 import React, { useState, useEffect } from "react";
+import "../App.css";
 import PlantDataService from "../services/plant.service";
-import { Link } from "react-router-dom";
 
 const Offer = () => {
   const [plants, setPlants] = useState([]);
-  const [currentPlant, setCurrentPlant] = useState(null);
-  const [currentIndex, setCurrentIndex] = useState(-1);
-  const [searchName, setSearchName] = useState("");
 
   useEffect(() => {
     retrievePlants();
   }, []);
 
-  const onChangeSearchName = e => {
-    const searchName = e.target.value;
-    setSearchName(searchName);
-  };
-
   const retrievePlants = () => {
     PlantDataService.getAll()
       .then(res => {
         setPlants(res.data);
-        console.log(res.data);
+        //console.log(res.data);
       })
       .catch(e => {
         console.log(e);
       });
   };
 
-  const setActivePlant = (plant, index) => {
-    setCurrentPlant(plant);
-    setCurrentIndex(index);
-  };
+  const onSubmit = e => {
+    e.preventDefault();
 
-  const findByName = () => {
-    PlantDataService.findByName(searchName)
-      .then(res => {
-        setPlants(res.data);
-        console.log(res.data);
-      })
-      .catch(e => {
-        console.log(e);
-      });
+    console.log(e);
   };
 
   return (
     <div className="list row">
       <div className="col-md-8">
-        <div className="input-group mb-3">
-          <input
-            type="text"
-            className="form-control"
-            placeholder="Search by name"
-            value={searchName}
-            onChange={onChangeSearchName}
-          />
-          <div className="input-group-append">
-            <button
-              className="btn btn-outline-secondary"
-              type="button"
-              onClick={findByName}
-            >
-              Search
-            </button>
-          </div>
-        </div>
-      </div>
-      <div className="col-md-12">
-        <h4>Select Offerings</h4>
+        <h4>What I can offer...</h4>
 
-        <ul className="list-group">
+        <form onSubmit={onSubmit}>
           {plants &&
-            plants.map((plant, index) => (
-              <li
-                className={
-                  "list-group-item " + (index === currentIndex ? "active" : "")
-                }
-                onClick={() => setActivePlant(plant, index)}
-                key={index}
-              >
-                {plant.name}
-              </li>
+            plants.map(plant => (
+              <div key={plant.id} className="form-check">
+                <input
+                  className="form-check-input"
+                  type="checkbox"
+                  id={plant.id}
+                />
+                <label className="form-check-label" htmlFor={plant.id}>
+                  {plant.name + " - " + plant.species}
+                </label>
+              </div>
             ))}
-        </ul>
+          <button type="submit">Submit</button>
+        </form>
       </div>
     </div>
   );
