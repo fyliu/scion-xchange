@@ -11,11 +11,11 @@ const Offer = () => {
 
   const retrievePlants = () => {
     PlantDataService.getAll()
-      .then(res => {
+      .then((res) => {
         setPlants(res.data);
         //console.log(res.data);
       })
-      .catch(e => {
+      .catch((e) => {
         console.log(e);
       });
   };

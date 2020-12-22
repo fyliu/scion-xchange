@@ -10,7 +10,7 @@ const AddPlant = () => {
   const [plant, setPlant] = useState(initialPlantState);
   const [submitted, setSubmitted] = useState(false);
 
-  const handleInputChange = event => {
+  const handleInputChange = (event) => {
     const { name, value } = event.target;
     setPlant({ ...plant, [name]: value });
   };
@@ -22,7 +22,7 @@ const AddPlant = () => {
     };
 
     PlantDataService.create(data)
-      .then(res => {
+      .then((res) => {
         setPlant({
           id: res.data.id,
           name: res.data.name,
@@ -31,7 +31,7 @@ const AddPlant = () => {
         setSubmitted(true);
         console.log(res.data);
       })
-      .catch(e => {
+      .catch((e) => {
         console.log(e);
       });
   };
