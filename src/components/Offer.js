@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from "react";
-import "../App.css";
 import PlantDataService from "../services/plant.service";
+import UserService from "../services/user.service";
 
 const Offer = () => {
   const [plants, setPlants] = useState([]);
+  const [offers, setOffers] = useState({});
+  const [message, setMessage] = useState("");
 
   useEffect(() => {
     retrievePlants();
@@ -20,10 +22,21 @@ const Offer = () => {
       });
   };
 
-  const onSubmit = e => {
-    e.preventDefault();
+  const handleInputChange = (e) => {
+    const id = e.target.value;
+    const value = e.target.checked;
 
-    console.log(e);
+    setOffers({ ...offers, [id]: value });
+  };
+
+  const updateOffer = () => {
+    UserService.updateOffers(offers)
+      .then((res) => {
+        setMessage("Offer was updated successfully!");
+      })
+      .catch((e) => {
+        console.log(e);
+      });
   };
 
   return (
@@ -31,22 +44,24 @@ const Offer = () => {
       <div className="col-md-8">
         <h4>What I can offer...</h4>
 
-        <form onSubmit={onSubmit}>
+        <form>
           {plants &&
-            plants.map(plant => (
-              <div key={plant.id} className="form-check">
+            plants.map((plant) => (
+              <label key={plant.id}>
                 <input
-                  className="form-check-input"
                   type="checkbox"
-                  id={plant.id}
+                  name={plant.id + " " + plant.name}
+                  value={plant.id}
+                  onChange={handleInputChange}
                 />
-                <label className="form-check-label" htmlFor={plant.id}>
-                  {plant.name + " - " + plant.species}
-                </label>
-              </div>
+                {plant.name + " - " + plant.species}
+              </label>
             ))}
-          <button type="submit">Submit</button>
         </form>
+        <button type="submit" onClick={() => updateOffer()}>
+          Update
+        </button>
+        <p>{message}</p>
       </div>
     </div>
   );
