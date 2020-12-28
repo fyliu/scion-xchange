@@ -33,6 +33,7 @@ db.sequelize = sequelize;
 db.user = require("../models/user.model.js")(sequelize, Sequelize);
 db.role = require("../models/role.model.js")(sequelize, Sequelize);
 db.plant = require("../models/plant.model.js")(sequelize, Sequelize);
+db.offer = require("../models/offer.model.js")(sequelize, Sequelize);
 
 db.role.belongsToMany(db.user, {
   through: "user_roles",
@@ -44,6 +45,22 @@ db.user.belongsToMany(db.role, {
   foreignKey: "userId",
   otherKey: "roleId"
 });
+
+// users offering scions
+db.plant.belongsToMany(db.user, {
+  through: db.offer,
+  foreignKey: "plantId",
+  otherKey: "userId"
+});
+db.user.belongsToMany(db.plant, {
+  through: db.offer,
+  foreignKey: "userId",
+  otherKey: "plantId"
+});
+db.offer.belongsTo(db.plant);
+db.offer.belongsTo(db.user);
+db.plant.hasMany(db.offer);
+db.user.hasMany(db.offer);
 
 db.ROLES = ["user", "admin", "moderator"];
 
