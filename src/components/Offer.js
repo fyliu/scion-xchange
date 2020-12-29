@@ -9,6 +9,7 @@ const Offer = () => {
 
   useEffect(() => {
     retrievePlants();
+    retrieveOffers();
   }, []);
 
   const retrievePlants = () => {
@@ -16,6 +17,16 @@ const Offer = () => {
       .then((res) => {
         setPlants(res.data);
         //console.log(res.data);
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  };
+
+  const retrieveOffers = () => {
+    UserService.getOffers()
+      .then((res) => {
+        setOffers(res.data);
       })
       .catch((e) => {
         console.log(e);
@@ -52,6 +63,7 @@ const Offer = () => {
                   type="checkbox"
                   name={plant.id + " " + plant.name}
                   value={plant.id}
+                  checked={offers[plant.id] || false}
                   onChange={handleInputChange}
                 />
                 {plant.name + " - " + plant.species}

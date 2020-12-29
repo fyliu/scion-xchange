@@ -22,6 +22,10 @@ const getAdminBoard = () => {
   return axios.get(API_URL + "admin", { headers: authHeader() });
 };
 
+const getOffers = () => {
+  return axios.get(API_URL + "plants", { headers: authHeader() });
+};
+
 const updateOffers = (data) => {
   return axios.put(API_URL + "plants", data, {
     headers: authHeader()
@@ -33,5 +37,6 @@ export default {
   getUserBoard,
   getModeratorBoard,
   getAdminBoard,
+  getOffers,
   updateOffers
 };
