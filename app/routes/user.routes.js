@@ -33,4 +33,16 @@ module.exports = function (app) {
   );
 
   app.get("/api/test/cultivars", [authJwt.verifyToken], controller.getOffers);
+
+  app.get(
+    "/api/test/want-cultivars",
+    [authJwt.verifyToken],
+    controller.getWants
+  );
+
+  app.put(
+    "/api/test/want-cultivars",
+    [authJwt.verifyToken],
+    controller.updateWants
+  );
 };

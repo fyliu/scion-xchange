@@ -6,9 +6,15 @@ module.exports = (sequelize, Sequelize) => {
       autoIncrement: true,
       allowNull: false
     },
-    chosen: {
+    offer: {
       type: Sequelize.BOOLEAN,
-      allowNull: false
+      allowNull: true,
+      defaultValue: false
+    },
+    want: {
+      type: Sequelize.BOOLEAN,
+      allowNull: true,
+      defaultValue: false
     }
   });
 

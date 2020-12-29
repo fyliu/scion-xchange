@@ -1,7 +1,8 @@
-const { offer } = require("../models");
 const db = require("../models");
 const User = db.user;
 const Cultivar = db.cultivar;
+const Offer = db.offer;
+const Want = db.want;
 
 exports.allAccess = (req, res) => {
   res.status(200).send("Public Content.");
@@ -28,29 +29,70 @@ exports.getOffers = async (req, res) => {
   })
     .then(data => {
       const offers = data.cultivars.reduce((offers, cultivar) => {
-        const offer = { [cultivar.id]: cultivar.users_offer_scions.chosen };
+        const offer = { [cultivar.id]: cultivar.users_offer_scions.offer };
         return { ...offers, ...offer };
       }, []);
       res.send(offers);
     })
-    .catch(err => {});
+    .catch(err => {
+      //res.status(500).send({
+      //  message: err.message || "Some error occurred while retrieving cultivars."
+      //});
+    });
 };
 
 exports.updateOffers = async (req, res) => {
-  console.log(req.body, req.userId, req.route);
   let offers = [];
 
   for (const [cultivarId, chosen] of Object.entries(req.body)) {
     offers.push({
       userId: req.userId,
       cultivarId: +cultivarId,
-      chosen: chosen
+      offer: chosen
     });
   }
-  console.log(offers);
 
   for (item of offers) {
-    await offer.upsert(item);
+    await Offer.upsert(item);
+  }
+
+  res.status(200).send("success");
+};
+
+exports.getWants = async (req, res) => {
+  User.findOne({
+    where: {
+      id: req.userId
+    },
+    include: Cultivar
+  })
+    .then(data => {
+      const wants = data.cultivars.reduce((wants, cultivar) => {
+        const want = { [cultivar.id]: cultivar.users_offer_scions.want };
+        return { ...wants, ...want };
+      }, []);
+      res.send(wants);
+    })
+    .catch(err => {
+      //res.status(500).send({
+      //  message: err.message || "Some error occurred while retrieving cultivars."
+      //});
+    });
+};
+
+exports.updateWants = async (req, res) => {
+  let wants = [];
+
+  for (const [cultivarId, chosen] of Object.entries(req.body)) {
+    wants.push({
+      userId: req.userId,
+      cultivarId: +cultivarId,
+      want: chosen
+    });
+  }
+
+  for (item of wants) {
+    await Offer.upsert(item);
   }
 
   res.status(200).send("success");
