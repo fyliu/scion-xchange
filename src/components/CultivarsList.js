@@ -1,45 +1,45 @@
 import React, { useState, useEffect } from "react";
-import PlantDataService from "../services/plant.service";
+import CultivarDataService from "../services/cultivar.service";
 import { Link } from "react-router-dom";
 
-const PlantsList = () => {
-  const [plants, setPlants] = useState([]);
-  const [currentPlant, setCurrentPlant] = useState(null);
+const CultivarsList = () => {
+  const [cultivars, setCultivars] = useState([]);
+  const [currentCultivar, setCurrentCultivar] = useState(null);
   const [currentIndex, setCurrentIndex] = useState(-1);
   const [searchName, setSearchName] = useState("");
 
   useEffect(() => {
-    retrievePlants();
+    retrieveCultivars();
   }, []);
 
-  const onChangeSearchName = e => {
+  const onChangeSearchName = (e) => {
     const searchName = e.target.value;
     setSearchName(searchName);
   };
 
-  const retrievePlants = () => {
-    PlantDataService.getAll()
-      .then(res => {
-        setPlants(res.data);
+  const retrieveCultivars = () => {
+    CultivarDataService.getAll()
+      .then((res) => {
+        setCultivars(res.data);
         console.log(res.data);
       })
-      .catch(e => {
+      .catch((e) => {
         console.log(e);
       });
   };
 
-  const setActivePlant = (plant, index) => {
-    setCurrentPlant(plant);
+  const setActiveCultivar = (cultivar, index) => {
+    setCurrentCultivar(cultivar);
     setCurrentIndex(index);
   };
 
   const findByName = () => {
-    PlantDataService.findByName(searchName)
-      .then(res => {
-        setPlants(res.data);
+    CultivarDataService.findByName(searchName)
+      .then((res) => {
+        setCultivars(res.data);
         console.log(res.data);
       })
-      .catch(e => {
+      .catch((e) => {
         console.log(e);
       });
   };
@@ -67,41 +67,41 @@ const PlantsList = () => {
         </div>
       </div>
       <div className="col-md-6">
-        <h4>Plants List</h4>
+        <h4>Cultivars List</h4>
 
         <ul className="list-group">
-          {plants &&
-            plants.map((plant, index) => (
+          {cultivars &&
+            cultivars.map((cultivar, index) => (
               <li
                 className={
                   "list-group-item " + (index === currentIndex ? "active" : "")
                 }
-                onClick={() => setActivePlant(plant, index)}
+                onClick={() => setActiveCultivar(cultivar, index)}
                 key={index}
               >
-                {plant.name}
+                {cultivar.name}
               </li>
             ))}
         </ul>
       </div>
       <div className="col-md-6">
-        {currentPlant ? (
+        {currentCultivar ? (
           <div>
-            <h4>Plant</h4>
+            <h4>Cultivar</h4>
             <div>
               <label>
                 <strong>Name:</strong>
               </label>{" "}
-              {currentPlant.name}
+              {currentCultivar.name}
             </div>
             <div>
               <label>
                 <strong>Species:</strong>
               </label>{" "}
-              {currentPlant.species}
+              {currentCultivar.species}
             </div>
             <Link
-              to={"/plants/" + currentPlant.id}
+              to={"/cultivars/" + currentCultivar.id}
               className="badge badge-warning"
             >
               Edit
@@ -110,7 +110,7 @@ const PlantsList = () => {
         ) : (
           <div>
             <br />
-            <p>Please click on a Plant...</p>
+            <p>Please click on a Cultivar...</p>
           </div>
         )}
       </div>
@@ -118,4 +118,4 @@ const PlantsList = () => {
   );
 };
 
-export default PlantsList;
+export default CultivarsList;

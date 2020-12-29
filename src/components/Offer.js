@@ -1,21 +1,21 @@
 import React, { useState, useEffect } from "react";
-import PlantDataService from "../services/plant.service";
+import CultivarDataService from "../services/cultivar.service";
 import UserService from "../services/user.service";
 
 const Offer = () => {
-  const [plants, setPlants] = useState([]);
+  const [cultivars, setCultivars] = useState([]);
   const [offers, setOffers] = useState({});
   const [message, setMessage] = useState("");
 
   useEffect(() => {
-    retrievePlants();
+    retrieveCultivars();
     retrieveOffers();
   }, []);
 
-  const retrievePlants = () => {
-    PlantDataService.getAll()
+  const retrieveCultivars = () => {
+    CultivarDataService.getAll()
       .then((res) => {
-        setPlants(res.data);
+        setCultivars(res.data);
         //console.log(res.data);
       })
       .catch((e) => {
@@ -56,17 +56,17 @@ const Offer = () => {
         <h4>What I can offer...</h4>
 
         <form>
-          {plants &&
-            plants.map((plant) => (
-              <label key={plant.id}>
+          {cultivars &&
+            cultivars.map((cultivar) => (
+              <label key={cultivar.id}>
                 <input
                   type="checkbox"
-                  name={plant.id + " " + plant.name}
-                  value={plant.id}
-                  checked={offers[plant.id] || false}
+                  name={cultivar.id + " " + cultivar.name}
+                  value={cultivar.id}
+                  checked={offers[cultivar.id] || false}
                   onChange={handleInputChange}
                 />
-                {plant.name + " - " + plant.species}
+                {cultivar.name + " - " + cultivar.species}
               </label>
             ))}
         </form>

@@ -1,62 +1,62 @@
 import React, { useState, useEffect } from "react";
-import PlantDataService from "../services/plant.service";
+import CultivarDataService from "../services/cultivar.service";
 
-const Plant = props => {
-  const initialPlantState = {
+const Cultivar = (props) => {
+  const initialCultivarState = {
     id: null,
     name: "",
     species: ""
   };
-  const [currentPlant, setCurrentPlant] = useState(initialPlantState);
+  const [currentCultivar, setCurrentCultivar] = useState(initialCultivarState);
   const [message, setMessage] = useState("");
 
-  const getPlant = id => {
-    PlantDataService.get(id)
-      .then(res => {
-        setCurrentPlant(res.data);
+  const getCultivar = (id) => {
+    CultivarDataService.get(id)
+      .then((res) => {
+        setCurrentCultivar(res.data);
         console.log(res.data);
       })
-      .catch(e => {
+      .catch((e) => {
         console.log(e);
       });
   };
 
   useEffect(() => {
-    getPlant(props.match.params.id);
+    getCultivar(props.match.params.id);
   }, [props.match.params.id]);
 
-  const handleInputChange = event => {
+  const handleInputChange = (event) => {
     const { name, value } = event.target;
-    setCurrentPlant({ ...currentPlant, [name]: value });
+    setCurrentCultivar({ ...currentCultivar, [name]: value });
   };
 
-  const updatePlant = () => {
-    PlantDataService.update(currentPlant.id, currentPlant)
-      .then(res => {
+  const updateCultivar = () => {
+    CultivarDataService.update(currentCultivar.id, currentCultivar)
+      .then((res) => {
         console.log(res.data);
-        setMessage("The plant was updated successfully!");
+        setMessage("The cultivar was updated successfully!");
       })
-      .catch(e => {
+      .catch((e) => {
         console.log(e);
       });
   };
 
-  const deletePlant = () => {
-    PlantDataService.remove(currentPlant.id)
-      .then(res => {
+  const deleteCultivar = () => {
+    CultivarDataService.remove(currentCultivar.id)
+      .then((res) => {
         console.log(res.data);
-        props.history.push("/plants");
+        props.history.push("/cultivars");
       })
-      .catch(e => {
+      .catch((e) => {
         console.log(e);
       });
   };
 
   return (
     <div>
-      {currentPlant ? (
+      {currentCultivar ? (
         <div className="edit-form">
-          <h4>Plant</h4>
+          <h4>Cultivar</h4>
           <form>
             <div className="form-group">
               <label htmlFor="name">Name</label>
@@ -65,7 +65,7 @@ const Plant = props => {
                 className="form-control"
                 id="name"
                 name="name"
-                value={currentPlant.name}
+                value={currentCultivar.name}
                 onChange={handleInputChange}
               />
             </div>
@@ -76,20 +76,20 @@ const Plant = props => {
                 className="form-control"
                 id="species"
                 name="species"
-                value={currentPlant.species}
+                value={currentCultivar.species}
                 onChange={handleInputChange}
               />
             </div>
           </form>
 
-          <button className="badge badge-danger mr-2" onClick={deletePlant}>
+          <button className="badge badge-danger mr-2" onClick={deleteCultivar}>
             Delete
           </button>
 
           <button
             type="submit"
             className="badge badge-success"
-            onClick={updatePlant}
+            onClick={updateCultivar}
           >
             Update
           </button>
@@ -98,11 +98,11 @@ const Plant = props => {
       ) : (
         <div>
           <br />
-          <p>Please click on a Plant...</p>
+          <p>Please click on a Cultivar...</p>
         </div>
       )}
     </div>
   );
 };
 
-export default Plant;
+export default Cultivar;

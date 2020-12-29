@@ -1,29 +1,29 @@
 import React, { useState } from "react";
-import PlantDataService from "../services/plant.service";
+import CultivarDataService from "../services/cultivar.service";
 
-const AddPlant = () => {
-  const initialPlantState = {
+const AddCultivar = () => {
+  const initialCultivarState = {
     id: null,
     name: "",
     species: ""
   };
-  const [plant, setPlant] = useState(initialPlantState);
+  const [cultivar, setCultivar] = useState(initialCultivarState);
   const [submitted, setSubmitted] = useState(false);
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
-    setPlant({ ...plant, [name]: value });
+    setCultivar({ ...cultivar, [name]: value });
   };
 
-  const savePlant = () => {
+  const saveCultivar = () => {
     var data = {
-      name: plant.name,
-      species: plant.species
+      name: cultivar.name,
+      species: cultivar.species
     };
 
-    PlantDataService.create(data)
+    CultivarDataService.create(data)
       .then((res) => {
-        setPlant({
+        setCultivar({
           id: res.data.id,
           name: res.data.name,
           species: res.data.species
@@ -36,8 +36,8 @@ const AddPlant = () => {
       });
   };
 
-  const newPlant = () => {
-    setPlant(initialPlantState);
+  const newCultivar = () => {
+    setCultivar(initialCultivarState);
     setSubmitted(false);
   };
 
@@ -46,7 +46,7 @@ const AddPlant = () => {
       {submitted ? (
         <div>
           <h4>You submitted successfullly!</h4>
-          <button className="btn btn-success" onClick={newPlant}>
+          <button className="btn btn-success" onClick={newCultivar}>
             Add
           </button>
         </div>
@@ -59,7 +59,7 @@ const AddPlant = () => {
               className="form-control"
               id="name"
               required
-              value={plant.name}
+              value={cultivar.name}
               onChange={handleInputChange}
               name="name"
             />
@@ -72,13 +72,13 @@ const AddPlant = () => {
               className="form-control"
               id="species"
               required
-              value={plant.species}
+              value={cultivar.species}
               onChange={handleInputChange}
               name="species"
             />
           </div>
 
-          <button onClick={savePlant} className="btn btn-success">
+          <button onClick={saveCultivar} className="btn btn-success">
             Submit
           </button>
         </div>
@@ -87,4 +87,4 @@ const AddPlant = () => {
   );
 };
 
-export default AddPlant;
+export default AddCultivar;

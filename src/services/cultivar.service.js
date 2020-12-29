@@ -2,27 +2,27 @@ import http from "../http-common";
 //import authHeader from "./auth-header";
 
 const getAll = () => {
-  return http.get("/plants");
+  return http.get("/cultivars");
 };
 
-const get = id => {
-  return http.get(`/plants/${id}`);
+const get = (id) => {
+  return http.get(`/cultivars/${id}`);
 };
 
-const create = data => {
-  return http.post("/plants", data);
+const create = (data) => {
+  return http.post("/cultivars", data);
 };
 
 const update = (id, data) => {
-  return http.put(`/plants/${id}`, data);
+  return http.put(`/cultivars/${id}`, data);
 };
 
-const remove = id => {
-  return http.delete(`/plants/${id}`);
+const remove = (id) => {
+  return http.delete(`/cultivars/${id}`);
 };
 
-const findByName = name => {
-  return http.get(`/plants?name=${name}`);
+const findByName = (name) => {
+  return http.get(`/cultivars?name=${name}`);
 };
 
 export default {

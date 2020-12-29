@@ -12,9 +12,9 @@ import Profile from "./components/Profile";
 import BoardUser from "./components/BoardUser";
 import BoardModerator from "./components/BoardModerator";
 import BoardAdmin from "./components/BoardAdmin";
-import PlantsList from "./components/PlantsList";
-import AddPlant from "./components/AddPlant";
-import Plant from "./components/Plant";
+import CultivarsList from "./components/CultivarsList";
+import AddCultivar from "./components/AddCultivar";
+import Cultivar from "./components/Cultivar";
 import Offer from "./components/Offer";
 
 const App = () => {
@@ -79,13 +79,13 @@ const App = () => {
                 </Link>
               </li>
               <li className="nav-item">
-                <Link to={"/plants"} className="nav-link">
-                  Plants
+                <Link to={"/cultivars"} className="nav-link">
+                  Cultivars
                 </Link>
               </li>
               <li className="nav-item">
-                <Link to={"/add-plant"} className="nav-link">
-                  Add Plant
+                <Link to={"/add-cultivar"} className="nav-link">
+                  Add Cultivar
                 </Link>
               </li>
             </>
@@ -128,10 +128,10 @@ const App = () => {
           <Route exact path="/login" component={Login} />
           <Route exact path="/register" component={Register} />
           <Route exact path="/profile" component={Profile} />
-          <Route exact path="/plants" component={PlantsList} />
-          <Route exact path="/add-plant" component={AddPlant} />
+          <Route exact path="/cultivars" component={CultivarsList} />
+          <Route exact path="/add-cultivar" component={AddCultivar} />
           <Route exact path="/offer" component={Offer} />
-          <Route path="/plants/:id" component={Plant} />
+          <Route path="/cultivars/:id" component={Cultivar} />
           <Route path="/user" component={BoardUser} />
           <Route path="/mod" component={BoardModerator} />
           <Route path="/admin" component={BoardAdmin} />

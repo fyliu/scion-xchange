@@ -23,11 +23,11 @@ const getAdminBoard = () => {
 };
 
 const getOffers = () => {
-  return axios.get(API_URL + "plants", { headers: authHeader() });
+  return axios.get(API_URL + "cultivars", { headers: authHeader() });
 };
 
 const updateOffers = (data) => {
-  return axios.put(API_URL + "plants", data, {
+  return axios.put(API_URL + "cultivars", data, {
     headers: authHeader()
   });
 };
