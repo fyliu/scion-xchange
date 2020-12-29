@@ -28,7 +28,7 @@ exports.getOffers = async (req, res) => {
   })
     .then(data => {
       const offers = data.cultivars.reduce((offers, cultivar) => {
-        const offer = { [cultivar.id]: cultivar.users_offer_scion.chosen };
+        const offer = { [cultivar.id]: cultivar.users_offer_scions.chosen };
         return { ...offers, ...offer };
       }, []);
       res.send(offers);
