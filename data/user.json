@@ -1,7 +1,12 @@
 [
   {
     "username": "jany",
-    "email": "janyhan2013@hotmail.com",
+    "email": "janyhan2013@gmail.com",
+    "password": "$2a$08$DEHiG/PXOOuj.C.gesImseq.yihErJnz/O6wD/tMXEOTyNGoFpIuS"
+  },
+  {
+    "username": "albert",
+    "email": "albertliu@hotmail.com",
     "password": "$2a$08$DEHiG/PXOOuj.C.gesImseq.yihErJnz/O6wD/tMXEOTyNGoFpIuS"
   },
   {

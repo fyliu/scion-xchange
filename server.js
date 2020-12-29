@@ -29,6 +29,7 @@ const db = require("./app/models");
 const Role = db.role;
 const Cultivar = db.cultivar;
 const User = db.user;
+const UserCultivar = db.user_cultivar;
 
 // db.sequelize.sync();
 // force: true will drop the table if it already exists
@@ -48,6 +49,7 @@ require("./app/routes/user.routes")(app);
 require("./app/routes/cultivar.routes")(app);
 const cultivars = require("./data/cultivar");
 const users = require("./data/user");
+const users_cultivars = require("./data/user_cultivar");
 
 // default route
 app.get("*", (req, res) => {
@@ -78,4 +80,5 @@ function initial() {
 
   Cultivar.bulkCreate(cultivars);
   User.bulkCreate(users);
+  UserCultivar.bulkCreate(users_cultivars);
 }

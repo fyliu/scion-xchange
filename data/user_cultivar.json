@@ -1,0 +1,37 @@
+[
+  {
+    "userId": 1,
+    "cultivarId": 1,
+    "offer": true
+  },
+  {
+    "userId": 1,
+    "cultivarId": 2,
+    "offer": true
+  },
+  {
+    "userId": 1,
+    "cultivarId": 3,
+    "offer": true
+  },
+  {
+    "userId": 1,
+    "cultivarId": 4,
+    "offer": true
+  },
+  {
+    "userId": 2,
+    "cultivarId": 3,
+    "offer": true
+  },
+  {
+    "userId": 2,
+    "cultivarId": 4,
+    "offer": true
+  },
+  {
+    "userId": 2,
+    "cultivarId": 5,
+    "offer": true
+  }
+]
