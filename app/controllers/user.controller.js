@@ -35,6 +35,8 @@ exports.getOffers = async (req, res) => {
     })
     .catch(err => {
     });
+};
+
 exports.updateOffers = async (req, res) => {
   //console.log(req.body, req.userId, req.route);
   let offers = [];
