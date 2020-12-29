@@ -28,6 +28,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 const db = require("./app/models");
 const Role = db.role;
 const Plant = db.plant;
+const User = db.user;
 
 // db.sequelize.sync();
 // force: true will drop the table if it already exists
@@ -46,6 +47,7 @@ require("./app/routes/auth.routes")(app);
 require("./app/routes/user.routes")(app);
 require("./app/routes/plant.routes")(app);
 const plants = require("./data/plant");
+const users = require("./data/user");
 
 // default route
 app.get("*", (req, res) => {
@@ -75,4 +77,5 @@ function initial() {
   });
 
   Plant.bulkCreate(plants);
+  User.bulkCreate(users);
 }
