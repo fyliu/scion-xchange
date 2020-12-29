@@ -12,10 +12,10 @@
     "build:client": "(cd ./frontend && npm run build)",
     "start": "npm run start:prod",
     "start:prod": "(cd ./backend && node server.js)",
-    "start:dev": "npm run start:client & npm run start:server",
+    "start:dev": "concurrently \"npm run start:client\" \"npm run start:server\"",
     "start:client": "(cd ./frontend && npm run start)",
     "start:server": "(cd ./backend && npm run start)",
-    "db:seeds": "(cd ./backend && npx sequelize-cli db:seed:all)",
+    "start:server:dev": "(cd ./backend && npm run start:dev)",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Fang Yi Liu",
