@@ -1,7 +1,7 @@
 const db = require("../models");
 const User = db.user;
 const Cultivar = db.cultivar;
-const Offer = db.offer;
+const UserCultivar = db.user_cultivar;
 const Want = db.want;
 
 exports.allAccess = (req, res) => {
@@ -29,7 +29,7 @@ exports.getOffers = async (req, res) => {
   })
     .then(data => {
       const offers = data.cultivars.reduce((offers, cultivar) => {
-        const offer = { [cultivar.id]: cultivar.users_offer_scions.offer };
+        const offer = { [cultivar.id]: cultivar.users_scions.offer };
         return { ...offers, ...offer };
       }, []);
       res.send(offers);
@@ -53,7 +53,7 @@ exports.updateOffers = async (req, res) => {
   }
 
   for (item of offers) {
-    await Offer.upsert(item);
+    await UserCultivar.upsert(item);
   }
 
   res.status(200).send("success");
@@ -68,7 +68,7 @@ exports.getWants = async (req, res) => {
   })
     .then(data => {
       const wants = data.cultivars.reduce((wants, cultivar) => {
-        const want = { [cultivar.id]: cultivar.users_offer_scions.want };
+        const want = { [cultivar.id]: cultivar.users_scions.want };
         return { ...wants, ...want };
       }, []);
       res.send(wants);
@@ -92,7 +92,7 @@ exports.updateWants = async (req, res) => {
   }
 
   for (item of wants) {
-    await Offer.upsert(item);
+    await UserCultivar.upsert(item);
   }
 
   res.status(200).send("success");
