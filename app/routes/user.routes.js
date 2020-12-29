@@ -26,7 +26,11 @@ module.exports = function (app) {
     controller.adminBoard
   );
 
-  app.put("/api/test/plants", [authJwt.verifyToken], controller.updateOffers);
+  app.put(
+    "/api/test/cultivars",
+    [authJwt.verifyToken],
+    controller.updateOffers
+  );
 
-  app.get("/api/test/plants", [authJwt.verifyToken], controller.getOffers);
+  app.get("/api/test/cultivars", [authJwt.verifyToken], controller.getOffers);
 };

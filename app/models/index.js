@@ -32,7 +32,7 @@ db.sequelize = sequelize;
 
 db.user = require("../models/user.model.js")(sequelize, Sequelize);
 db.role = require("../models/role.model.js")(sequelize, Sequelize);
-db.plant = require("../models/plant.model.js")(sequelize, Sequelize);
+db.cultivar = require("./cultivar.model.js")(sequelize, Sequelize);
 db.offer = require("../models/offer.model.js")(sequelize, Sequelize);
 
 db.role.belongsToMany(db.user, {
@@ -47,19 +47,19 @@ db.user.belongsToMany(db.role, {
 });
 
 // users offering scions
-db.plant.belongsToMany(db.user, {
+db.cultivar.belongsToMany(db.user, {
   through: db.offer,
-  foreignKey: "plantId",
+  foreignKey: "cultivarId",
   otherKey: "userId"
 });
-db.user.belongsToMany(db.plant, {
+db.user.belongsToMany(db.cultivar, {
   through: db.offer,
   foreignKey: "userId",
-  otherKey: "plantId"
+  otherKey: "cultivarId"
 });
-db.offer.belongsTo(db.plant);
+db.offer.belongsTo(db.cultivar);
 db.offer.belongsTo(db.user);
-db.plant.hasMany(db.offer);
+db.cultivar.hasMany(db.offer);
 db.user.hasMany(db.offer);
 
 db.ROLES = ["user", "admin", "moderator"];

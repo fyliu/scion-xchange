@@ -1,7 +1,7 @@
 const { offer } = require("../models");
 const db = require("../models");
 const User = db.user;
-const Plant = db.plant;
+const Cultivar = db.cultivar;
 
 exports.allAccess = (req, res) => {
   res.status(200).send("Public Content.");
@@ -24,11 +24,11 @@ exports.getOffers = async (req, res) => {
     where: {
       id: req.userId
     },
-    include: Plant
+    include: Cultivar
   })
     .then(data => {
-      const offered = data.plants.reduce((offers, plant) => {
-        const offer = { [plant.id]: plant.users_offer_scion.offered };
+      const offered = data.cultivars.reduce((offers, cultivar) => {
+        const offer = { [cultivar.id]: cultivar.users_offer_scion.offered };
         return { ...offers, ...offer };
       }, []);
       res.send(offered);
@@ -39,10 +39,10 @@ exports.updateOffers = async (req, res) => {
   //console.log(req.body, req.userId, req.route);
   let offers = [];
 
-  for (const [plantId, offered] of Object.entries(req.body)) {
+  for (const [cultivarId, offered] of Object.entries(req.body)) {
     offers.push({
       userId: req.userId,
-      plantId: +plantId,
+      cultivarId: +cultivarId,
       offered: offered
     });
   }

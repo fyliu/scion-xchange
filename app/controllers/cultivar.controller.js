@@ -1,5 +1,5 @@
 const db = require("../models");
-const Plant = db.plant;
+const Cultivar = db.cultivar;
 const Op = db.Sequelize.Op;
 
 exports.create = (req, res) => {
@@ -10,18 +10,19 @@ exports.create = (req, res) => {
     return;
   }
 
-  const plant = {
+  const cultivar = {
     name: req.body.name,
     species: req.body.species
   };
 
-  Plant.create(plant)
+  Cultivar.create(cultivar)
     .then(data => {
       res.send(data);
     })
     .catch(err => {
       res.status(500).send({
-        message: err.message || "Some error occurred while creating the Plant."
+        message:
+          err.message || "Some error occurred while creating the cultivar."
       });
     });
 };
@@ -30,13 +31,14 @@ exports.findAll = (req, res) => {
   const name = req.query.name;
   var condition = name ? { name: { [Op.like]: `%${name}` } } : null;
 
-  Plant.findAll({ where: condition })
+  Cultivar.findAll({ where: condition })
     .then(data => {
       res.send(data);
     })
     .catch(err => {
       res.status(500).send({
-        message: err.message || "Some error occurred while retrieving plants."
+        message:
+          err.message || "Some error occurred while retrieving cultivars."
       });
     });
 };
@@ -44,13 +46,13 @@ exports.findAll = (req, res) => {
 exports.findOne = (req, res) => {
   const id = req.params.id;
 
-  Plant.findByPk(id)
+  Cultivar.findByPk(id)
     .then(data => {
       res.send(data);
     })
     .catch(err => {
       res.status(500).send({
-        message: "Error retrieving Plant with id=" + id
+        message: "Error retrieving cultivar with id=" + id
       });
     });
 };
@@ -58,23 +60,23 @@ exports.findOne = (req, res) => {
 exports.update = (req, res) => {
   const id = req.params.id;
 
-  Plant.update(req.body, {
+  Cultivar.update(req.body, {
     where: { id: id }
   })
     .then(num => {
       if (num == 1) {
         res.send({
-          message: "Plant was updated successfully."
+          message: "Cultivar was updated successfully."
         });
       } else {
         res.send({
-          message: `Cannot update Plant with id=${id}. Maybe Plant was not found or req.body is empty!`
+          message: `Cannot update cultivar with id=${id}. Maybe cultivar was not found or req.body is empty!`
         });
       }
     })
     .catch(err => {
       res.status(500).send({
-        message: "Error updating Plant with id=" + id
+        message: "Error updating cultivar with id=" + id
       });
     });
 };
@@ -82,23 +84,23 @@ exports.update = (req, res) => {
 exports.delete = (req, res) => {
   const id = req.params.id;
 
-  Plant.destroy({
+  Cultivar.destroy({
     where: { id: id }
   })
     .then(num => {
       if (num == 1) {
         res.send({
-          message: "Plant was deleted successfully!"
+          message: "Cultivar was deleted successfully!"
         });
       } else {
         res.send({
-          message: `Cannot delete Plant with id=${id}. Maybe Plant was not found!`
+          message: `Cannot delete cultivar with id=${id}. Maybe cultivar was not found!`
         });
       }
     })
     .catch(err => {
       res.status(500).send({
-        message: "Could not delete Plant with id=" + id
+        message: "Could not delete cultivar with id=" + id
       });
     });
 };

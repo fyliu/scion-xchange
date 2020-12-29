@@ -27,7 +27,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // database
 const db = require("./app/models");
 const Role = db.role;
-const Plant = db.plant;
+const Cultivar = db.cultivar;
 const User = db.user;
 
 // db.sequelize.sync();
@@ -45,8 +45,8 @@ app.get("/", (req, res) => {
 // routes
 require("./app/routes/auth.routes")(app);
 require("./app/routes/user.routes")(app);
-require("./app/routes/plant.routes")(app);
-const plants = require("./data/plant");
+require("./app/routes/cultivar.routes")(app);
+const cultivars = require("./data/cultivar");
 const users = require("./data/user");
 
 // default route
@@ -76,6 +76,6 @@ function initial() {
     name: "admin"
   });
 
-  Plant.bulkCreate(plants);
+  Cultivar.bulkCreate(cultivars);
   User.bulkCreate(users);
 }
