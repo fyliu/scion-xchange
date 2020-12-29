@@ -1,7 +1,9 @@
 const { authJwt } = require("../middleware");
-const controller = require("../controllers/user.controller");
+const user = require("../controllers/user.controller");
 
 module.exports = function (app) {
+  var router = require("express").Router();
+
   app.use(function (req, res, next) {
     res.header(
       "Access-Control-Allow-Headers",
@@ -10,43 +12,25 @@ module.exports = function (app) {
     next();
   });
 
-  app.get("/api/test/all", controller.allAccess);
+  router.get("/all", user.allAccess);
 
-  app.get("/api/test/user", [authJwt.verifyToken], controller.userBoard);
+  router.get("/user", [authJwt.verifyToken], user.userBoard);
 
-  app.get(
-    "/api/test/mod",
+  router.get(
+    "/mod",
     [authJwt.verifyToken, authJwt.isModerator],
-    controller.moderatorBoard
+    user.moderatorBoard
   );
 
-  app.get(
-    "/api/test/admin",
-    [authJwt.verifyToken, authJwt.isAdmin],
-    controller.adminBoard
-  );
+  router.get("/admin", [authJwt.verifyToken, authJwt.isAdmin], user.adminBoard);
 
-  app.put(
-    "/api/test/offer-cultivars",
-    [authJwt.verifyToken],
-    controller.updateOffers
-  );
+  router.put("/offer-cultivars", [authJwt.verifyToken], user.updateOffers);
 
-  app.get(
-    "/api/test/offer-cultivars",
-    [authJwt.verifyToken],
-    controller.getOffers
-  );
+  router.get("/offer-cultivars", [authJwt.verifyToken], user.getOffers);
 
-  app.get(
-    "/api/test/want-cultivars",
-    [authJwt.verifyToken],
-    controller.getWants
-  );
+  router.get("/want-cultivars", [authJwt.verifyToken], user.getWants);
 
-  app.put(
-    "/api/test/want-cultivars",
-    [authJwt.verifyToken],
-    controller.updateWants
-  );
+  router.put("/want-cultivars", [authJwt.verifyToken], user.updateWants);
+
+  app.use("/api/test", router);
 };
