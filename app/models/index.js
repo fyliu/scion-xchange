@@ -62,6 +62,22 @@ db.offer.belongsTo(db.user);
 db.cultivar.hasMany(db.offer);
 db.user.hasMany(db.offer);
 
+// users wanting scions
+db.cultivar.belongsToMany(db.user, {
+  through: db.want,
+  foreignKey: "cultivarId",
+  otherKey: "userId"
+});
+db.user.belongsToMany(db.cultivar, {
+  through: db.want,
+  foreignKey: "userId",
+  otherKey: "cultivarId"
+});
+db.want.belongsTo(db.cultivar);
+db.want.belongsTo(db.user);
+db.cultivar.hasMany(db.want);
+db.user.hasMany(db.want);
+
 db.ROLES = ["user", "admin", "moderator"];
 
 module.exports = db;
