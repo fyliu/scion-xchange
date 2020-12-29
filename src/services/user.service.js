@@ -32,11 +32,23 @@ const updateOffers = (data) => {
   });
 };
 
+const getWants = () => {
+  return axios.get(API_URL + "want-cultivars", { headers: authHeader() });
+};
+
+const updateWants = (data) => {
+  return axios.put(API_URL + "want-cultivars", data, {
+    headers: authHeader()
+  });
+};
+
 export default {
   getPublicContent,
   getUserBoard,
   getModeratorBoard,
   getAdminBoard,
   getOffers,
-  updateOffers
+  updateOffers,
+  getWants,
+  updateWants
 };
