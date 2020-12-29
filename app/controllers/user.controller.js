@@ -1,4 +1,7 @@
 const { offer } = require("../models");
+const db = require("../models");
+const User = db.user;
+const Plant = db.plant;
 
 exports.allAccess = (req, res) => {
   res.status(200).send("Public Content.");
@@ -16,14 +19,27 @@ exports.moderatorBoard = (req, res) => {
   res.status(200).send("Moderator Content.");
 };
 
+exports.getOffers = async (req, res) => {
+  User.findOne({
+    where: {
+      id: req.userId
+    },
+    include: Plant
+  })
+    .then(data => {
+      const offered = data.plants.reduce((offers, plant) => {
+        const offer = { [plant.id]: plant.users_offer_scion.offered };
+        return { ...offers, ...offer };
+      }, []);
+      res.send(offered);
+    })
+    .catch(err => {
+    });
 exports.updateOffers = async (req, res) => {
   //console.log(req.body, req.userId, req.route);
   let offers = [];
-  console.log(req.body);
 
   for (const [plantId, offered] of Object.entries(req.body)) {
-    console.log("plantId = %s", +plantId);
-    console.log("selected = %d", offered);
     offers.push({
       userId: req.userId,
       plantId: +plantId,

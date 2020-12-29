@@ -27,4 +27,6 @@ module.exports = function (app) {
   );
 
   app.put("/api/test/plants", [authJwt.verifyToken], controller.updateOffers);
+
+  app.get("/api/test/plants", [authJwt.verifyToken], controller.getOffers);
 };
