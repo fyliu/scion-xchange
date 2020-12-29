@@ -27,25 +27,24 @@ exports.getOffers = async (req, res) => {
     include: Cultivar
   })
     .then(data => {
-      const offered = data.cultivars.reduce((offers, cultivar) => {
-        const offer = { [cultivar.id]: cultivar.users_offer_scion.offered };
+      const offers = data.cultivars.reduce((offers, cultivar) => {
+        const offer = { [cultivar.id]: cultivar.users_offer_scion.chosen };
         return { ...offers, ...offer };
       }, []);
-      res.send(offered);
+      res.send(offers);
     })
-    .catch(err => {
-    });
+    .catch(err => {});
 };
 
 exports.updateOffers = async (req, res) => {
-  //console.log(req.body, req.userId, req.route);
+  console.log(req.body, req.userId, req.route);
   let offers = [];
 
-  for (const [cultivarId, offered] of Object.entries(req.body)) {
+  for (const [cultivarId, chosen] of Object.entries(req.body)) {
     offers.push({
       userId: req.userId,
       cultivarId: +cultivarId,
-      offered: offered
+      chosen: chosen
     });
   }
   console.log(offers);

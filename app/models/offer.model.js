@@ -1,12 +1,12 @@
 module.exports = (sequelize, Sequelize) => {
-  const Offer = sequelize.define("users_offer_scion", {
+  const Offer = sequelize.define("users_offer_scions", {
     id: {
       type: Sequelize.DataTypes.INTEGER,
       primaryKey: true,
       autoIncrement: true,
       allowNull: false
     },
-    offered: {
+    chosen: {
       type: Sequelize.BOOLEAN,
       allowNull: false
     }
