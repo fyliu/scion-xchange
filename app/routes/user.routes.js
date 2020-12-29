@@ -27,12 +27,16 @@ module.exports = function (app) {
   );
 
   app.put(
-    "/api/test/cultivars",
+    "/api/test/offer-cultivars",
     [authJwt.verifyToken],
     controller.updateOffers
   );
 
-  app.get("/api/test/cultivars", [authJwt.verifyToken], controller.getOffers);
+  app.get(
+    "/api/test/offer-cultivars",
+    [authJwt.verifyToken],
+    controller.getOffers
+  );
 
   app.get(
     "/api/test/want-cultivars",
