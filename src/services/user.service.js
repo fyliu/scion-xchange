@@ -42,6 +42,10 @@ const updateWants = (data) => {
   });
 };
 
+const getTradeWants = () => {
+  return axios.get(API_URL + "trade-wants", { headers: authHeader() });
+};
+
 export default {
   getPublicContent,
   getUserBoard,
@@ -50,5 +54,6 @@ export default {
   getOffers,
   updateOffers,
   getWants,
-  updateWants
+  updateWants,
+  getTradeWants
 };

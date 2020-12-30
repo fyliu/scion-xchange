@@ -17,6 +17,7 @@ import AddCultivar from "./components/AddCultivar";
 import Cultivar from "./components/Cultivar";
 import Offer from "./components/Offer";
 import Want from "./components/Want";
+import Trade from "./components/Trade";
 
 const App = () => {
   const [showModeratorBoard, setShowModeratorBoard] = useState(false);
@@ -85,6 +86,11 @@ const App = () => {
                 </Link>
               </li>
               <li className="nav-item">
+                <Link to={"/trade"} className="nav-link">
+                  Exchange
+                </Link>
+              </li>
+              <li className="nav-item">
                 <Link to={"/cultivars"} className="nav-link">
                   Cultivars
                 </Link>
@@ -138,6 +144,7 @@ const App = () => {
           <Route exact path="/add-cultivar" component={AddCultivar} />
           <Route exact path="/offer" component={Offer} />
           <Route exact path="/want" component={Want} />
+          <Route exact path="/trade" component={Trade} />
           <Route path="/cultivars/:id" component={Cultivar} />
           <Route path="/user" component={BoardUser} />
           <Route path="/mod" component={BoardModerator} />
