@@ -32,5 +32,7 @@ module.exports = function (app) {
 
   router.put("/want-cultivars", [authJwt.verifyToken], user.updateWants);
 
+  router.get("/trade-wants", [authJwt.verifyToken], user.getTradeWants);
+
   app.use("/api/test", router);
 };

@@ -1,3 +1,4 @@
+const { Op } = require("sequelize");
 const db = require("../models");
 const User = db.user;
 const Cultivar = db.cultivar;
@@ -96,4 +97,50 @@ exports.updateWants = async (req, res) => {
   }
 
   res.status(200).send("success");
+};
+exports.getTradeWants = async (req, res) => {
+  UserCultivar.findAll({
+    where: {
+      userId: req.userId,
+      want: true
+    },
+    attributes: ["userId"],
+    include: [
+      {
+        model: Cultivar,
+        include: [
+          {
+            model: User,
+            attributes: ["username", "email"],
+            through: {
+              where: {
+                offer: true
+              }
+            },
+            where: {
+              id: {
+                [Op.ne]: req.userId
+              }
+            }
+          }
+        ]
+      }
+    ]
+  })
+    .then(data => {
+      const tradeOffers = data.reduce((offers, { cultivar }) => {
+        let tradeOffer = { name: cultivar.name };
+        const usersInfo = cultivar.users.reduce((infos, user) => {
+          return [...infos, { username: user.username, email: user.email }];
+        }, []);
+        tradeOffer = { ...tradeOffer, offers: usersInfo };
+        return [...offers, tradeOffer];
+      }, []);
+      res.send(tradeOffers);
+    })
+    .catch(err => {
+      res.status(500).send({
+        message: err.message || "Some error occurred while retrieving trades."
+      });
+    });
 };
