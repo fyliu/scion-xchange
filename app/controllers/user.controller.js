@@ -144,3 +144,50 @@ exports.getTradeWants = async (req, res) => {
       });
     });
 };
+// what user offer that others want
+exports.getTradeOffers = async (req, res) => {
+  UserCultivar.findAll({
+    where: {
+      userId: req.userId,
+      offer: true
+    },
+    attributes: ["userId"],
+    include: [
+      {
+        model: Cultivar,
+        include: [
+          {
+            model: User,
+            attributes: ["username", "email"],
+            through: {
+              where: {
+                want: true
+              }
+            },
+            where: {
+              id: {
+                [Op.ne]: req.userId
+              }
+            }
+          }
+        ]
+      }
+    ]
+  })
+    .then(data => {
+      const tradeWants = data.reduce((wants, { cultivar }) => {
+        let tradeWant = { name: cultivar.name };
+        const usersInfo = cultivar.users.reduce((infos, user) => {
+          return [...infos, { username: user.username, email: user.email }];
+        }, []);
+        tradeWant = { ...tradeWant, wants: usersInfo };
+        return [...wants, tradeWant];
+      }, []);
+      res.send(tradeWants);
+    })
+    .catch(err => {
+      res.status(500).send({
+        message: err.message || "Some error occurred while retrieving trades."
+      });
+    });
+};

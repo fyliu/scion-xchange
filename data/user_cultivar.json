@@ -41,6 +41,26 @@
   },
   {
     "userId": 2,
+    "cultivarId": 6,
+    "want": true
+  },
+  {
+    "userId": 1,
+    "cultivarId": 6,
+    "want": true
+  },
+  {
+    "userId": 3,
+    "cultivarId": 6,
+    "offer": true
+  },
+  {
+    "userId": 3,
+    "cultivarId": 1,
+    "offer": true
+  },
+  {
+    "userId": 2,
     "cultivarId": 2,
     "want": true
   },
