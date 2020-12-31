@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-const TradeWantByUser = ({ users }) => {
+const TradeOfferByUser = ({ users }) => {
   const [currentOffer, setCurrentOffer] = useState(null);
   const [currentIndex, setCurrentIndex] = useState(-1);
 
@@ -12,7 +12,7 @@ const TradeWantByUser = ({ users }) => {
   return (
     <>
       <div className="col-md-6 mb-3">
-        <h4>People offering what I want</h4>
+        <h4>People wanting what I offer</h4>
 
         <ul className="list-group">
           {users &&
@@ -32,7 +32,7 @@ const TradeWantByUser = ({ users }) => {
       <div className="col-md-6">
         {currentOffer ? (
           <div>
-            <h4>Availability</h4>
+            <h4>Demand</h4>
             <div>
               <label>
                 <strong>Email:</strong>
@@ -41,7 +41,7 @@ const TradeWantByUser = ({ users }) => {
             </div>
             <div>
               <label>
-                <strong>Has:</strong>
+                <strong>Wants:</strong>
               </label>{" "}
               <ul className="ml-3">
                 {Array.from(currentOffer[1].cultivars).map(
@@ -63,4 +63,4 @@ const TradeWantByUser = ({ users }) => {
   );
 };
 
-export default TradeWantByUser;
+export default TradeOfferByUser;

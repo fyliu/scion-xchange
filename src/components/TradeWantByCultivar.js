@@ -12,7 +12,7 @@ const TradeWantByCultivar = ({ cultivars }) => {
   return (
     <>
       <div className="col-md-6 mb-3">
-        <h4>Cultivars View</h4>
+        <h4>Cultivars I want and who has them</h4>
 
         <ul className="list-group">
           {cultivars &&
