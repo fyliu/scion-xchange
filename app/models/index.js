@@ -33,7 +33,12 @@ db.sequelize = sequelize;
 db.user = require("../models/user.model.js")(sequelize, Sequelize);
 db.role = require("../models/role.model.js")(sequelize, Sequelize);
 db.cultivar = require("./cultivar.model.js")(sequelize, Sequelize);
+db.category = require("./category.model.js")(sequelize, Sequelize);
 db.user_cultivar = require("./user_cultivar.model.js")(sequelize, Sequelize);
+db.category_cultivar = require("./category_cultivar.model.js")(
+  sequelize,
+  Sequelize
+);
 
 db.role.belongsToMany(db.user, {
   through: "user_roles",
@@ -61,6 +66,9 @@ db.user_cultivar.belongsTo(db.cultivar);
 db.user_cultivar.belongsTo(db.user);
 db.cultivar.hasMany(db.user_cultivar);
 db.user.hasMany(db.user_cultivar);
+
+db.category.hasMany(db.cultivar);
+db.cultivar.belongsTo(db.category);
 
 db.ROLES = ["user", "admin", "moderator"];
 
