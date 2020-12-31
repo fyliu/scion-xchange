@@ -3,6 +3,7 @@ import UserService from "../services/user.service";
 import TradeWantByUser from "./TradeWantByUser";
 import TradeWantByCultivar from "./TradeWantByCultivar";
 import TradeOfferByUser from "./TradeOfferByUser";
+import TradeOfferByCultivar from "./TradeOfferByCultivar";
 
 const Trade = () => {
   const [wantCultivars, setWantCultivars] = useState([]);
@@ -74,6 +75,7 @@ const Trade = () => {
       <TradeWantByCultivar cultivars={wantCultivars} />
 
       <TradeOfferByUser users={wants} />
+      <TradeOfferByCultivar cultivars={offerCultivars} />
     </div>
   );
 };
