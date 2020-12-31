@@ -12,7 +12,7 @@ const TradeOfferByUser = ({ users }) => {
   return (
     <>
       <div className="col-md-6 mb-3">
-        <h4>People wanting what I offer</h4>
+        <h4>Who wants what I offer</h4>
 
         <ul className="list-group">
           {users &&

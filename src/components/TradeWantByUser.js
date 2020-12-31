@@ -12,7 +12,7 @@ const TradeWantByUser = ({ users }) => {
   return (
     <>
       <div className="col-md-6 mb-3">
-        <h4>People offering what I want</h4>
+        <h4>Who offers what I want</h4>
 
         <ul className="list-group">
           {users &&
@@ -41,7 +41,7 @@ const TradeWantByUser = ({ users }) => {
             </div>
             <div>
               <label>
-                <strong>Has:</strong>
+                <strong>Offers:</strong>
               </label>{" "}
               <ul className="ml-3">
                 {Array.from(currentOffer[1].cultivars).map(

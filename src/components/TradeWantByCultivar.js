@@ -12,7 +12,7 @@ const TradeWantByCultivar = ({ cultivars }) => {
   return (
     <>
       <div className="col-md-6 mb-3">
-        <h4>Cultivars I want and who has them</h4>
+        <h4>Cultivars I want and who offers them</h4>
 
         <ul className="list-group">
           {cultivars &&
@@ -41,7 +41,7 @@ const TradeWantByCultivar = ({ cultivars }) => {
             </div>
             <div>
               <label>
-                <strong>From:</strong>
+                <strong>Offered by:</strong>
               </label>{" "}
               <dl className="ml-3">
                 {currentCultivar.offers.map((user) => (
