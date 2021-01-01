@@ -1,35 +1,50 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import CultivarDataService from "../services/cultivar.service";
+import CategoryDataService from "../services/category.service";
 
 const AddCultivar = () => {
   const initialCultivarState = {
     id: null,
-    name: "",
-    species: ""
+    category: "",
+    name: ""
   };
-  const [cultivar, setCultivar] = useState(initialCultivarState);
+  const [formInputs, setFormInputs] = useState(initialCultivarState);
+  const [categories, setCategories] = useState([]);
   const [submitted, setSubmitted] = useState(false);
 
-  const handleInputChange = (event) => {
-    const { name, value } = event.target;
-    setCultivar({ ...cultivar, [name]: value });
+  useEffect(() => {
+    retrieveCategories();
+  }, []);
+
+  const retrieveCategories = () => {
+    CategoryDataService.getAll()
+      .then((res) => {
+        setCategories(res.data);
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  };
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormInputs({ ...formInputs, [name]: value });
   };
 
   const saveCultivar = () => {
     var data = {
-      name: cultivar.name,
-      species: cultivar.species
+      name: formInputs.name,
+      category: formInputs.categoryId
     };
 
     CultivarDataService.create(data)
       .then((res) => {
-        setCultivar({
+        setFormInputs({
           id: res.data.id,
           name: res.data.name,
-          species: res.data.species
+          category: res.data.category
         });
         setSubmitted(true);
-        console.log(res.data);
       })
       .catch((e) => {
         console.log(e);
@@ -37,7 +52,7 @@ const AddCultivar = () => {
   };
 
   const newCultivar = () => {
-    setCultivar(initialCultivarState);
+    setFormInputs(initialCultivarState);
     setSubmitted(false);
   };
 
@@ -53,28 +68,30 @@ const AddCultivar = () => {
       ) : (
         <div>
           <div className="form=group">
+            <label htmlFor="category">Category</label>
+            <select
+              className="form-control"
+              id="category"
+              onChange={handleInputChange}
+              name="categoryId"
+            >
+              <option value="">-</option>
+              {categories &&
+                categories.map((category, index) => (
+                  <option key={index} value={category.id}>
+                    {category.name}
+                  </option>
+                ))}
+            </select>
+          </div>
+          <div className="form-group">
             <label htmlFor="name">Name</label>
             <input
               type="text"
               className="form-control"
               id="name"
-              required
-              value={cultivar.name}
-              onChange={handleInputChange}
               name="name"
-            />
-          </div>
-
-          <div className="form=group">
-            <label htmlFor="species">Species</label>
-            <input
-              type="text"
-              className="form-control"
-              id="species"
-              required
-              value={cultivar.species}
               onChange={handleInputChange}
-              name="species"
             />
           </div>
 

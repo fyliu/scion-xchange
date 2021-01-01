@@ -21,7 +21,6 @@ const CultivarsList = () => {
     CultivarDataService.getAll()
       .then((res) => {
         setCultivars(res.data);
-        console.log(res.data);
       })
       .catch((e) => {
         console.log(e);
@@ -79,7 +78,7 @@ const CultivarsList = () => {
                 onClick={() => setActiveCultivar(cultivar, index)}
                 key={index}
               >
-                {cultivar.name}
+                {cultivar.name} - {cultivar.category}
               </li>
             ))}
         </ul>
@@ -96,9 +95,9 @@ const CultivarsList = () => {
             </div>
             <div>
               <label>
-                <strong>Species:</strong>
+                <strong>Category:</strong>
               </label>{" "}
-              {currentCultivar.species}
+              {currentCultivar.category}
             </div>
             <Link
               to={"/cultivars/" + currentCultivar.id}

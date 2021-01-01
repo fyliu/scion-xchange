@@ -31,7 +31,9 @@ const Trade = () => {
                 cultivars: new Set()
               };
             }
-            offers[offer.username].cultivars.add(cultivar.name);
+            offers[offer.username].cultivars.add(
+              cultivar.name + " - " + cultivar.category
+            );
           });
         });
         setOffers(offers);
@@ -53,7 +55,9 @@ const Trade = () => {
                 cultivars: new Set()
               };
             }
-            wants[want.username].cultivars.add(cultivar.name);
+            wants[want.username].cultivars.add(
+              cultivar.name + " - " + cultivar.category
+            );
           });
         });
         setWants(wants);

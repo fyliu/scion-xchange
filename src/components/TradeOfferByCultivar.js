@@ -24,7 +24,7 @@ const TradeOfferByCultivar = ({ cultivars }) => {
                 onClick={() => setActiveCultivar(cultivar, index)}
                 key={index}
               >
-                {cultivar.name}
+                {cultivar.name} - {cultivar.category}
               </li>
             ))}
         </ul>
@@ -32,25 +32,14 @@ const TradeOfferByCultivar = ({ cultivars }) => {
       <div className="col-md-6">
         {currentCultivar ? (
           <div>
-            <h4>Demand</h4>
+            <h4>Wanted by:</h4>
             <div>
-              <label>
-                <strong>Cultivar:</strong>
-              </label>{" "}
-              <p className="ml-3">{currentCultivar.name}</p>
-            </div>
-            <div>
-              <label>
-                <strong>Wanted by:</strong>
-              </label>{" "}
-              <dl className="ml-3">
-                {currentCultivar.wants.map((user) => (
-                  <>
-                    <dt>{user.username}</dt>
-                    <dd>{user.email}</dd>
-                  </>
-                ))}
-              </dl>
+              {currentCultivar.wants.map((user, index) => (
+                <dl key={index} className="ml-3">
+                  <dt>{user.username}</dt>
+                  <dd>{user.email}</dd>
+                </dl>
+              ))}
             </div>
           </div>
         ) : (
