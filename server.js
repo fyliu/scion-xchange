@@ -27,6 +27,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // database
 const db = require("./app/models");
 const Role = db.role;
+const Category = db.category;
 const Cultivar = db.cultivar;
 const User = db.user;
 const UserCultivar = db.user_cultivar;
@@ -47,6 +48,8 @@ app.get("/", (req, res) => {
 require("./app/routes/auth.routes")(app);
 require("./app/routes/user.routes")(app);
 require("./app/routes/cultivar.routes")(app);
+require("./app/routes/category.routes")(app);
+const categories = require("./data/category");
 const cultivars = require("./data/cultivar");
 const users = require("./data/user");
 const users_cultivars = require("./data/user_cultivar");
@@ -78,6 +81,7 @@ function initial() {
     name: "admin"
   });
 
+  Category.bulkCreate(categories);
   Cultivar.bulkCreate(cultivars);
   User.bulkCreate(users);
   UserCultivar.bulkCreate(users_cultivars);

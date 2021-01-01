@@ -2,6 +2,7 @@ const { Op } = require("sequelize");
 const db = require("../models");
 const User = db.user;
 const Cultivar = db.cultivar;
+const Category = db.category;
 const UserCultivar = db.user_cultivar;
 const Want = db.want;
 
@@ -122,6 +123,9 @@ exports.getTradeWants = async (req, res) => {
                 [Op.ne]: req.userId
               }
             }
+          },
+          {
+            model: Category
           }
         ]
       }
@@ -129,7 +133,10 @@ exports.getTradeWants = async (req, res) => {
   })
     .then(data => {
       const tradeOffers = data.reduce((offers, { cultivar }) => {
-        let tradeOffer = { name: cultivar.name };
+        let tradeOffer = {
+          name: cultivar.name,
+          category: cultivar.category.name
+        };
         const usersInfo = cultivar.users.reduce((infos, user) => {
           return [...infos, { username: user.username, email: user.email }];
         }, []);
@@ -169,6 +176,9 @@ exports.getTradeOffers = async (req, res) => {
                 [Op.ne]: req.userId
               }
             }
+          },
+          {
+            model: Category
           }
         ]
       }
@@ -176,7 +186,10 @@ exports.getTradeOffers = async (req, res) => {
   })
     .then(data => {
       const tradeWants = data.reduce((wants, { cultivar }) => {
-        let tradeWant = { name: cultivar.name };
+        let tradeWant = {
+          name: cultivar.name,
+          category: cultivar.category.name
+        };
         const usersInfo = cultivar.users.reduce((infos, user) => {
           return [...infos, { username: user.username, email: user.email }];
         }, []);

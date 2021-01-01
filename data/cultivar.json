@@ -1,30 +1,30 @@
 [
   {
-    "name": "DongKui",
-    "species": "Myrica rubra (Yangmei)"
+    "name": "DongKui Yangmei",
+    "categoryId": 28
   },
   {
     "name": "Noir de Spain",
-    "species": "Morus nigra (Black Mulberry)"
+    "categoryId": 10
   },
   {
     "name": "Black Beauty",
-    "species": "Morus nigra (Black Mulberry)"
+    "categoryId": 10
   },
   {
     "name": "Kaester",
-    "species": "Morus nigra (Black Mulberry)"
+    "categoryId": 10
   },
   {
     "name": "Pakistani",
-    "species": "Morus alba (White Mulberry)"
+    "categoryId": 10
   },
   {
     "name": "Granny Smith",
-    "species": "Malus domestica (Apple)"
+    "categoryId": 1
   },
   {
     "name": "Fuerte",
-    "species": "Persea americana (Avocado)"
+    "categoryId": 2
   }
 ]

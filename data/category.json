@@ -1,0 +1,114 @@
+[
+  {
+    "id": 28,
+    "name": "Other"
+  },
+  {
+    "id": 1,
+    "name": "Apple"
+  },
+  {
+    "id": 2,
+    "name": "Avocado"
+  },
+  {
+    "id": 3,
+    "name": "Banana"
+  },
+  {
+    "id": 4,
+    "name": "Berries (blackberry, raspberry, blueberry, etc)"
+  },
+  {
+    "id": 5,
+    "name": "Fig"
+  },
+  {
+    "id": 6,
+    "name": "Grape"
+  },
+  {
+    "id": 7,
+    "name": "Jujube"
+  },
+  {
+    "id": 8,
+    "name": "Kiwi"
+  },
+  {
+    "id": 9,
+    "name": "Mango"
+  },
+  {
+    "id": 10,
+    "name": "Mulberry"
+  },
+  {
+    "id": 11,
+    "name": "Papaya"
+  },
+  {
+    "id": 12,
+    "name": "Pear"
+  },
+  {
+    "id": 13,
+    "name": "Persimmon"
+  },
+  {
+    "id": 14,
+    "name": "Pomegranate"
+  },
+  {
+    "id": 15,
+    "name": "Strawberry"
+  },
+  {
+    "id": 16,
+    "name": "Stone fruit - Apricot"
+  },
+  {
+    "id": 17,
+    "name": "Stone fruit - Nectarine"
+  },
+  {
+    "id": 18,
+    "name": "Stone fruit - Peach"
+  },
+  {
+    "id": 19,
+    "name": "Stone fruit - Plum"
+  },
+  {
+    "id": 20,
+    "name": "Stone fruit - Almond"
+  },
+  {
+    "id": 21,
+    "name": "Stone fruit - Aprium"
+  },
+  {
+    "id": 22,
+    "name": "Stone fruit - Pluot"
+  },
+  {
+    "id": 23,
+    "name": "Stone fruit - Nectaplum"
+  },
+  {
+    "id": 24,
+    "name": "Stone fruit - Cherry"
+  },
+  {
+    "id": 25,
+    "name": "Guava"
+  },
+  {
+    "id": 26,
+    "name": "Cherimoya"
+  },
+  {
+    "id": 27,
+    "name": "Atemoya"
+  }
+]

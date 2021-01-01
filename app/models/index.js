@@ -35,10 +35,6 @@ db.role = require("../models/role.model.js")(sequelize, Sequelize);
 db.cultivar = require("./cultivar.model.js")(sequelize, Sequelize);
 db.category = require("./category.model.js")(sequelize, Sequelize);
 db.user_cultivar = require("./user_cultivar.model.js")(sequelize, Sequelize);
-db.category_cultivar = require("./category_cultivar.model.js")(
-  sequelize,
-  Sequelize
-);
 
 db.role.belongsToMany(db.user, {
   through: "user_roles",
