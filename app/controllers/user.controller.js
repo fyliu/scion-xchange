@@ -4,7 +4,6 @@ const User = db.user;
 const Cultivar = db.cultivar;
 const Category = db.category;
 const UserCultivar = db.user_cultivar;
-const Want = db.want;
 
 exports.allAccess = (req, res) => {
   res.status(200).send("Public Content.");
