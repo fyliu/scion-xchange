@@ -1,31 +1,72 @@
-import React from "react";
-import AuthService from "../services/auth.service";
+import React, { useState, useEffect } from "react";
+import UserDataService from "../services/user.service";
 
 const Profile = () => {
-  const currentUser = AuthService.getCurrentUser();
+  const [profile, setProfile] = useState({});
+  const [message, setMessage] = useState("");
+
+  useEffect(() => {
+    retrieveProfile();
+  }, []);
+
+  const retrieveProfile = () => {
+    UserDataService.getProfile()
+      .then((res) => {
+        setProfile(res.data);
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  };
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setProfile({ ...profile, [name]: value });
+  };
+
+  const updateProfile = () => {
+    UserDataService.updateProfile(profile)
+      .then((res) => {
+        setMessage("Profile updated successfully!");
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  };
 
   return (
     <div className="container">
       <header className="jumbotron">
         <h3>
-          <strong>{currentUser.username}</strong> Profile
+          <strong>{profile.username}</strong> Profile
         </h3>
       </header>
       <p>
-        <strong>Token:</strong> {currentUser.accessToken.substring(0, 20)} ...{" "}
-        {currentUser.accessToken.substr(currentUser.accessToken.length - 20)}
+        <strong>Id:</strong> {profile.id}
       </p>
       <p>
-        <strong>Id:</strong> {currentUser.id}
+        <strong>Email:</strong> {profile.email}
       </p>
-      <p>
-        <strong>Email:</strong> {currentUser.email}
-      </p>
-      <strong>Authorities:</strong>
-      <ul>
-        {currentUser.roles &&
-          currentUser.roles.map((role, index) => <li key={index}>{role}</li>)}
-      </ul>
+      <div className="form-group">
+        <label htmlFor="contactInfo">Contact Info:</label>
+        <textarea
+          className="form-control"
+          id="contactInfo"
+          name="contactInfo"
+          rows="3"
+          onChange={handleInputChange}
+        >
+          {profile.contactInfo}
+        </textarea>
+      </div>
+      <button
+        type="submit"
+        className="badge badge-success"
+        onClick={updateProfile}
+      >
+        Update
+      </button>
+      <p>{message}</p>
     </div>
   );
 };

@@ -22,6 +22,16 @@ const getAdminBoard = () => {
   return axios.get(API_URL + "admin", { headers: authHeader() });
 };
 
+const getProfile = () => {
+  return axios.get(API_URL + "profile", { headers: authHeader() });
+};
+
+const updateProfile = (data) => {
+  return axios.put(API_URL + "profile", data, {
+    headers: authHeader()
+  });
+};
+
 const getOffers = () => {
   return axios.get(API_URL + "offer-cultivars", { headers: authHeader() });
 };
@@ -55,6 +65,8 @@ export default {
   getUserBoard,
   getModeratorBoard,
   getAdminBoard,
+  getProfile,
+  updateProfile,
   getOffers,
   updateOffers,
   getWants,
