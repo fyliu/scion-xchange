@@ -22,6 +22,58 @@ exports.moderatorBoard = (req, res) => {
   res.status(200).send("Moderator Content.");
 };
 
+exports.getProfile = (req, res) => {
+  User.findOne({
+    where: {
+      id: req.userId
+    }
+  })
+    .then(user => {
+      if (!user) {
+        return res.status(404).send({ message: "User Not found." });
+      }
+
+      let authorities = [];
+      user.getRoles().then(roles => {
+        for (let i = 0; i < roles.length; i++) {
+          authorities.push("ROLE_" + roles[i].name.toUpperCase());
+        }
+        res.status(200).send({
+          id: user.id,
+          username: user.username,
+          email: user.email,
+          roles: authorities,
+          contactInfo: user.contactInfo
+        });
+      });
+    })
+    .catch(err => {
+      res.status(500).send({ message: err.message });
+    });
+};
+
+exports.updateProfile = async (req, res) => {
+  User.update(req.body, {
+    where: { id: req.userId }
+  })
+    .then(num => {
+      if (num == 1) {
+        res.send({
+          message: "Profile was updated successfully"
+        });
+      } else {
+        res.send({
+          message: `Cannot update profile with id=${id}.`
+        });
+      }
+    })
+    .catch(err => {
+      res.status(500).send({
+        message: "Error updating profile with id=" + id
+      });
+    });
+};
+
 exports.getOffers = async (req, res) => {
   User.findOne({
     where: {

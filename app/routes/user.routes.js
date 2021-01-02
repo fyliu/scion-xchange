@@ -24,6 +24,9 @@ module.exports = function (app) {
 
   router.get("/admin", [authJwt.verifyToken, authJwt.isAdmin], user.adminBoard);
 
+  router.get("/profile", [authJwt.verifyToken], user.getProfile);
+  router.put("/profile", [authJwt.verifyToken], user.updateProfile);
+
   router.put("/offer-cultivars", [authJwt.verifyToken], user.updateOffers);
 
   router.get("/offer-cultivars", [authJwt.verifyToken], user.getOffers);
