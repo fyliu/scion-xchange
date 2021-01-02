@@ -74,7 +74,7 @@ const Cultivar = (props) => {
         <div className="edit-form">
           <h4>Cultivar</h4>
           <form>
-            <div className="form=group">
+            <div className="form-group">
               <label htmlFor="category">Category</label>
               <select
                 className="form-control"
