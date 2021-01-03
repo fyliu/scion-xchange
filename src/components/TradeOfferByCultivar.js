@@ -24,7 +24,7 @@ const TradeOfferByCultivar = ({ cultivars }) => {
                 onClick={() => setActiveCultivar(cultivar, index)}
                 key={index}
               >
-                {cultivar.name} - {cultivar.category}
+                {cultivar.category} - {cultivar.name}
               </li>
             ))}
         </ul>

@@ -80,7 +80,7 @@ const Offer = () => {
                       }
                       onChange={handleInputChange}
                     />
-                    {cultivar.name + " - " + cultivar.category}
+                    {cultivar.category + " - " + cultivar.name}
                   </label>
                 </div>
                 {offers[cultivar.id] && offers[cultivar.id].offer ? (

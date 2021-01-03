@@ -32,7 +32,7 @@ const Trade = () => {
               };
             }
             offers[offer.username].cultivars.add(
-              cultivar.name + " - " + cultivar.category
+              cultivar.category + " - " + cultivar.name
             );
           });
         });
@@ -56,7 +56,7 @@ const Trade = () => {
               };
             }
             wants[want.username].cultivars.add(
-              cultivar.name + " - " + cultivar.category
+              cultivar.category + " - " + cultivar.name
             );
           });
         });

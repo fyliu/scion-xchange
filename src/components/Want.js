@@ -64,7 +64,7 @@ const Want = () => {
                   checked={wants[cultivar.id] || false}
                   onChange={handleInputChange}
                 />
-                {cultivar.name + " - " + cultivar.category}
+                {cultivar.category + " - " + cultivar.name}
               </label>
             ))}
         </form>
