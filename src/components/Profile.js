@@ -55,9 +55,8 @@ const Profile = () => {
           name="contactInfo"
           rows="3"
           onChange={handleInputChange}
-        >
-          {profile.contactInfo}
-        </textarea>
+          value={profile.contactInfo}
+        />
       </div>
       <button
         type="submit"
