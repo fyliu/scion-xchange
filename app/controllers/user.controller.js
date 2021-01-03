@@ -82,7 +82,12 @@ exports.getOffers = async (req, res) => {
   })
     .then(data => {
       const offers = data.cultivars.reduce((offers, cultivar) => {
-        const offer = { [cultivar.id]: cultivar.users_cultivars.offer };
+        const offer = {
+          [cultivar.id]: {
+            offer: cultivar.users_cultivars.offer,
+            offerDescription: cultivar.users_cultivars.offerDescription
+          }
+        };
         return { ...offers, ...offer };
       }, []);
       res.send(offers);
@@ -97,11 +102,12 @@ exports.getOffers = async (req, res) => {
 exports.updateOffers = async (req, res) => {
   let offers = [];
 
-  for (const [cultivarId, chosen] of Object.entries(req.body)) {
+  for (const [cultivarId, data] of Object.entries(req.body)) {
     offers.push({
       userId: req.userId,
       cultivarId: +cultivarId,
-      offer: chosen
+      offer: data.offer,
+      offerDescription: data.offerDescription
     });
   }
 

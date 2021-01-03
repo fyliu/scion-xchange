@@ -15,6 +15,11 @@ module.exports = (sequelize, Sequelize) => {
       type: Sequelize.BOOLEAN,
       allowNull: true,
       defaultValue: false
+    },
+    offerDescription: {
+      type: Sequelize.TEXT,
+      allowNull: true,
+      defaultValue: ""
     }
   });
 
