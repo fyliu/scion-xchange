@@ -1,5 +1,8 @@
+import merge from "lodash/merge";
 import React, { useState, useEffect } from "react";
 import UserService from "../services/user.service";
+import TradeByUser from "./TradeByUser";
+import TradeByCultivar from "./TradeByCultivar";
 import TradeWantByUser from "./TradeWantByUser";
 import TradeWantByCultivar from "./TradeWantByCultivar";
 import TradeOfferByUser from "./TradeOfferByUser";
@@ -8,13 +11,16 @@ import TradeOfferByCultivar from "./TradeOfferByCultivar";
 const Trade = () => {
   const [wantCultivars, setWantCultivars] = useState([]);
   const [offerCultivars, setOfferCultivars] = useState([]);
+  const [cultivars, setCultivars] = useState([]);
   const [offers, setOffers] = useState({});
   const [wants, setWants] = useState({});
+  const [users, setUsers] = useState({});
   const [message, setMessage] = useState("");
 
   useEffect(() => {
     retrieveWantCultivars();
     retrieveOfferCultivars();
+    retrieveCultivars();
   }, []);
 
   const retrieveWantCultivars = () => {
@@ -31,9 +37,10 @@ const Trade = () => {
                 cultivars: new Set()
               };
             }
-            offers[offer.username].cultivars.add(
-              cultivar.category + " - " + cultivar.name
-            );
+            offers[offer.username].cultivars.add({
+              name: cultivar.category + " - " + cultivar.name,
+              offer: offer.offer
+            });
           });
         });
         setOffers(offers);
@@ -42,6 +49,7 @@ const Trade = () => {
         console.log(e);
       });
   };
+
   const retrieveOfferCultivars = () => {
     UserService.getTradeOffers()
       .then((res) => {
@@ -55,12 +63,40 @@ const Trade = () => {
                 cultivars: new Set()
               };
             }
-            wants[want.username].cultivars.add(
-              cultivar.category + " - " + cultivar.name
-            );
+            wants[want.username].cultivars.add({
+              name: cultivar.category + " - " + cultivar.name,
+              want: want.want
+            });
           });
         });
         setWants(wants);
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  };
+
+  const retrieveCultivars = () => {
+    UserService.getTrade()
+      .then((res) => {
+        setCultivars(res.data);
+        let users = {};
+        res.data.map((cultivar) => {
+          cultivar.users.map((user) => {
+            if (!(user.username in users)) {
+              users[user.username] = {
+                email: user.email,
+                cultivars: new Set()
+              };
+            }
+            users[user.username].cultivars.add({
+              name: cultivar.category + " - " + cultivar.name,
+              offer: user.offer,
+              want: user.want
+            });
+          });
+        });
+        setUsers(users);
       })
       .catch((e) => {
         console.log(e);
@@ -75,10 +111,11 @@ const Trade = () => {
         <p>{message}</p>
       </div>
 
-      <TradeWantByUser users={offers} />
-      <TradeWantByCultivar cultivars={wantCultivars} />
+      <TradeByUser users={users} />
 
-      <TradeOfferByUser users={wants} />
+      <TradeByCultivar cultivars={cultivars} />
+
+      <TradeWantByCultivar cultivars={wantCultivars} />
       <TradeOfferByCultivar cultivars={offerCultivars} />
     </div>
   );

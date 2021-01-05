@@ -46,7 +46,7 @@ const TradeOfferByUser = ({ users }) => {
               <ul className="ml-3">
                 {Array.from(currentOffer[1].cultivars).map(
                   (cultivar, index) => (
-                    <li key={index}>{cultivar}</li>
+                    <li key={index}>{cultivar.name}</li>
                   )
                 )}
               </ul>
