@@ -39,5 +39,7 @@ module.exports = function (app) {
 
   router.get("/trade-offers", [authJwt.verifyToken], user.getTradeOffers);
 
+  router.get("/trade", [authJwt.verifyToken], user.getTrade);
+
   app.use("/api/test", router);
 };
