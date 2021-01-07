@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Switch, Route, Link } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
+import "./main.scss";
 
 import AuthService from "./services/auth.service";
 
@@ -23,6 +24,8 @@ const App = () => {
   const [showModeratorBoard, setShowModeratorBoard] = useState(false);
   const [showAdminBoard, setShowAdminBoard] = useState(false);
   const [currentUser, setCurrentUser] = useState(undefined);
+  const [isActive, setIsActive] = useState(false);
+  const [activeTab, setActiveTab] = useState("");
 
   useEffect(() => {
     const user = AuthService.getCurrentUser();
@@ -40,98 +43,181 @@ const App = () => {
 
   return (
     <div>
-      <nav className="navbar navbar-expand navbar-dark bg-dark">
-        <Link to={"/"} className="navbar-brand">
-          Scion Exchange
-        </Link>
-        <div className="navbar-nav mr-auto">
-          {/* <li className="nav-item">
-            <Link to={"/home"} className="nav-link">
-              Home
-            </Link>
-          </li> */}
-
-          {showModeratorBoard && (
-            <li className="nav-item">
-              <Link to={"/mod"} className="nav-link">
-                Moderator Board
-              </Link>
-            </li>
-          )}
-
-          {showAdminBoard && (
-            <li className="nav-item">
-              <Link to={"/admin"} className="nav-link">
-                Admin Board
-              </Link>
-            </li>
-          )}
-
-          {currentUser && (
-            <>
-              {/* <li className="nav-item">
-                <Link to={"/user"} className="nav-link">
-                  User
-                </Link>
-              </li> */}
-
-              <li className="nav-item">
-                <Link to={"/offer"} className="nav-link">
-                  Offers
-                </Link>
-              </li>
-              <li className="nav-item">
-                <Link to={"/want"} className="nav-link">
-                  Wants
-                </Link>
-              </li>
-              <li className="nav-item">
-                <Link to={"/trade"} className="nav-link">
-                  Exchange
-                </Link>
-              </li>
-              <li className="nav-item">
-                <Link to={"/cultivars"} className="nav-link">
-                  Cultivars
-                </Link>
-              </li>
-              <li className="nav-item">
-                <Link to={"/add-cultivar"} className="nav-link">
-                  Add Cultivar
-                </Link>
-              </li>
-            </>
-          )}
+      <nav className="navbar" role="navigation" aria-label="main navigation">
+        <div className="navbar-brand">
+          <Link to={"/"} className="navbar-item">
+            Scion Exchange
+          </Link>
+          <a
+            onClick={() => {
+              setIsActive(!isActive);
+            }}
+            role="button"
+            className={`navbar-burger burger ${isActive ? "is-active" : ""}`}
+            aria-label="menu"
+            aria-expanded="false"
+            data-target="navbarBasicExample"
+          >
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+          </a>
         </div>
 
-        {currentUser ? (
-          <div className="navbar-nav ml-auto">
-            <li className="nav-item">
-              <Link to={"/profile"} className="nav-link">
-                {currentUser.username}
-              </Link>
-            </li>
-            <li className="nav-item">
-              <a href="/login" className="nav-link" onClick={logOut}>
-                LogOut
-              </a>
-            </li>
-          </div>
-        ) : (
-          <div className="navbar-nav ml-auto">
-            <li className="nav-item">
-              <Link to={"/login"} className="nav-link">
-                Login
-              </Link>
-            </li>
+        <div
+          id="navbarBasicExample"
+          className={`navbar-menu ${isActive ? "is-active" : ""}`}
+        >
+          <div className="navbar-start">
+            {/*             <div className="navbar-item is-tab">
+              <Link to={"/home"}>Home</Link>
+            </div> */}
 
-            <li className="nav-item">
-              <Link to={"/register"} className="nav-link">
-                Sign Up
-              </Link>
-            </li>
+            {showModeratorBoard && (
+              <div
+                className="navbar-item is-tab"
+                onClick={() => {
+                  setIsActive(false);
+                }}
+              >
+                <Link to={"/mod"}>Moderator Board</Link>
+              </div>
+            )}
+
+            {showAdminBoard && (
+              <div
+                className="navbar-item is-tab"
+                onClick={() => {
+                  setIsActive(false);
+                }}
+              >
+                <Link to={"/admin"}>Admin Board</Link>
+              </div>
+            )}
+
+            {currentUser && (
+              <>
+                {/* <div className="navbar-item">
+                <Link to={"/user"}>
+                  User
+                </Link>
+              </div> */}
+
+                <div
+                  className={`navbar-item is-tab ${
+                    activeTab == "Offers" ? "is-active" : ""
+                  }`}
+                  onClick={() => {
+                    setIsActive(false);
+                    setActiveTab("Offers");
+                  }}
+                >
+                  <Link to={"/offer"}>Offers</Link>
+                </div>
+                <div
+                  className={`navbar-item is-tab ${
+                    activeTab == "Wants" ? "is-active" : ""
+                  }`}
+                  onClick={() => {
+                    setIsActive(false);
+                    setActiveTab("Wants");
+                  }}
+                >
+                  <Link to={"/want"}>Wants</Link>
+                </div>
+                <div
+                  className={`navbar-item is-tab ${
+                    activeTab == "Exchange" ? "is-active" : ""
+                  }`}
+                  onClick={() => {
+                    setIsActive(false);
+                    setActiveTab("Exchange");
+                  }}
+                >
+                  <Link to={"/trade"}>Exchange</Link>
+                </div>
+                <div
+                  className={`navbar-item is-tab ${
+                    activeTab == "Cultivars" ? "is-active" : ""
+                  }`}
+                  onClick={() => {
+                    setIsActive(false);
+                    setActiveTab("Cultivars");
+                  }}
+                >
+                  <Link to={"/cultivars"}>Cultivars</Link>
+                </div>
+                <div
+                  className={`navbar-item is-tab ${
+                    activeTab == "Add Cultivar" ? "is-active" : ""
+                  }`}
+                  onClick={() => {
+                    setIsActive(false);
+                    setActiveTab("Add Cultivar");
+                  }}
+                >
+                  <Link to={"/add-cultivar"}>Add Cultivar</Link>
+                </div>
+              </>
+            )}
           </div>
-        )}
+
+          <div className="navbar-end">
+            {currentUser ? (
+              <>
+                <div
+                  className={`navbar-item is-tab ${
+                    activeTab == "Profile" ? "is-active" : ""
+                  }`}
+                  onClick={() => {
+                    setIsActive(false);
+                    setActiveTab("Profile");
+                  }}
+                >
+                  <Link to={"/profile"}>{currentUser.username}</Link>
+                </div>
+                <div
+                  className={`navbar-item is-tab ${
+                    activeTab == "Logout" ? "is-active" : ""
+                  }`}
+                  onClick={() => {
+                    setIsActive(false);
+                    setActiveTab("Logout");
+                  }}
+                >
+                  <a href="/login" onClick={logOut}>
+                    LogOut
+                  </a>
+                </div>
+              </>
+            ) : (
+              <>
+                <div
+                  className={`navbar-item is-tab is-active ${
+                    activeTab == "Login" ? "is-active" : ""
+                  }`}
+                  onClick={() => {
+                    setIsActive(false);
+                    setActiveTab("Login");
+                  }}
+                >
+                  <Link to={"/login"}>Login</Link>
+                </div>
+                <div
+                  className={`navbar-item is-tab is-active ${
+                    activeTab == "Sign Up" ? "is-active" : ""
+                  }`}
+                  onClick={() => {
+                    setIsActive(false);
+                    setActiveTab("Sign Up");
+                  }}
+                >
+                  <Link to={"/register"}>Sign Up</Link>
+                </div>
+              </>
+            )}
+          </div>
+        </div>
       </nav>
 
       <div className="container mt-3">
