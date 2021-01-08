@@ -1,16 +1,30 @@
 import React, { useState, useEffect } from "react";
+import CategoryDataService from "../services/category.service";
 import CultivarDataService from "../services/cultivar.service";
 import UserService from "../services/user.service";
+import AddCultivar from "./AddCultivar";
 
 const Offer = () => {
+  const [categories, setCategories] = useState([]);
   const [cultivars, setCultivars] = useState([]);
   const [offers, setOffers] = useState({});
   const [message, setMessage] = useState("");
 
   useEffect(() => {
-    retrieveCultivars();
     retrieveOffers();
+    retrieveCultivars();
+    retrieveCategories();
   }, []);
+
+  const retrieveCategories = () => {
+    CategoryDataService.getAll()
+      .then((res) => {
+        setCategories(res.data);
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  };
 
   const retrieveCultivars = () => {
     CultivarDataService.getAll()
@@ -56,6 +70,22 @@ const Offer = () => {
       .catch((e) => {
         console.log(e);
       });
+  };
+
+  const getCategoryName = (categoryId) => {
+    for (let category of categories) {
+      if (category.id == categoryId) {
+        return category.name;
+      }
+    }
+    return "";
+  };
+
+  const handleCultivarAdded = (cultivar) => {
+    setCultivars([
+      ...cultivars,
+      { ...cultivar, category: getCategoryName(cultivar.categoryId) }
+    ]);
   };
 
   return (
@@ -110,6 +140,7 @@ const Offer = () => {
           Update
         </button>
         <p>{message}</p>
+        <AddCultivar onCultivarAdded={handleCultivarAdded} />
       </div>
     </div>
   );

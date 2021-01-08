@@ -1,8 +1,11 @@
 import React, { useState, useEffect } from "react";
+import CategoryDataService from "../services/category.service";
 import CultivarDataService from "../services/cultivar.service";
 import UserService from "../services/user.service";
+import AddCultivar from "./AddCultivar";
 
 const Want = () => {
+  const [categories, setCategories] = useState([]);
   const [cultivars, setCultivars] = useState([]);
   const [wants, setWants] = useState({});
   const [message, setMessage] = useState("");
@@ -10,7 +13,18 @@ const Want = () => {
   useEffect(() => {
     retrieveCultivars();
     retrieveWants();
+    retrieveCategories();
   }, []);
+
+  const retrieveCategories = () => {
+    CategoryDataService.getAll()
+      .then((res) => {
+        setCategories(res.data);
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  };
 
   const retrieveCultivars = () => {
     CultivarDataService.getAll()
@@ -49,6 +63,22 @@ const Want = () => {
       });
   };
 
+  const getCategoryName = (categoryId) => {
+    for (let category of categories) {
+      if (category.id == categoryId) {
+        return category.name;
+      }
+    }
+    return "";
+  };
+
+  const handleCultivarAdded = (cultivar) => {
+    setCultivars([
+      ...cultivars,
+      { ...cultivar, category: getCategoryName(cultivar.categoryId) }
+    ]);
+  };
+
   return (
     <div className="list row">
       <div className="col-md-8">
@@ -72,6 +102,7 @@ const Want = () => {
           Update
         </button>
         <p>{message}</p>
+        <AddCultivar onCultivarAdded={handleCultivarAdded} />
       </div>
     </div>
   );

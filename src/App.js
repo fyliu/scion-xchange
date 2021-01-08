@@ -136,7 +136,7 @@ const App = () => {
                 >
                   <Link to={"/trade"}>Exchange</Link>
                 </div>
-                <div
+                {/*                 <div
                   className={`navbar-item is-tab ${
                     activeTab == "Cultivars" ? "is-active" : ""
                   }`}
@@ -157,7 +157,7 @@ const App = () => {
                   }}
                 >
                   <Link to={"/add-cultivar"}>Add Cultivar</Link>
-                </div>
+                </div> */}
               </>
             )}
           </div>

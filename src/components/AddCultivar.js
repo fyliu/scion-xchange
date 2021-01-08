@@ -2,12 +2,14 @@ import React, { useState, useEffect } from "react";
 import CultivarDataService from "../services/cultivar.service";
 import CategoryDataService from "../services/category.service";
 
-const AddCultivar = () => {
+const AddCultivar = ({ onCultivarAdded }) => {
   const initialCultivarState = {
     id: null,
     category: "",
     name: ""
   };
+  const [message, setMessage] = useState("");
+  const [isLoadingCategory, setIsLoadingCategory] = useState(true);
   const [formInputs, setFormInputs] = useState(initialCultivarState);
   const [categories, setCategories] = useState([]);
   const [submitted, setSubmitted] = useState(false);
@@ -17,9 +19,11 @@ const AddCultivar = () => {
   }, []);
 
   const retrieveCategories = () => {
+    setIsLoadingCategory(true);
     CategoryDataService.getAll()
       .then((res) => {
         setCategories(res.data);
+        setIsLoadingCategory(false);
       })
       .catch((e) => {
         console.log(e);
@@ -27,6 +31,8 @@ const AddCultivar = () => {
   };
 
   const handleInputChange = (e) => {
+    setSubmitted(false);
+    setMessage("");
     const { name, value } = e.target;
     setFormInputs({ ...formInputs, [name]: value });
   };
@@ -39,11 +45,13 @@ const AddCultivar = () => {
 
     CultivarDataService.create(data)
       .then((res) => {
-        setFormInputs({
-          id: res.data.id,
-          name: res.data.name,
-          category: res.data.category
-        });
+        onCultivarAdded && onCultivarAdded(res.data);
+        setMessage(
+          `You submitted successfully (${getCategoryName(
+            formInputs.categoryId
+          )} ${formInputs.name})!`
+        );
+        setFormInputs({ ...formInputs, name: "" });
         setSubmitted(true);
       })
       .catch((e) => {
@@ -56,50 +64,70 @@ const AddCultivar = () => {
     setSubmitted(false);
   };
 
+  const getCategoryName = (categoryId) => {
+    for (let category of categories) {
+      if (category.id == categoryId) {
+        return category.name;
+      }
+    }
+    return "";
+  };
+
   return (
-    <div className="submit-form">
+    <div>
       {submitted ? (
         <div>
-          <h4>You submitted successfullly!</h4>
-          <button className="btn btn-success" onClick={newCultivar}>
-            Add
-          </button>
+          <p>{message}</p>
         </div>
       ) : (
-        <div>
-          <div className="form=group">
-            <label htmlFor="category">Category</label>
-            <select
-              className="form-control"
-              id="category"
-              onChange={handleInputChange}
-              name="categoryId"
-            >
-              <option value="">-</option>
-              {categories &&
-                categories.map((category, index) => (
-                  <option key={index} value={category.id}>
-                    {category.name}
-                  </option>
-                ))}
-            </select>
-          </div>
-          <div className="form-group">
-            <label htmlFor="name">Name</label>
-            <input
-              type="text"
-              className="form-control"
-              id="name"
-              name="name"
-              onChange={handleInputChange}
-            />
-          </div>
-
-          <button onClick={saveCultivar} className="btn btn-success">
-            Submit
-          </button>
-        </div>
+        ""
       )}
+      <div className="container-fluid">
+        <div className="row align-items-center">
+          <div className="field has-addons has-addons-centered">
+            <p className="control">
+              <span
+                className={`select ${isLoadingCategory ? "is-loading" : ""}`}
+              >
+                <select
+                  className="form-control"
+                  id="category"
+                  onChange={handleInputChange}
+                  name="categoryId"
+                  value={formInputs.categoryId}
+                >
+                  <option value="">Category</option>
+                  {categories &&
+                    categories.map((category, index) => (
+                      <option key={index} value={category.id}>
+                        {category.name}
+                      </option>
+                    ))}
+                </select>
+              </span>
+            </p>
+            <p className="control is-expanded">
+              <input
+                type="text"
+                className="input"
+                placeholder="Cultivar name"
+                id="name"
+                name="name"
+                onChange={handleInputChange}
+                value={formInputs.name}
+              />
+            </p>
+            <p className="control">
+              <button
+                onClick={saveCultivar}
+                className="btn btn-success col align-self-center"
+              >
+                Submit
+              </button>
+            </p>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };
