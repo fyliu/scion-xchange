@@ -395,7 +395,9 @@ exports.getTrade = async (req, res) => {
             }
           ]
         };
-        mergeByProperty(trades, [trade], "id");
+        if (trade.id) {
+          mergeByProperty(trades, [trade], "id");
+        }
         return trades;
       }, []);
       res.send(trades);
