@@ -74,7 +74,7 @@ const Offer = () => {
 
   const getCategoryName = (categoryId) => {
     for (let category of categories) {
-      if (category.id == categoryId) {
+      if (category.id === categoryId) {
         return category.name;
       }
     }

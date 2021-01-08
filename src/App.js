@@ -105,7 +105,7 @@ const App = () => {
 
                 <div
                   className={`navbar-item is-tab ${
-                    activeTab == "Offers" ? "is-active" : ""
+                    activeTab === "Offers" ? "is-active" : ""
                   }`}
                   onClick={() => {
                     setIsActive(false);
@@ -116,7 +116,7 @@ const App = () => {
                 </div>
                 <div
                   className={`navbar-item is-tab ${
-                    activeTab == "Wants" ? "is-active" : ""
+                    activeTab === "Wants" ? "is-active" : ""
                   }`}
                   onClick={() => {
                     setIsActive(false);
@@ -127,7 +127,7 @@ const App = () => {
                 </div>
                 <div
                   className={`navbar-item is-tab ${
-                    activeTab == "Exchange" ? "is-active" : ""
+                    activeTab === "Exchange" ? "is-active" : ""
                   }`}
                   onClick={() => {
                     setIsActive(false);
@@ -138,7 +138,7 @@ const App = () => {
                 </div>
                 {/*                 <div
                   className={`navbar-item is-tab ${
-                    activeTab == "Cultivars" ? "is-active" : ""
+                    activeTab === "Cultivars" ? "is-active" : ""
                   }`}
                   onClick={() => {
                     setIsActive(false);
@@ -149,7 +149,7 @@ const App = () => {
                 </div>
                 <div
                   className={`navbar-item is-tab ${
-                    activeTab == "Add Cultivar" ? "is-active" : ""
+                    activeTab === "Add Cultivar" ? "is-active" : ""
                   }`}
                   onClick={() => {
                     setIsActive(false);
@@ -167,7 +167,7 @@ const App = () => {
               <>
                 <div
                   className={`navbar-item is-tab ${
-                    activeTab == "Profile" ? "is-active" : ""
+                    activeTab === "Profile" ? "is-active" : ""
                   }`}
                   onClick={() => {
                     setIsActive(false);
@@ -178,7 +178,7 @@ const App = () => {
                 </div>
                 <div
                   className={`navbar-item is-tab ${
-                    activeTab == "Logout" ? "is-active" : ""
+                    activeTab === "Logout" ? "is-active" : ""
                   }`}
                   onClick={() => {
                     setIsActive(false);
@@ -194,7 +194,7 @@ const App = () => {
               <>
                 <div
                   className={`navbar-item is-tab is-active ${
-                    activeTab == "Login" ? "is-active" : ""
+                    activeTab === "Login" ? "is-active" : ""
                   }`}
                   onClick={() => {
                     setIsActive(false);
@@ -205,7 +205,7 @@ const App = () => {
                 </div>
                 <div
                   className={`navbar-item is-tab is-active ${
-                    activeTab == "Sign Up" ? "is-active" : ""
+                    activeTab === "Sign Up" ? "is-active" : ""
                   }`}
                   onClick={() => {
                     setIsActive(false);
