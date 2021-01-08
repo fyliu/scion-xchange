@@ -29,6 +29,7 @@ const db = {};
 
 db.Sequelize = Sequelize;
 db.sequelize = sequelize;
+const queryInterface = sequelize.getQueryInterface();
 
 db.user = require("../models/user.model.js")(sequelize, Sequelize);
 db.role = require("../models/role.model.js")(sequelize, Sequelize);
@@ -65,6 +66,16 @@ db.user.hasMany(db.user_cultivar);
 
 db.category.hasMany(db.cultivar);
 db.cultivar.belongsTo(db.category);
+
+// XXX this somehow executes before all the other queries
+queryInterface.sequelize.query(
+  'ALTER TABLE "cultivars" ADD CONSTRAINT "cultivar" UNIQUE ("categoryId", "name")'
+);
+
+//queryInterface.addConstraint("cultivars", ["categoryId", "name"], {
+//  type: "primary key",
+//  name: "cultivar_pkey"
+//});
 
 db.ROLES = ["user", "admin", "moderator"];
 
