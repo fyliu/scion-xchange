@@ -34,14 +34,22 @@ const TradeByUser = ({ users }) => {
         {currentUser ? (
           <div>
             <h4 className="title is-5">Availability</h4>
-            <div className="block">
-              <label className="has-text-weight-bold">Email:</label>
-              <p className="ml-3">{currentUser[1].email}</p>
-            </div>
-            <div className="block">
-              <label className="has-text-weight-bold">Contact Info:</label>
-              <p className="ml-3">{currentUser[1].contactInfo}</p>
-            </div>
+            {currentUser[1].email != "" ? (
+              <div className="block">
+                <label className="has-text-weight-bold">Email:</label>
+                <p className="ml-3">{currentUser[1].email}</p>
+              </div>
+            ) : (
+              ""
+            )}
+            {currentUser[1].contactInfo != "" ? (
+              <div className="block">
+                <label className="has-text-weight-bold">Contact Info:</label>
+                <p className="ml-3">{currentUser[1].contactInfo}</p>
+              </div>
+            ) : (
+              ""
+            )}
             <div className="block">
               <label className="has-text-weight-bold">Cultivars:</label>
               <ul className="ml-3">

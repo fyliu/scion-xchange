@@ -72,8 +72,8 @@ const TradeByCultivar = ({ cultivars }) => {
               {currentCultivar.users.map((user, index) => (
                 <div key={index} className="block">
                   <div className="has-text-weight-bold">{user.username}</div>
-                  <div>{user.email}</div>
-                  <div>{user.contactInfo}</div>
+                  {user.email != "" ? <div>{user.email}</div> : ""}
+                  {user.contactInfo != "" ? <div>{user.contactInfo}</div> : ""}
                 </div>
               ))}
             </div>
