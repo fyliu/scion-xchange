@@ -13,9 +13,8 @@ const TradeByUser = ({ users }) => {
 
   return (
     <>
-      <div className="col-md-6 mb-3">
-        <h4>Who can I trade with</h4>
-
+      <div className="col-md-6 mb-6">
+        <h4 className="title is-4">Who can I trade with</h4>
         <ul className="list-group">
           {users &&
             Object.entries(users).map((user, index) => (
@@ -31,26 +30,30 @@ const TradeByUser = ({ users }) => {
             ))}
         </ul>
       </div>
-      <div className="col-md-6">
+      <div className="col-md-6 my-4">
         {currentUser ? (
           <div>
-            <h4>Availability</h4>
-            <div>
-              <label>
-                <strong>Email:</strong>
-              </label>{" "}
+            <h4 className="title is-5">Availability</h4>
+            <div className="block">
+              <label className="has-text-weight-bold">Email:</label>
               <p className="ml-3">{currentUser[1].email}</p>
             </div>
-            <div>
-              <label>
-                <strong>Cultivars:</strong>
-              </label>{" "}
+            <div className="block">
+              <label className="has-text-weight-bold">Contact Info:</label>
+              <p className="ml-3">{currentUser[1].contactInfo}</p>
+            </div>
+            <div className="block">
+              <label className="has-text-weight-bold">Cultivars:</label>
               <ul className="ml-3">
                 {Array.from(currentUser[1].cultivars).map((cultivar, index) =>
                   cultivar.want ? (
-                    <li key={index}>Wants: {cultivar.name}</li>
+                    <li key={index}>
+                      <strong>Wants:</strong> {cultivar.name}
+                    </li>
                   ) : cultivar.offer ? (
-                    <li key={index}>Offers: {cultivar.name}</li>
+                    <li key={index}>
+                      <strong>Offers:</strong> {cultivar.name}
+                    </li>
                   ) : null
                 )}
               </ul>
