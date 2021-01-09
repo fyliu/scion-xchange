@@ -82,27 +82,32 @@ const Want = () => {
   return (
     <div className="list row">
       <div className="col-md-8">
-        <h4>What I want...</h4>
+        <div className="container mb-5">
+          <h4 className="title is-4">What I want...</h4>
 
-        <form>
-          {cultivars &&
-            cultivars.map((cultivar) => (
-              <label key={cultivar.id}>
-                <input
-                  type="checkbox"
-                  value={cultivar.id}
-                  checked={wants[cultivar.id] || false}
-                  onChange={handleInputChange}
-                />
-                {cultivar.category + " - " + cultivar.name}
-              </label>
-            ))}
-        </form>
-        <button type="submit" onClick={() => updateWant()}>
-          Update
-        </button>
-        <p>{message}</p>
-        <AddCultivar onCultivarAdded={handleCultivarAdded} />
+          <div className="is-flex is-flex-direction-column">
+            {cultivars &&
+              cultivars.map((cultivar) => (
+                <label key={cultivar.id}>
+                  <input
+                    type="checkbox"
+                    value={cultivar.id}
+                    checked={wants[cultivar.id] || false}
+                    onChange={handleInputChange}
+                  />
+                  {cultivar.category + " - " + cultivar.name}
+                </label>
+              ))}
+          </div>
+          <button type="submit" onClick={() => updateWant()}>
+            Update
+          </button>
+          <p>{message}</p>
+        </div>
+        <div className="container">
+          <label className="has-text-weight-bold">Add Cultivar</label>
+          <AddCultivar onCultivarAdded={handleCultivarAdded} />
+        </div>
       </div>
     </div>
   );
