@@ -59,11 +59,6 @@ const AddCultivar = ({ onCultivarAdded }) => {
       });
   };
 
-  const newCultivar = () => {
-    setFormInputs(initialCultivarState);
-    setSubmitted(false);
-  };
-
   const getCategoryName = (categoryId) => {
     for (let category of categories) {
       if (category.id === categoryId) {
