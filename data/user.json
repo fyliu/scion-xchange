@@ -7,11 +7,38 @@
   {
     "username": "albert",
     "email": "albertliu@hotmail.com",
+    "contactInfo": "Porch pickup, 1006 W Palm Ave, Burbank, CA 91506",
     "password": "$2a$08$hsvYkA9y0xvAdcnI8/7Dbu4adFH.MX0PRARgiXBogDj.hclZ8SNdG"
   },
   {
     "username": "fang",
     "email": "fangyiliu@hotmail.com",
+    "password": "$2a$08$hsvYkA9y0xvAdcnI8/7Dbu4adFH.MX0PRARgiXBogDj.hclZ8SNdG"
+  },
+  {
+    "username": "bob",
+    "email": "",
+    "password": "$2a$08$hsvYkA9y0xvAdcnI8/7Dbu4adFH.MX0PRARgiXBogDj.hclZ8SNdG"
+  },
+  {
+    "username": "steve",
+    "email": "",
+    "password": "$2a$08$hsvYkA9y0xvAdcnI8/7Dbu4adFH.MX0PRARgiXBogDj.hclZ8SNdG"
+  },
+  {
+    "username": "alice",
+    "email": "",
+    "password": "$2a$08$hsvYkA9y0xvAdcnI8/7Dbu4adFH.MX0PRARgiXBogDj.hclZ8SNdG"
+  },
+  {
+    "username": "mary",
+    "email": "",
+    "password": "$2a$08$hsvYkA9y0xvAdcnI8/7Dbu4adFH.MX0PRARgiXBogDj.hclZ8SNdG"
+  },
+
+  {
+    "username": "paul",
+    "email": "",
     "password": "$2a$08$hsvYkA9y0xvAdcnI8/7Dbu4adFH.MX0PRARgiXBogDj.hclZ8SNdG"
   }
 ]

@@ -78,5 +78,30 @@
     "userId": 3,
     "cultivarId": 5,
     "want": true
+  },
+  {
+    "userId": 4,
+    "cultivarId": 4,
+    "offer": true
+  },
+  {
+    "userId": 5,
+    "cultivarId": 4,
+    "offer": true
+  },
+  {
+    "userId": 6,
+    "cultivarId": 4,
+    "offer": true
+  },
+  {
+    "userId": 7,
+    "cultivarId": 4,
+    "offer": true
+  },
+  {
+    "userId": 8,
+    "cultivarId": 4,
+    "offer": true
   }
 ]
