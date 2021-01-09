@@ -44,7 +44,7 @@ const App = () => {
   return (
     <div>
       <nav className="navbar" role="navigation" aria-label="main navigation">
-        <div className="navbar-brand">
+        <div className="navbar-brand title is-3">
           <Link to={"/"} className="navbar-item">
             Scion Exchange
           </Link>
