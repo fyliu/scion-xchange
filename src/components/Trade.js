@@ -46,8 +46,8 @@ const Trade = () => {
         <p>{message}</p>
       </div>
 
-      <TradeByUser users={users} />
       <TradeByCultivar cultivars={cultivars} />
+      <TradeByUser users={users} />
     </div>
   );
 };
