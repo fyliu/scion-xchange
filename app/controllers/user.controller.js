@@ -312,7 +312,7 @@ exports.getTrade = async (req, res) => {
         include: [
           {
             model: User,
-            attributes: ["username", "email"],
+            attributes: ["username", "email", "contactInfo"],
             through: {
               where: {
                 want: true
@@ -344,7 +344,7 @@ exports.getTrade = async (req, res) => {
         include: [
           {
             model: User,
-            attributes: ["username", "email"],
+            attributes: ["username", "email", "contactInfo"],
             through: {
               where: {
                 offer: true
@@ -389,7 +389,7 @@ exports.getTrade = async (req, res) => {
             {
               username: cultivar.users.username,
               email: cultivar.users.email,
-              //contactInfo: cultivar.users.contactInfo,
+              contactInfo: cultivar.users.contactInfo,
               offer: cultivar.users.users_cultivars.offer,
               want: cultivar.users.users_cultivars.want
             }
