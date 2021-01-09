@@ -33,7 +33,19 @@ exports.findAll = (req, res) => {
   const name = req.query.name;
   var condition = name ? { name: { [Op.like]: `%${name}` } } : null;
 
-  Cultivar.findAll({ where: condition, include: Category })
+  Cultivar.findAll({
+    order: [
+      [
+        {
+          model: Category
+        },
+        "name"
+      ],
+      ["name"]
+    ],
+    where: condition,
+    include: Category
+  })
     .then(data => {
       const cultivars = data.reduce((cultivars, cultivar) => {
         return [
