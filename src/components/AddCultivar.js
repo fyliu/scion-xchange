@@ -55,7 +55,12 @@ const AddCultivar = ({ onCultivarAdded }) => {
         setSubmitted(true);
       })
       .catch((e) => {
-        console.log(e);
+        const resMessage =
+          (e.response && e.response.data && e.response.data.message) ||
+          e.message ||
+          e.toString();
+
+        setMessage(resMessage);
       });
   };
 
