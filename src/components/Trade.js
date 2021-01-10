@@ -1,4 +1,3 @@
-import merge from "lodash/merge";
 import React, { useState } from "react";
 import { useAbortableEffect } from "../Utils";
 import UserService from "../services/user.service";
@@ -8,7 +7,6 @@ import TradeByCultivar from "./TradeByCultivar";
 const Trade = () => {
   const [cultivars, setCultivars] = useState([]);
   const [users, setUsers] = useState({});
-  const [message, setMessage] = useState("");
 
   useAbortableEffect((status) => {
     retrieveCultivars(status);
@@ -45,10 +43,6 @@ const Trade = () => {
 
   return (
     <div className="list row">
-      <div className="col-md-8 mb-3">
-        <p>{message}</p>
-      </div>
-
       <TradeByCultivar cultivars={cultivars} />
       <TradeByUser users={users} />
     </div>

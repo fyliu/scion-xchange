@@ -34,7 +34,7 @@ const TradeByUser = ({ users }) => {
         {currentUser ? (
           <div>
             <h4 className="title is-5">Availability</h4>
-            {currentUser[1].email != "" ? (
+            {currentUser[1].email !== "" ? (
               <div className="block">
                 <label className="has-text-weight-bold">Email:</label>
                 <p className="ml-3">{currentUser[1].email}</p>
@@ -42,7 +42,7 @@ const TradeByUser = ({ users }) => {
             ) : (
               ""
             )}
-            {currentUser[1].contactInfo != "" ? (
+            {currentUser[1].contactInfo !== "" ? (
               <div className="block">
                 <label className="has-text-weight-bold">Contact Info:</label>
                 <p className="ml-3">{currentUser[1].contactInfo}</p>
