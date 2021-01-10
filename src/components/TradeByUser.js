@@ -42,7 +42,7 @@ const TradeByUser = ({ users }) => {
             ) : (
               ""
             )}
-            {currentUser[1].contactInfo !== "" ? (
+            {currentUser[1].contactInfo && currentUser[1].contactInfo !== "" ? (
               <div className="block">
                 <label className="has-text-weight-bold">Contact Info:</label>
                 <p className="ml-3">{currentUser[1].contactInfo}</p>
