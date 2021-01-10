@@ -5,7 +5,7 @@ const sequelize = new Sequelize(
   process.env.DB_PASSWORD,
   {
     host: process.env.DB_HOST,
-    dialect: process.env.DB_DIALECT,
+    dialect: "postgres",
     dialectOptions: {
       ssl: {
         require: true,
@@ -14,10 +14,10 @@ const sequelize = new Sequelize(
     },
 
     pool: {
-      max: +process.env.DB_pool_max,
-      min: +process.env.DB_pool_min,
-      acquire: +process.env.DB_pool_acquire,
-      idle: +process.env.DB_pool_idle
+      max: 5,
+      min: 0,
+      acquire: 30000,
+      idle: 10000
     },
     define: {
       timestamps: false
