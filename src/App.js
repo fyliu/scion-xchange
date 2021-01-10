@@ -45,9 +45,15 @@ const App = () => {
     <div>
       <nav className="navbar" role="navigation" aria-label="main navigation">
         <div className="navbar-brand title is-3">
-          <Link to={"/"} className="navbar-item">
-            Scion Exchange
-          </Link>
+          <div
+            onClick={() => {
+              setActiveTab("Home");
+            }}
+          >
+            <Link to={"/"} className="navbar-item">
+              Scion Exchange
+            </Link>
+          </div>
           <a
             onClick={() => {
               setIsActive(!isActive);
