@@ -110,5 +110,49 @@
   {
     "id": 27,
     "name": "Atemoya"
+  },
+  {
+    "id": 29,
+    "name": "Dragon Fruit"
+  },
+  {
+    "id": 30,
+    "name": "Loquat"
+  },
+  {
+    "id": 31,
+    "name": "Sapodilla"
+  },
+  {
+    "id": 32,
+    "name": "Star Fruit"
+  },
+  {
+    "id": 33,
+    "name": "White Sapote"
+  },
+  {
+    "id": 35,
+    "name": "Passion Fruit"
+  },
+  {
+    "id": 36,
+    "name": "Wax Jambu"
+  },
+  {
+    "id": 37,
+    "name": "Longan"
+  },
+  {
+    "id": 38,
+    "name": "Lychee"
+  },
+  {
+    "id": 39,
+    "name": "Pineapple Guava"
+  },
+  {
+    "id": 34,
+    "name": "Macadamia"
   }
 ]
