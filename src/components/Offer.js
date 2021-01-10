@@ -126,7 +126,7 @@ const Offer = () => {
                       name={cultivar.id}
                       rows="1"
                       onChange={handleInputChange}
-                      placeholder="Description: Address, email, phone, dates to pickup"
+                      placeholder="Description: Flavor, size, color, growth habit..."
                       value={
                         offers[cultivar.id] &&
                         offers[cultivar.id].offerDescription
