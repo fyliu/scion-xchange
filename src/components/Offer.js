@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
+import { useAbortableEffect } from "../Utils";
 import CategoryDataService from "../services/category.service";
 import CultivarDataService from "../services/cultivar.service";
 import UserService from "../services/user.service";
@@ -10,37 +11,43 @@ const Offer = () => {
   const [offers, setOffers] = useState({});
   const [message, setMessage] = useState("");
 
-  useEffect(() => {
-    retrieveOffers();
-    retrieveCultivars();
-    retrieveCategories();
+  useAbortableEffect((status) => {
+    retrieveOffers(status);
+    retrieveCultivars(status);
+    retrieveCategories(status);
   }, []);
 
-  const retrieveCategories = () => {
+  const retrieveCategories = (status) => {
     CategoryDataService.getAll()
       .then((res) => {
-        setCategories(res.data);
+        if (!status.aborted) {
+          setCategories(res.data);
+        }
       })
       .catch((e) => {
         console.log(e);
       });
   };
 
-  const retrieveCultivars = () => {
+  const retrieveCultivars = (status) => {
     CultivarDataService.getAll()
       .then((res) => {
-        setCultivars(res.data);
-        //console.log(res.data);
+        if (!status.aborted) {
+          setCultivars(res.data);
+          //console.log(res.data);
+        }
       })
       .catch((e) => {
         console.log(e);
       });
   };
 
-  const retrieveOffers = () => {
+  const retrieveOffers = (status) => {
     UserService.getOffers()
       .then((res) => {
-        setOffers(res.data);
+        if (!status.aborted) {
+          setOffers(res.data);
+        }
       })
       .catch((e) => {
         console.log(e);
