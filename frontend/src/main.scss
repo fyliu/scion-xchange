@@ -1,0 +1,11 @@
+@import "~bulma/bulma";
+
+.navbar-brand {
+  @include until($desktop) {
+    flex-grow: 1;
+  }
+}
+
+.navbar {
+  align-items: flex-start;
+}
