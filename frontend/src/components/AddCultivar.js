@@ -22,7 +22,6 @@ const AddCultivar = ({ onCultivarAdded }) => {
     setIsLoadingCategory(true);
     CategoryDataService.getAll()
       .then((res) => {
-        console.log(res.data);
         setCategories(res.data);
         setIsLoadingCategory(false);
       })
