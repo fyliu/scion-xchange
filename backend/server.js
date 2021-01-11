@@ -1,6 +1,7 @@
 require("dotenv").config();
 const express = require("express");
 const bodyParser = require("body-parser");
+const enforce = require("express-sslify");
 //const cors = require("cors");
 const path = require("path");
 
@@ -16,6 +17,7 @@ const CLIENT_FILES = path.join(__dirname, "..", "frontend", "build");
 // Static file declaration for production mode
 if (process.env.NODE_ENV === "production") {
   app.use(express.static(CLIENT_FILES));
+  app.use(enforce.HTTPS({ trustProtoHeader: true }));
 }
 
 // parse requests of content-type - application/json
