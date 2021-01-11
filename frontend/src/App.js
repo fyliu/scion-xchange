@@ -199,7 +199,7 @@ const App = () => {
             ) : (
               <>
                 <div
-                  className={`navbar-item is-tab is-active ${
+                  className={`navbar-item is-tab ${
                     activeTab === "Login" ? "is-active" : ""
                   }`}
                   onClick={() => {
@@ -210,7 +210,7 @@ const App = () => {
                   <Link to={"/login"}>Login</Link>
                 </div>
                 <div
-                  className={`navbar-item is-tab is-active ${
+                  className={`navbar-item is-tab ${
                     activeTab === "Sign Up" ? "is-active" : ""
                   }`}
                   onClick={() => {
