@@ -17,8 +17,9 @@ const Home = () => {
         <li className="mb-5">
           <p>
             Go to <strong>OFFERS</strong> and check the cultivars for which you
-            have scion wood. Click <strong>Update</strong> to save your
-            selection.
+            have scion wood. Put in the number of scions you can offer in the{" "}
+            <strong>description</strong>. Click <strong>Update</strong> to save
+            your selection.
           </p>
           <p>
             <strong>Add</strong> any missing cultivars using the form at the
