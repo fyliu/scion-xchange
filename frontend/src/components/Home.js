@@ -7,6 +7,15 @@ const Home = () => {
       <ol>
         <li className="mb-5">
           <p>
+            <strong>Sign Up</strong> and <strong>Login</strong>. The email
+            address is not used currently.
+            <br />
+            Add any contact info or exchange instructions to your profile page
+            (click on your username at the top-right corner next to LogOut)
+          </p>
+        </li>
+        <li className="mb-5">
+          <p>
             Go to <strong>OFFERS</strong> and check the cultivars for which you
             have scion wood. Click <strong>Update</strong> to save your
             selection.
@@ -14,12 +23,6 @@ const Home = () => {
           <p>
             <strong>Add</strong> any missing cultivars using the form at the
             bottom.
-          </p>
-        </li>
-        <li className="mb-5">
-          <p>
-            Add any contact info or exchange instructions to your profile page
-            (top-right corner next to LogOut)
           </p>
         </li>
         <li className="mb-5">
