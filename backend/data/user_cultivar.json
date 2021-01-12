@@ -2,61 +2,22 @@
   {
     "userId": 1,
     "cultivarId": 1,
-    "offer": true
+    "offer": true,
+    "want": true
+  },
+  {
+    "userId": 2,
+    "cultivarId": 1,
+    "want": true
+  },
+  {
+    "userId": 3,
+    "cultivarId": 1,
+    "want": true
   },
   {
     "userId": 1,
     "cultivarId": 2,
-    "offer": true
-  },
-  {
-    "userId": 1,
-    "cultivarId": 3,
-    "offer": true
-  },
-  {
-    "userId": 1,
-    "cultivarId": 4,
-    "offer": true
-  },
-  {
-    "userId": 2,
-    "cultivarId": 3,
-    "offer": true
-  },
-  {
-    "userId": 2,
-    "cultivarId": 4,
-    "offer": true
-  },
-  {
-    "userId": 2,
-    "cultivarId": 5,
-    "offer": true
-  },
-  {
-    "userId": 2,
-    "cultivarId": 1,
-    "want": true
-  },
-  {
-    "userId": 2,
-    "cultivarId": 6,
-    "want": true
-  },
-  {
-    "userId": 1,
-    "cultivarId": 6,
-    "want": true
-  },
-  {
-    "userId": 3,
-    "cultivarId": 6,
-    "offer": true
-  },
-  {
-    "userId": 3,
-    "cultivarId": 1,
     "offer": true
   },
   {
@@ -65,18 +26,33 @@
     "want": true
   },
   {
+    "userId": 1,
+    "cultivarId": 3,
+    "offer": true
+  },
+  {
+    "userId": 2,
+    "cultivarId": 3,
+    "offer": true
+  },
+  {
     "userId": 3,
     "cultivarId": 3,
     "want": true
   },
   {
-    "userId": 3,
+    "userId": 1,
     "cultivarId": 4,
-    "want": true
+    "offer": true
+  },
+  {
+    "userId": 2,
+    "cultivarId": 4,
+    "offer": true
   },
   {
     "userId": 3,
-    "cultivarId": 5,
+    "cultivarId": 4,
     "want": true
   },
   {
@@ -103,5 +79,32 @@
     "userId": 8,
     "cultivarId": 4,
     "offer": true
+  },
+  {
+    "userId": 2,
+    "cultivarId": 5,
+    "offer": true,
+    "want": true
+  },
+  {
+    "userId": 3,
+    "cultivarId": 5,
+    "want": true
+  },
+  {
+    "userId": 1,
+    "cultivarId": 6,
+    "want": true
+  },
+  {
+    "userId": 2,
+    "cultivarId": 6,
+    "offer": true
+  },
+  {
+    "userId": 3,
+    "cultivarId": 6,
+    "offer": true,
+    "want": true
   }
 ]
