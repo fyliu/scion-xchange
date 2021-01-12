@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useAbortableEffect } from "../Utils";
 import CultivarDataService from "../services/cultivar.service";
 import CategoryDataService from "../services/category.service";
 
@@ -14,16 +15,18 @@ const AddCultivar = ({ onCultivarAdded }) => {
   const [categories, setCategories] = useState([]);
   const [submitted, setSubmitted] = useState(false);
 
-  useEffect(() => {
-    retrieveCategories();
+  useAbortableEffect((status) => {
+    retrieveCategories(status);
   }, []);
 
-  const retrieveCategories = () => {
+  const retrieveCategories = (status) => {
     setIsLoadingCategory(true);
     CategoryDataService.getAll()
       .then((res) => {
-        setCategories(res.data);
-        setIsLoadingCategory(false);
+        if (!status.aborted) {
+          setCategories(res.data);
+          setIsLoadingCategory(false);
+        }
       })
       .catch((e) => {
         console.log(e);
