@@ -54,10 +54,11 @@ const Want = () => {
   };
 
   const handleInputChange = (e) => {
-    const id = e.target.value;
+    const name = e.target.id;
+    const id = e.target.name;
     const value = e.target.checked;
 
-    setWants({ ...wants, [id]: value });
+    setWants({ ...wants, [id]: { ...wants[id], want: value } });
   };
 
   const updateWant = () => {
@@ -98,8 +99,12 @@ const Want = () => {
                 <label key={cultivar.id}>
                   <input
                     type="checkbox"
+                    id={cultivar.id}
+                    name={cultivar.id}
                     value={cultivar.id}
-                    checked={wants[cultivar.id] || false}
+                    checked={
+                      (wants[cultivar.id] && wants[cultivar.id].want) || false
+                    }
                     onChange={handleInputChange}
                   />
                   {cultivar.category + " - " + cultivar.name}
