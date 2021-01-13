@@ -76,8 +76,14 @@ const AddCultivar = ({ onCultivarAdded }) => {
     return "";
   };
 
+  const handleFormSubmit = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    saveCultivar();
+  };
+
   return (
-    <div>
+    <form onSubmit={handleFormSubmit} action="#">
       {submitted ? (
         <div>
           <p>{message}</p>
@@ -131,7 +137,7 @@ const AddCultivar = ({ onCultivarAdded }) => {
           </div>
         </div>
       </div>
-    </div>
+    </form>
   );
 };
 
