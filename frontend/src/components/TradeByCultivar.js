@@ -75,7 +75,7 @@ const TradeByCultivar = ({ cultivars }) => {
     <>
       <div className="col-md-6 mb-6">
         <div className="block">
-          <span className="title is-4">Cultivars I</span>
+          <span className="title is-4">Cultivars I...</span>
           <p className="control">
             <span className="select">
               <select
