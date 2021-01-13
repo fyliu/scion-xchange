@@ -24,6 +24,12 @@ const AddCultivar = ({ onCultivarAdded }) => {
     CategoryDataService.getAll()
       .then((res) => {
         if (!status.aborted) {
+          res.data.forEach((category, index) => {
+            if (category.name === "Other") {
+              const other = res.data.splice(index, 1);
+              res.data.push(...other);
+            }
+          });
           setCategories(res.data);
           setIsLoadingCategory(false);
         }
