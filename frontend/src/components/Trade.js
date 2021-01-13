@@ -23,6 +23,7 @@ const Trade = () => {
               if (!(user.username in users)) {
                 users[user.username] = {
                   email: user.email,
+                  contactInfo: user.contactInfo,
                   cultivars: new Set()
                 };
               }
