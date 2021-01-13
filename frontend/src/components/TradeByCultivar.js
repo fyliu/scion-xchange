@@ -71,6 +71,18 @@ const TradeByCultivar = ({ cultivars }) => {
     });
   };
 
+  const usersWant = (cultivar) => {
+    return cultivar.users.reduce((count, user) => {
+      return count + (user.want === true ? 1 : 0);
+    }, 0);
+  };
+
+  const usersOffer = (cultivar) => {
+    return cultivar.users.reduce((count, user) => {
+      return count + (user.offer === true ? 1 : 0);
+    }, 0);
+  };
+
   return (
     <>
       <div className="col-md-6 mb-6">
@@ -108,8 +120,19 @@ const TradeByCultivar = ({ cultivars }) => {
                   }
                   onClick={() => setActiveCultivar(cultivar, index)}
                   key={index}
+                  style={{ display: "relative" }}
                 >
                   {cultivar.category} - {cultivar.name}
+                  &nbsp;
+                  {filter === "want" ? (
+                    <span className="badge badge-pill badge-success">
+                      {usersOffer(cultivar)} offers
+                    </span>
+                  ) : (
+                    <span className="badge badge-pill badge-info">
+                      {usersWant(cultivar)} wants
+                    </span>
+                  )}
                 </li>
               ) : (
                 ""

@@ -31,6 +31,18 @@ const TradeByUser = ({ users }) => {
     setCurrentIndex(index);
   };
 
+  const cultivarsOffered = (user) => {
+    return Array.from(user[1].cultivars).reduce((count, cultivar) => {
+      return count + (cultivar.offer === true ? 1 : 0);
+    }, 0);
+  };
+
+  const cultivarsWanted = (user) => {
+    return Array.from(user[1].cultivars).reduce((count, cultivar) => {
+      return count + (cultivar.want === true ? 1 : 0);
+    }, 0);
+  };
+
   return (
     <>
       <div className="col-md-6 mb-6">
@@ -46,6 +58,13 @@ const TradeByUser = ({ users }) => {
                 key={index}
               >
                 {user[0]}
+                &nbsp;
+                <span className="badge badge-pill badge-success">
+                  {cultivarsOffered(user)} offers
+                </span>
+                <span className="badge badge-pill badge-info">
+                  {cultivarsWanted(user)} wants
+                </span>
               </li>
             ))}
         </ul>
