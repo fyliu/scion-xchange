@@ -49,7 +49,7 @@ const TradeByUser = ({ users }) => {
         <h4 className="title is-4">Who can I trade with</h4>
         <ul className="list-group">
           {users &&
-            Object.entries(users).map((user, index) => (
+            users.map((user, index) => (
               <li
                 className={
                   "list-group-item " + (index === currentIndex ? "active" : "")

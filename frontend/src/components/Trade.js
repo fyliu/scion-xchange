@@ -6,16 +6,40 @@ import TradeByCultivar from "./TradeByCultivar";
 
 const Trade = () => {
   const [cultivars, setCultivars] = useState([]);
-  const [users, setUsers] = useState({});
+  const [users, setUsers] = useState([]);
 
   useAbortableEffect((status) => {
     retrieveCultivars(status);
   }, []);
 
+  const compareCultivar = (a, b) => {
+    const nameA = a.category + a.name;
+    const nameB = b.category + b.name;
+    return nameA > nameB ? 1 : nameA < nameB ? -1 : 0;
+  };
+
+  const categoryOther = (cultivar) => {
+    return cultivar.category === "Other";
+  };
+
+  const findLastIndex = (array, compareFn) => {
+    const index = array.slice().reverse().findIndex(compareFn);
+    const count = array.length - 1;
+    return index >= 0 ? count - index : index;
+  };
+
+  const moveOtherToEnd = (cultivars) => {
+    const first = cultivars.findIndex(categoryOther);
+    const last = findLastIndex(cultivars, categoryOther);
+    cultivars.push(...cultivars.splice(first, last - first + 1));
+  };
+
   const retrieveCultivars = (status) => {
     UserService.getTrade()
       .then((res) => {
         if (!status.aborted) {
+          res.data.sort(compareCultivar);
+          moveOtherToEnd(res.data);
           setCultivars(res.data);
           let users = {};
           res.data.forEach((cultivar) => {
@@ -34,7 +58,11 @@ const Trade = () => {
               });
             });
           });
-          setUsers(users);
+          let usersArray = Object.entries(users);
+          usersArray.sort((a, b) => {
+            return ("" + a[0]).localeCompare(b[0]);
+          });
+          setUsers(usersArray);
         }
       })
       .catch((e) => {
