@@ -1,17 +1,18 @@
+const { authJwt } = require("../middleware");
 const categories = require("../controllers/category.controller");
 
 module.exports = function (app) {
   var router = require("express").Router();
 
-  router.post("/", categories.create);
+  router.post("/", [authJwt.verifyToken], categories.create);
 
-  router.get("/", categories.findAll);
+  router.get("/", [authJwt.verifyToken], categories.findAll);
 
-  router.get("/:id", categories.findOne);
+  router.get("/:id", [authJwt.verifyToken], categories.findOne);
 
-  router.put("/:id", categories.update);
+  router.put("/:id", [authJwt.verifyToken], categories.update);
 
-  router.delete("/:id", categories.delete);
+  router.delete("/:id", [authJwt.verifyToken], categories.delete);
 
   app.use("/api/categories", router);
 };
