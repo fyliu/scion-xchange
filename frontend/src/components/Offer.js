@@ -29,10 +29,27 @@ const Offer = () => {
       });
   };
 
+  const categoryOther = (cultivar) => {
+    return cultivar.category === "Other";
+  };
+
+  const findLastIndex = (array, compareFn) => {
+    const index = array.slice().reverse().findIndex(compareFn);
+    const count = array.length - 1;
+    return index >= 0 ? count - index : index;
+  };
+
+  const moveOtherToEnd = (cultivars) => {
+    const first = cultivars.findIndex(categoryOther);
+    const last = findLastIndex(cultivars, categoryOther);
+    cultivars.push(...cultivars.splice(first, last - first + 1));
+  };
+
   const retrieveCultivars = (status) => {
     CultivarDataService.getAll()
       .then((res) => {
         if (!status.aborted) {
+          moveOtherToEnd(res.data);
           setCultivars(res.data);
           //console.log(res.data);
         }
