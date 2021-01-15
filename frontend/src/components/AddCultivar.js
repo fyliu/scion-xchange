@@ -137,7 +137,7 @@ const AddCultivar = ({ onCultivarAdded }) => {
                 onClick={saveCultivar}
                 className="btn btn-success col align-self-center"
               >
-                Submit
+                Add
               </button>
             </p>
           </div>
