@@ -58,7 +58,7 @@ const AddCultivar = ({ onCultivarAdded }) => {
         setMessage(
           `You submitted successfully (${getCategoryName(
             formInputs.categoryId
-          )} ${formInputs.name})!`
+          )} - ${formInputs.name})!`
         );
         setFormInputs({ ...formInputs, name: "" });
         setSubmitted(true);
@@ -74,12 +74,10 @@ const AddCultivar = ({ onCultivarAdded }) => {
   };
 
   const getCategoryName = (categoryId) => {
-    for (let category of categories) {
-      if (category.id === categoryId) {
-        return category.name;
-      }
-    }
-    return "";
+    const category = categories.find((category) => {
+      return category.id === +categoryId;
+    });
+    return category.name;
   };
 
   const handleFormSubmit = (e) => {
@@ -133,10 +131,7 @@ const AddCultivar = ({ onCultivarAdded }) => {
               />
             </p>
             <p className="control">
-              <button
-                onClick={saveCultivar}
-                className="btn btn-success col align-self-center"
-              >
+              <button className="btn btn-success col align-self-center">
                 Add
               </button>
             </p>
