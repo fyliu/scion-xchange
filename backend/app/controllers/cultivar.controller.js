@@ -1,6 +1,8 @@
 const { category } = require("../models");
 const db = require("../models");
 const Cultivar = db.cultivar;
+const UserCultivar = db.user_cultivar;
+const User = db.user;
 const Category = db.category;
 const Op = db.Sequelize.Op;
 
@@ -44,7 +46,7 @@ exports.findAll = (req, res) => {
       ["name"]
     ],
     where: condition,
-    include: Category
+    include: [{ model: Category }, { model: UserCultivar, include: User }]
   })
     .then(data => {
       const cultivars = data.reduce((cultivars, cultivar) => {
@@ -53,7 +55,19 @@ exports.findAll = (req, res) => {
           {
             id: cultivar.id,
             name: cultivar.name,
-            category: cultivar.category.name
+            category: cultivar.category.name,
+            descriptions: cultivar.users_cultivars.reduce(
+              (descriptions, association) => {
+                return [
+                  ...descriptions,
+                  {
+                    username: association.user.username,
+                    description: association.offerDescription
+                  }
+                ];
+              },
+              []
+            )
           }
         ];
       }, []);

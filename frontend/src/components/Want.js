@@ -105,40 +105,63 @@ const Want = () => {
   };
 
   return (
-    <div className="list row">
-      <div className="col-md-8">
-        <div className="container mb-5">
-          <h4 className="title is-4">What I want...</h4>
+    <>
+      <div className="container mb-5">
+        <h4 className="title is-4">What I want...</h4>
 
-          <div className="is-flex is-flex-direction-column">
+        <table className="table is-striped is-narrow is-fullwidth is-hoverable">
+          <thead>
+            <tr>
+              <th>Cultivar</th>
+              <th>Description</th>
+            </tr>
+          </thead>
+          <tbody>
             {cultivars &&
               cultivars.map((cultivar) => (
-                <label key={cultivar.id}>
-                  <input
-                    type="checkbox"
-                    id={cultivar.id}
-                    name={cultivar.id}
-                    value={cultivar.id}
-                    checked={
-                      (wants[cultivar.id] && wants[cultivar.id].want) || false
-                    }
-                    onChange={handleInputChange}
-                  />
-                  {cultivar.category + " - " + cultivar.name}
-                </label>
+                <tr key={cultivar.id}>
+                  <td>
+                    <label>
+                      <input
+                        type="checkbox"
+                        id={cultivar.id}
+                        name={cultivar.id}
+                        value={cultivar.id}
+                        checked={
+                          (wants[cultivar.id] && wants[cultivar.id].want) ||
+                          false
+                        }
+                        onChange={handleInputChange}
+                      />
+                      {cultivar.category + " - " + cultivar.name}
+                    </label>
+                  </td>
+                  <td>
+                    {cultivar.descriptions.map((description) => {
+                      return description.description !== "" ? (
+                        <p>
+                          <strong>{description.username}</strong> :{" "}
+                          {description.description}
+                        </p>
+                      ) : (
+                        ""
+                      );
+                    })}
+                  </td>
+                </tr>
               ))}
-          </div>
-          <button type="submit" onClick={() => updateWant()}>
-            Update
-          </button>
-          <p>{message}</p>
-        </div>
-        <div className="container">
-          <label className="has-text-weight-bold">Add Cultivar</label>
-          <AddCultivar onCultivarAdded={handleCultivarAdded} />
-        </div>
+          </tbody>
+        </table>
+        <button type="submit" onClick={() => updateWant()}>
+          Update
+        </button>
+        <p>{message}</p>
       </div>
-    </div>
+      <div className="container">
+        <label className="has-text-weight-bold">Add Cultivar</label>
+        <AddCultivar onCultivarAdded={handleCultivarAdded} />
+      </div>
+    </>
   );
 };
 
