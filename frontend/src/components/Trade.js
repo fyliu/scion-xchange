@@ -9,7 +9,7 @@ const Trade = () => {
   const [users, setUsers] = useState([]);
 
   useAbortableEffect((status) => {
-    retrieveCultivars(status);
+    retrieveTrades(status);
   }, []);
 
   const compareCultivar = (a, b) => {
@@ -34,7 +34,7 @@ const Trade = () => {
     cultivars.push(...cultivars.splice(first, last - first + 1));
   };
 
-  const retrieveCultivars = (status) => {
+  const retrieveTrades = (status) => {
     UserService.getTrade()
       .then((res) => {
         if (!status.aborted) {
