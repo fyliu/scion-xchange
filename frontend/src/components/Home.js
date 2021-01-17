@@ -7,11 +7,13 @@ const Home = () => {
       <ol>
         <li className="mb-5">
           <p>
-            <strong>Sign Up</strong> and <strong>Login</strong>. The email
-            address is not used currently.
+            <strong>Sign Up</strong> and <strong>Login</strong>. Spaces are okay
+            in the user name, for example "Luther Burbank". The email address is
+            not used by the app, but allows others to contact you if needed.
             <br />
-            Add any contact info or exchange instructions to your profile page
-            (click on your username at the top-right corner next to LogOut)
+            Add any contact info or exchange instructions to your{" "}
+            <strong>profile</strong> page (click on your username at the
+            top-right corner next to LogOut)
           </p>
         </li>
         <li className="mb-5">
@@ -69,12 +71,15 @@ const Home = () => {
           This is running on a free account and it can take several seconds to
           load if the tool has been inactive for some time.
         </li>
-        <li>There is no way to reset the password.</li>
+        <li>
+          There is no way to change the username/email
+          address/password/cultivars added
+        </li>
         <li>The email address is not verified.</li>
         <li>
-          It doesn't log you out when the login session expires (in 24 hours).
-          You will need to logout and log back in if you don't see any data for
-          a while
+          If you see the page taking a long time or not loading any data, just
+          logout and log back in. It doesn't log you out when the login session
+          expires (in 24 hours) but it does restrict you from viewing anything.
         </li>
       </ol>
     </div>
