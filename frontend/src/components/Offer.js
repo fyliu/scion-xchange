@@ -126,56 +126,59 @@ const Offer = () => {
           {cultivars &&
             cultivars.map((cultivar) => (
               <React.Fragment key={cultivar.id}>
-                <label className="checkbox">
-                  <input
-                    type="checkbox"
-                    id={cultivar.id}
-                    name={cultivar.id}
-                    value={cultivar.id}
-                    checked={
-                      (offers[cultivar.id] && offers[cultivar.id].offer) ||
-                      false
-                    }
-                    onChange={handleInputChange}
-                  />
-                  {cultivar.category + " - " + cultivar.name}
-                </label>
+                <div className="field is-grouped">
+                  <p className="control">
+                    <input
+                      type="checkbox"
+                      id={cultivar.id}
+                      name={cultivar.id}
+                      value={cultivar.id}
+                      checked={
+                        (offers[cultivar.id] && offers[cultivar.id].offer) ||
+                        false
+                      }
+                      onChange={handleInputChange}
+                    />
+                    <label className="checkbox">
+                      {cultivar.category + " - " + cultivar.name}
+                    </label>
+                  </p>
+                  {offers[cultivar.id] && offers[cultivar.id].offer ? (
+                    <p className="control">
+                      <input
+                        type="text"
+                        id="offerQuantity"
+                        name={cultivar.id}
+                        onChange={handleInputChange}
+                        placeholder="Quantity"
+                        value={
+                          (offers[cultivar.id] &&
+                            offers[cultivar.id].offerQuantity) ||
+                          ""
+                        }
+                      ></input>
+                    </p>
+                  ) : (
+                    ""
+                  )}
+                </div>
                 {offers[cultivar.id] && offers[cultivar.id].offer ? (
-                  <>
-                    <div className="field is-grouped">
-                      <label className="label">Quantity</label>
-                      <p className="control">
-                        <input
-                          type="text"
-                          id="offerQuantity"
-                          name={cultivar.id}
-                          onChange={handleInputChange}
-                          placeholder="Quantity"
-                          value={
-                            offers[cultivar.id] &&
-                            offers[cultivar.id].offerQuantity
-                          }
-                        ></input>
-                      </p>
-                    </div>
-                    <div className="field is-grouped">
-                      <label className="label">Description</label>
-                      <p class="control is-expanded">
-                        <textarea
-                          className="textarea"
-                          id="offerDescription"
-                          name={cultivar.id}
-                          rows="1"
-                          onChange={handleInputChange}
-                          placeholder="Description: Flavor, size, color, growth habit..."
-                          value={
-                            offers[cultivar.id] &&
-                            offers[cultivar.id].offerDescription
-                          }
-                        />
-                      </p>
-                    </div>
-                  </>
+                  <div className="field">
+                    <p className="control is-expanded">
+                      <textarea
+                        className="textarea"
+                        id="offerDescription"
+                        name={cultivar.id}
+                        rows="1"
+                        onChange={handleInputChange}
+                        placeholder="Description: Flavor, size, color, growth habit..."
+                        value={
+                          offers[cultivar.id] &&
+                          offers[cultivar.id].offerDescription
+                        }
+                      />
+                    </p>
+                  </div>
                 ) : (
                   ""
                 )}
