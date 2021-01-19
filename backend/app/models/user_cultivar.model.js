@@ -20,6 +20,10 @@ module.exports = (sequelize, Sequelize) => {
       type: Sequelize.TEXT,
       allowNull: true,
       defaultValue: ""
+    },
+    offerQuantity: {
+      type: Sequelize.INTEGER,
+      defaultValue: 10
     }
   });
 

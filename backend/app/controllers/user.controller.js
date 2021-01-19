@@ -87,6 +87,7 @@ exports.getOffers = async (req, res) => {
         const offer = {
           [cultivar.id]: {
             offer: cultivar.users_cultivars.offer,
+            offerQuantity: cultivar.users_cultivars.offerQuantity,
             offerDescription: cultivar.users_cultivars.offerDescription
           }
         };
@@ -95,9 +96,10 @@ exports.getOffers = async (req, res) => {
       res.send(offers);
     })
     .catch(err => {
-      //res.status(500).send({
-      //  message: err.message || "Some error occurred while retrieving cultivars."
-      //});
+      res.status(500).send({
+        message:
+          err.message || "Some error occurred while retrieving cultivars."
+      });
     });
 };
 
@@ -109,7 +111,8 @@ exports.updateOffers = async (req, res) => {
       userId: req.userId,
       cultivarId: +cultivarId,
       offer: data.offer,
-      offerDescription: data.offerDescription
+      offerDescription: data.offerDescription,
+      offerQuantity: data.offerQuantity
     });
   }
 

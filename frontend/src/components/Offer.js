@@ -81,6 +81,11 @@ const Offer = () => {
         ...offers,
         [id]: { ...offers[id], offerDescription: value }
       });
+    } else if (name === "offerQuantity") {
+      setOffers({
+        ...offers,
+        [id]: { ...offers[id], offerQuantity: value }
+      });
     } else {
       setOffers({ ...offers, [id]: { ...offers[id], offer: value } });
     }
@@ -113,59 +118,80 @@ const Offer = () => {
   };
 
   return (
-    <div className="list row">
-      <div className="col-md-8">
-        <div className="container mb-5">
-          <h4 className="title is-4">What I can offer...</h4>
+    <>
+      <div className="container mb-5">
+        <h4 className="title is-4">What I can offer...</h4>
 
-          <div className="is-flex is-flex-direction-column">
-            {cultivars &&
-              cultivars.map((cultivar) => (
-                <React.Fragment key={cultivar.id}>
-                  <label className="checkbox">
-                    <input
-                      type="checkbox"
-                      id={cultivar.id}
-                      name={cultivar.id}
-                      value={cultivar.id}
-                      checked={
-                        (offers[cultivar.id] && offers[cultivar.id].offer) ||
-                        false
-                      }
-                      onChange={handleInputChange}
-                    />
-                    {cultivar.category + " - " + cultivar.name}
-                  </label>
-                  {offers[cultivar.id] && offers[cultivar.id].offer ? (
-                    <textarea
-                      className="textarea"
-                      id="offerDescription"
-                      name={cultivar.id}
-                      rows="1"
-                      onChange={handleInputChange}
-                      placeholder="Description: Flavor, size, color, growth habit..."
-                      value={
-                        offers[cultivar.id] &&
-                        offers[cultivar.id].offerDescription
-                      }
-                    />
-                  ) : (
-                    ""
-                  )}
-                </React.Fragment>
-              ))}
-          </div>
-          <button type="submit" onClick={() => updateOffer()}>
-            Update
-          </button>
-          <p>{message}</p>
+        <div className="is-flex is-flex-direction-column">
+          {cultivars &&
+            cultivars.map((cultivar) => (
+              <React.Fragment key={cultivar.id}>
+                <label className="checkbox">
+                  <input
+                    type="checkbox"
+                    id={cultivar.id}
+                    name={cultivar.id}
+                    value={cultivar.id}
+                    checked={
+                      (offers[cultivar.id] && offers[cultivar.id].offer) ||
+                      false
+                    }
+                    onChange={handleInputChange}
+                  />
+                  {cultivar.category + " - " + cultivar.name}
+                </label>
+                {offers[cultivar.id] && offers[cultivar.id].offer ? (
+                  <>
+                    <div className="field is-grouped">
+                      <label className="label">Quantity</label>
+                      <p className="control">
+                        <input
+                          type="text"
+                          id="offerQuantity"
+                          name={cultivar.id}
+                          onChange={handleInputChange}
+                          placeholder="Quantity"
+                          value={
+                            offers[cultivar.id] &&
+                            offers[cultivar.id].offerQuantity
+                          }
+                        ></input>
+                      </p>
+                    </div>
+                    <div className="field is-grouped">
+                      <label className="label">Description</label>
+                      <p class="control is-expanded">
+                        <textarea
+                          className="textarea"
+                          id="offerDescription"
+                          name={cultivar.id}
+                          rows="1"
+                          onChange={handleInputChange}
+                          placeholder="Description: Flavor, size, color, growth habit..."
+                          value={
+                            offers[cultivar.id] &&
+                            offers[cultivar.id].offerDescription
+                          }
+                        />
+                      </p>
+                    </div>
+                  </>
+                ) : (
+                  ""
+                )}
+              </React.Fragment>
+            ))}
         </div>
-        <div className="container">
-          <label className="has-text-weight-bold">Add Cultivar</label>
-          <AddCultivar onCultivarAdded={handleCultivarAdded} />
-        </div>
+        <button type="submit" onClick={() => updateOffer()}>
+          Update
+        </button>
+        <p>{message}</p>
       </div>
-    </div>
+      <div className="container">
+        <label className="has-text-weight-bold">Add Cultivar</label>
+        <AddCultivar onCultivarAdded={handleCultivarAdded} />
+      </div>
+    </>
   );
 };
 export default Offer;
