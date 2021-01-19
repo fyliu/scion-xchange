@@ -104,6 +104,10 @@ const Want = () => {
     ]);
   };
 
+  const formatQuantity = (units, value) => {
+    return value > 1 ? units[1] : units[0];
+  };
+
   const quantityOffered = (cultivar) => {
     const quantity = cultivar.offers.reduce(
       (totals, offer) => {
@@ -117,12 +121,20 @@ const Want = () => {
     return quantity.offered > 0 && quantity.offers > 0 ? (
       <label>
         <span className="tag">
-          {quantity.offered} available from {quantity.offers} people
+          {quantity.offered} available from{" "}
+          {quantity.offers +
+            " " +
+            formatQuantity(["person", "people"], quantity.offers)}
         </span>
       </label>
     ) : quantity.offers > 0 ? (
       <label>
-        <span className="tag">offered by {quantity.offers} people</span>
+        <span className="tag">
+          offered by{" "}
+          {quantity.offers +
+            " " +
+            formatQuantity(["person", "people"], quantity.offers)}
+        </span>
       </label>
     ) : null;
   };
