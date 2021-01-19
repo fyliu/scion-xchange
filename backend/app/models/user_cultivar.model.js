@@ -23,7 +23,7 @@ module.exports = (sequelize, Sequelize) => {
     },
     offerQuantity: {
       type: Sequelize.INTEGER,
-      defaultValue: 10
+      allowNull: true
     }
   });
 
