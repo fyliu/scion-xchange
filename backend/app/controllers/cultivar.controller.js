@@ -56,18 +56,16 @@ exports.findAll = (req, res) => {
             id: cultivar.id,
             name: cultivar.name,
             category: cultivar.category.name,
-            descriptions: cultivar.users_cultivars.reduce(
-              (descriptions, association) => {
-                return [
-                  ...descriptions,
-                  {
-                    username: association.user.username,
-                    description: association.offerDescription
-                  }
-                ];
-              },
-              []
-            )
+            offers: cultivar.users_cultivars.reduce((offers, offer) => {
+              return [
+                ...offers,
+                {
+                  username: offer.user.username,
+                  offerQuantity: offer.offerQuantity,
+                  description: offer.offerDescription
+                }
+              ];
+            }, [])
           }
         ];
       }, []);
