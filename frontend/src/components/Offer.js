@@ -122,69 +122,85 @@ const Offer = () => {
       <div className="container mb-5">
         <h4 className="title is-4">What I can offer...</h4>
 
-        <div className="is-flex is-flex-direction-column">
-          {cultivars &&
-            cultivars.map((cultivar) => (
-              <React.Fragment key={cultivar.id}>
-                <div className="field is-grouped">
-                  <p className="control">
-                    <input
-                      type="checkbox"
-                      id={cultivar.id}
-                      name={cultivar.id}
-                      value={cultivar.id}
-                      checked={
-                        (offers[cultivar.id] && offers[cultivar.id].offer) ||
-                        false
-                      }
-                      onChange={handleInputChange}
-                    />
-                    <label className="checkbox">
-                      {cultivar.category + " - " + cultivar.name}
-                    </label>
-                  </p>
-                  {offers[cultivar.id] && offers[cultivar.id].offer ? (
-                    <p className="control">
-                      <input
-                        type="text"
-                        id="offerQuantity"
-                        name={cultivar.id}
-                        onChange={handleInputChange}
-                        placeholder="Quantity"
-                        value={
-                          (offers[cultivar.id] &&
-                            offers[cultivar.id].offerQuantity) ||
-                          ""
-                        }
-                      ></input>
-                    </p>
-                  ) : (
-                    ""
-                  )}
-                </div>
-                {offers[cultivar.id] && offers[cultivar.id].offer ? (
-                  <div className="field">
-                    <p className="control is-expanded">
-                      <textarea
-                        className="textarea"
-                        id="offerDescription"
-                        name={cultivar.id}
-                        rows="1"
-                        onChange={handleInputChange}
-                        placeholder="Description: Flavor, size, color, growth habit..."
-                        value={
-                          offers[cultivar.id] &&
-                          offers[cultivar.id].offerDescription
-                        }
-                      />
-                    </p>
-                  </div>
-                ) : (
-                  ""
-                )}
-              </React.Fragment>
-            ))}
-        </div>
+        <table className="table is-striped is-narrow is-fullwidth is-hoverable">
+          <thead>
+            <tr>
+              <th>Cultivar</th>
+              <th>Quantity</th>
+              <th>Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            {cultivars &&
+              cultivars.map((cultivar) => (
+                <tr key={cultivar.id}>
+                  <td>
+                    <div className="field is-grouped">
+                      <p className="control">
+                        <input
+                          type="checkbox"
+                          id={cultivar.id}
+                          name={cultivar.id}
+                          value={cultivar.id}
+                          checked={
+                            (offers[cultivar.id] &&
+                              offers[cultivar.id].offer) ||
+                            false
+                          }
+                          onChange={handleInputChange}
+                        />
+                        <label className="checkbox">
+                          {cultivar.category + " - " + cultivar.name}
+                        </label>
+                      </p>
+                    </div>
+                  </td>
+                  <td>
+                    {offers[cultivar.id] && offers[cultivar.id].offer ? (
+                      <p className="control">
+                        <input
+                          type="text"
+                          id="offerQuantity"
+                          name={cultivar.id}
+                          onChange={handleInputChange}
+                          placeholder="Quantity"
+                          value={
+                            (offers[cultivar.id] &&
+                              offers[cultivar.id].offerQuantity) ||
+                            ""
+                          }
+                        ></input>
+                      </p>
+                    ) : (
+                      ""
+                    )}
+                  </td>
+                  <td>
+                    {offers[cultivar.id] && offers[cultivar.id].offer ? (
+                      <div className="field">
+                        <p className="control is-expanded">
+                          <textarea
+                            className="textarea"
+                            id="offerDescription"
+                            name={cultivar.id}
+                            rows="1"
+                            onChange={handleInputChange}
+                            placeholder="Description: Flavor, size, color, growth habit..."
+                            value={
+                              offers[cultivar.id] &&
+                              offers[cultivar.id].offerDescription
+                            }
+                          />
+                        </p>
+                      </div>
+                    ) : (
+                      ""
+                    )}
+                  </td>
+                </tr>
+              ))}
+          </tbody>
+        </table>
         <button type="submit" onClick={() => updateOffer()}>
           Update
         </button>
