@@ -85,92 +85,105 @@ const TradeByCultivar = ({ cultivars }) => {
 
   return (
     <>
-      <div className="col-md-6 mb-6">
-        <div className="block">
-          <span className="title is-4">Cultivars I...</span>
-          <p className="control">
-            <span className="select">
-              <select
-                className="form-control"
-                id="category"
-                onChange={handleInputChange}
-                name="categoryId"
-                value={filter}
-              >
-                <option value="want">want</option>
-                <option value="offer">offer</option>
-                ))
-              </select>
-            </span>
-          </p>
-        </div>
-        <ul className="list-group">
-          {cultivars &&
-            cultivars.map((cultivar, index) => {
-              return (isWantedByUser(cultivar) &&
-                inMyOffer(cultivar) &&
-                filter === "offer") ||
-                (isOfferedByUser(cultivar) &&
-                  inMyWant(cultivar) &&
-                  filter === "want") ? (
-                <li
-                  className={
-                    "list-group-item " +
-                    (index === currentIndex ? "active" : "")
-                  }
-                  onClick={() => setActiveCultivar(cultivar, index)}
-                  key={index}
-                  style={{ display: "relative" }}
+      <div className="columns">
+        <div className="column">
+          <div className="block">
+            <span className="title is-4">Cultivars I...</span>
+            <p className="control">
+              <span className="select">
+                <select
+                  className="form-control"
+                  id="category"
+                  onChange={handleInputChange}
+                  name="categoryId"
+                  value={filter}
                 >
-                  {cultivar.category} - {cultivar.name}
-                  &nbsp;
-                  {filter === "want" ? (
-                    <span className="badge badge-pill badge-success">
-                      {usersOffer(cultivar)} offers
-                    </span>
+                  <option value="want">want</option>
+                  <option value="offer">offer</option>
+                  ))
+                </select>
+              </span>
+            </p>
+          </div>
+          <table className="table is-striped is-narrow is-fullwidth is-hoverable">
+            <thead>
+              <tr>
+                <th>Cultivars</th>
+              </tr>
+            </thead>
+            <tbody>
+              {cultivars &&
+                cultivars.map((cultivar, index) => {
+                  return (isWantedByUser(cultivar) &&
+                    inMyOffer(cultivar) &&
+                    filter === "offer") ||
+                    (isOfferedByUser(cultivar) &&
+                      inMyWant(cultivar) &&
+                      filter === "want") ? (
+                    <tr>
+                      <td
+                        className={
+                          "list-group-item " +
+                          (index === currentIndex ? "active" : "")
+                        }
+                        onClick={() => setActiveCultivar(cultivar, index)}
+                        key={index}
+                        style={{ display: "relative" }}
+                      >
+                        {cultivar.category} - {cultivar.name}
+                        &nbsp;
+                        {filter === "want" ? (
+                          <span className="tag is-rounded is-success">
+                            {usersOffer(cultivar)} offers
+                          </span>
+                        ) : (
+                          <span className="tag is-rounded is-info">
+                            {usersWant(cultivar)} wants
+                          </span>
+                        )}
+                      </td>
+                    </tr>
                   ) : (
-                    <span className="badge badge-pill badge-info">
-                      {usersWant(cultivar)} wants
-                    </span>
-                  )}
-                </li>
-              ) : (
-                ""
-              );
-            })}
-        </ul>
-      </div>
-      <div className="col-md-6 my-6">
-        {currentCultivar ? (
-          <div>
-            {filter === "offer" ? (
-              <h4 className="title is-5">Users that want this:</h4>
-            ) : (
-              <h4 className="title is-5">Users that offer this:</h4>
-            )}
+                    ""
+                  );
+                })}
+            </tbody>
+          </table>
+        </div>
+        <div className="column">
+          {currentCultivar ? (
             <div>
-              {currentCultivar.users.map((user, index) =>
-                (filter === "offer" && user.want === true) ||
-                (filter === "want" && user.offer === true) ? (
-                  <div key={index} className="block">
-                    <div className="has-text-weight-bold">{user.username}</div>
-                    {user.email !== "" ? <div>{user.email}</div> : ""}
-                    {user.contactInfo !== "" ? (
-                      <div>{user.contactInfo}</div>
-                    ) : (
-                      ""
-                    )}
-                  </div>
-                ) : null
+              {filter === "offer" ? (
+                <h4 className="title is-5">Users that want this:</h4>
+              ) : (
+                <h4 className="title is-5">Users that offer this:</h4>
               )}
+              <div>
+                {currentCultivar.users.map((user, index) =>
+                  (filter === "offer" && user.want === true) ||
+                  (filter === "want" && user.offer === true) ? (
+                    <div key={index} className="block">
+                      <div className="has-text-weight-bold">
+                        {user.username}
+                      </div>
+                      {user.email !== "" ? <div>{user.email}</div> : ""}
+                      {user.contactInfo !== "" ? (
+                        <div>{user.contactInfo}</div>
+                      ) : (
+                        ""
+                      )}
+                    </div>
+                  ) : null
+                )}
+              </div>
             </div>
-          </div>
-        ) : (
-          <div>
-            <br />
-            <p>Please click on a cultivar...</p>
-          </div>
-        )}
+          ) : (
+            <div>
+              <br />
+              <p>Please click on a cultivar...</p>
+            </div>
+          )}
+        </div>
       </div>
     </>
   );
