@@ -1,3 +1,5 @@
+const config = require("../config/auth.config");
+
 const Sequelize = require("sequelize");
 const sequelize = new Sequelize(
   process.env.DB_NAME,
@@ -33,6 +35,10 @@ const queryInterface = sequelize.getQueryInterface();
 
 db.user = require("../models/user.model.js")(sequelize, Sequelize);
 db.role = require("../models/role.model.js")(sequelize, Sequelize);
+db.refreshToken = require("../models/refreshToken.model.js")(
+  sequelize,
+  Sequelize
+);
 db.cultivar = require("./cultivar.model.js")(sequelize, Sequelize);
 db.category = require("./category.model.js")(sequelize, Sequelize);
 db.user_cultivar = require("./user_cultivar.model.js")(sequelize, Sequelize);
@@ -46,6 +52,15 @@ db.user.belongsToMany(db.role, {
   through: "user_roles",
   foreignKey: "userId",
   otherKey: "roleId"
+});
+
+db.refreshToken.belongsTo(db.user, {
+  foreignKey: "userId",
+  targetKey: "id"
+});
+db.user.hasOne(db.refreshToken, {
+  foreignKey: "userId",
+  targetKey: "id"
 });
 
 // users scions relation

@@ -24,4 +24,6 @@ module.exports = function (app) {
   router.post("/signin", auth.signin);
 
   app.use("/api/auth", router);
+
+  app.post("/api/auth/refreshtoken", auth.refreshToken);
 };
