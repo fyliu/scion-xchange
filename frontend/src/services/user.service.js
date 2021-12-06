@@ -1,67 +1,60 @@
-import axios from "axios";
-import authHeader from "./auth-header";
+import api from "./api";
 
 //const PORT = process.env.PORT || 8080;
 //const API_URL = "http://localhost:" + PORT + "/api/test/";
-const API_URL = "/api/test/";
+const API_URL = "/test/";
 //const API_URL = 'https://scion-x-change.herokuapp.com/api/test/';
 
 const getPublicContent = () => {
-  return axios.get(API_URL + "all");
+  return api.get(API_URL + "all");
 };
 
 const getUserBoard = () => {
-  return axios.get(API_URL + "user", { headers: authHeader() });
+  return api.get(API_URL + "user");
 };
 
 const getModeratorBoard = () => {
-  return axios.get(API_URL + "mod", { headers: authHeader() });
+  return api.get(API_URL + "mod");
 };
 
 const getAdminBoard = () => {
-  return axios.get(API_URL + "admin", { headers: authHeader() });
+  return api.get(API_URL + "admin");
 };
 
 const getProfile = () => {
-  return axios.get(API_URL + "profile", { headers: authHeader() });
+  return api.get(API_URL + "profile");
 };
 
 const updateProfile = (data) => {
-  return axios.put(API_URL + "profile", data, {
-    headers: authHeader()
-  });
+  return api.put(API_URL + "profile", data);
 };
 
 const getOffers = () => {
-  return axios.get(API_URL + "offer-cultivars", { headers: authHeader() });
+  return api.get(API_URL + "offer-cultivars");
 };
 
 const updateOffers = (data) => {
-  return axios.put(API_URL + "offer-cultivars", data, {
-    headers: authHeader()
-  });
+  return api.put(API_URL + "offer-cultivars", data);
 };
 
 const getWants = () => {
-  return axios.get(API_URL + "want-cultivars", { headers: authHeader() });
+  return api.get(API_URL + "want-cultivars");
 };
 
 const updateWants = (data) => {
-  return axios.put(API_URL + "want-cultivars", data, {
-    headers: authHeader()
-  });
+  return api.put(API_URL + "want-cultivars", data);
 };
 
 const getTradeWants = () => {
-  return axios.get(API_URL + "trade-wants", { headers: authHeader() });
+  return api.get(API_URL + "trade-wants");
 };
 
 const getTradeOffers = () => {
-  return axios.get(API_URL + "trade-offers", { headers: authHeader() });
+  return api.get(API_URL + "trade-offers");
 };
 
 const getTrade = () => {
-  return axios.get(API_URL + "trade", { headers: authHeader() });
+  return api.get(API_URL + "trade");
 };
 
 export default {

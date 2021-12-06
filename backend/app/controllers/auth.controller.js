@@ -103,7 +103,6 @@ exports.refreshToken = async (req, res) => {
       where: { token: requestToken }
     });
 
-    console.log(refreshToken);
 
     if (!refreshToken) {
       res.status(403).json({ message: "Refresh token is not in database!" });

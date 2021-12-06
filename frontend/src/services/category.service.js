@@ -1,28 +1,27 @@
-import http from "../http-common";
-import authHeader from "./auth-header";
+import api from "./api";
 
 const getAll = () => {
-  return http.get("/categories", { headers: authHeader() });
+  return api.get("/categories");
 };
 
 const get = (id) => {
-  return http.get(`/categories/${id}`, { headers: authHeader() });
+  return api.get(`/categories/${id}`);
 };
 
 const create = (data) => {
-  return http.post("/categories", data, { headers: authHeader() });
+  return api.post("/categories", data);
 };
 
 const update = (id, data) => {
-  return http.put(`/categories/${id}`, data, { headers: authHeader() });
+  return api.put(`/categories/${id}`, data);
 };
 
 const remove = (id) => {
-  return http.delete(`/categories/${id}`, { headers: authHeader() });
+  return api.delete(`/categories/${id}`);
 };
 
 const findByName = (name) => {
-  return http.get(`/categories?name=${name}`, { headers: authHeader() });
+  return api.get(`/categories?name=${name}`);
 };
 
 export default {

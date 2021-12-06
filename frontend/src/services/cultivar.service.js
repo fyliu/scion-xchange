@@ -1,28 +1,27 @@
-import http from "../http-common";
-import authHeader from "./auth-header";
+import api from "./api";
 
 const getAll = () => {
-  return http.get("/cultivars", { headers: authHeader() });
+  return api.get("/cultivars");
 };
 
 const get = (id) => {
-  return http.get(`/cultivars/${id}`, { headers: authHeader() });
+  return api.get(`/cultivars/${id}`);
 };
 
 const create = (data) => {
-  return http.post("/cultivars", data, { headers: authHeader() });
+  return api.post("/cultivars", data);
 };
 
 const update = (id, data) => {
-  return http.put(`/cultivars/${id}`, data, { headers: authHeader() });
+  return api.put(`/cultivars/${id}`, data);
 };
 
 const remove = (id) => {
-  return http.delete(`/cultivars/${id}`, { headers: authHeader() });
+  return api.delete(`/cultivars/${id}`);
 };
 
 const findByName = (name) => {
-  return http.get(`/cultivars?name=${name}`, { headers: authHeader() });
+  return api.get(`/cultivars?name=${name}`);
 };
 
 export default {

@@ -4,6 +4,7 @@ import CategoryDataService from "../services/category.service";
 import CultivarDataService from "../services/cultivar.service";
 import UserService from "../services/user.service";
 import AddCultivar from "./AddCultivar";
+import EventBus from "../common/EventBus";
 
 const Offer = () => {
   const [categories, setCategories] = useState([]);
@@ -67,7 +68,10 @@ const Offer = () => {
         }
       })
       .catch((e) => {
-        console.log(e);
+        //console.log(e);
+        if (e.response && e.response.status === 403) {
+          EventBus.dispatch("logout");
+        }
       });
   };
 

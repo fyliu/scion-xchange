@@ -3,6 +3,7 @@ import { useAbortableEffect } from "../Utils";
 import UserService from "../services/user.service";
 import TradeByUser from "./TradeByUser";
 import TradeByCultivar from "./TradeByCultivar";
+import EventBus from "./../common/EventBus";
 
 const Trade = () => {
   const [cultivars, setCultivars] = useState([]);
@@ -66,7 +67,10 @@ const Trade = () => {
         }
       })
       .catch((e) => {
-        console.log(e);
+        //console.log(e);
+        if (e.response && e.response.status === 403) {
+          EventBus.dispatch("logout");
+        }
       });
   };
 
