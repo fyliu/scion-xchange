@@ -28,7 +28,7 @@ const NavBar = () => {
     return () => {
       EventBus.remove("logout");
     };
-  }, []);
+  }, [logOut]);
 
   const logOut = () => {
     AuthService.logout();
