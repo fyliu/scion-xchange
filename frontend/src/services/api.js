@@ -2,7 +2,8 @@ import axios from "axios";
 import AuthService from "./auth.service";
 import TokenService from "./token.service";
 
-const PORT = process.env.PORT;
+const PORT = process.env.REACT_APP_PORT || 8080;
+
 const instance = axios.create({
   baseURL: "http://localhost:" + PORT + "/api",
   headers: {
