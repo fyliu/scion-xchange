@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { Link, useHistory } from "react-router-dom";
 import EventBus from "../common/EventBus";
 
@@ -11,6 +11,14 @@ const NavBar = () => {
   const [currentUser, setCurrentUser] = useState(undefined);
   const [isActive, setIsActive] = useState(false);
   const [activeTab, setActiveTab] = useState("");
+
+  const logOut = useCallback(() => {
+    AuthService.logout();
+    setShowModeratorBoard(false);
+    setShowAdminBoard(false);
+    setCurrentUser(undefined);
+    history.push("/login");
+  }, [history]);
 
   useEffect(() => {
     const user = AuthService.getCurrentUser();
@@ -29,14 +37,6 @@ const NavBar = () => {
       EventBus.remove("logout");
     };
   }, [logOut]);
-
-  const logOut = () => {
-    AuthService.logout();
-    setShowModeratorBoard(false);
-    setShowAdminBoard(false);
-    setCurrentUser(undefined);
-    history.push("/login");
-  };
 
   return (
     <nav className="navbar" role="navigation" aria-label="main navigation">
