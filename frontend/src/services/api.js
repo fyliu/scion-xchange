@@ -2,8 +2,9 @@ import axios from "axios";
 import AuthService from "./auth.service";
 import TokenService from "./token.service";
 
+const PORT = process.env.PORT;
 const instance = axios.create({
-  baseURL: "http://localhost:8081/api",
+  baseURL: "http://localhost:" + PORT + "/api",
   headers: {
     "Content-Type": "application/json"
   }
