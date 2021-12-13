@@ -57,7 +57,7 @@ const getTrade = () => {
   return api.get(API_URL + "trade");
 };
 
-export default {
+const UserService = {
   getPublicContent,
   getUserBoard,
   getModeratorBoard,
@@ -72,3 +72,5 @@ export default {
   getTradeOffers,
   getTrade
 };
+
+export default UserService;

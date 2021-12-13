@@ -24,7 +24,7 @@ const findByName = (name) => {
   return api.get(`/categories?name=${name}`);
 };
 
-export default {
+const CategoryService = {
   getAll,
   get,
   create,
@@ -32,3 +32,5 @@ export default {
   remove,
   findByName
 };
+
+export default CategoryService;

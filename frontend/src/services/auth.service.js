@@ -37,9 +37,11 @@ const getCurrentUser = () => {
   return TokenService.getUser();
 };
 
-export default {
+const AuthService = {
   register,
   login,
   logout,
   getCurrentUser
 };
+
+export default AuthService;

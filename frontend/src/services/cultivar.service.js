@@ -24,7 +24,7 @@ const findByName = (name) => {
   return api.get(`/cultivars?name=${name}`);
 };
 
-export default {
+const CultivarService = {
   getAll,
   get,
   create,
@@ -32,3 +32,5 @@ export default {
   remove,
   findByName
 };
+
+export default CultivarService;

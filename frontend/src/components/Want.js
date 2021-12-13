@@ -75,7 +75,7 @@ const Want = () => {
   };
 
   const handleInputChange = (e) => {
-    const name = e.target.id;
+    //const name = e.target.id;
     const id = e.target.name;
     const value = e.target.checked;
 
