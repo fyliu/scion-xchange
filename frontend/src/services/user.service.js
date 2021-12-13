@@ -1,9 +1,6 @@
 import api from "./api";
 
-//const PORT = process.env.PORT || 8080;
-//const API_URL = "http://localhost:" + PORT + "/api/test/";
 const API_URL = "/test/";
-//const API_URL = 'https://scion-x-change.herokuapp.com/api/test/';
 
 const getPublicContent = () => {
   return api.get(API_URL + "all");
