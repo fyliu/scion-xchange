@@ -111,7 +111,10 @@ const TradeByUser = ({ users }) => {
                       </li>
                     ) : cultivar.offer ? (
                       <li key={index}>
-                        <strong>Offers:</strong> {cultivar.name}
+                        <strong>Offers:</strong> {cultivar.name}{" "}
+                        {cultivar.offerDescription
+                          ? " (" + cultivar.offerDescription + ")"
+                          : null}
                       </li>
                     ) : null
                   )}

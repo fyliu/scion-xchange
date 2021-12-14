@@ -398,7 +398,8 @@ exports.getTrade = async (req, res) => {
               email: cultivar.users.email,
               contactInfo: cultivar.users.contactInfo,
               offer: cultivar.users.users_cultivars.offer,
-              want: cultivar.users.users_cultivars.want
+              want: cultivar.users.users_cultivars.want,
+              offerDescription: cultivar.users.users_cultivars.offerDescription
             }
           ]
         };

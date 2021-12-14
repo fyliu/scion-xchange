@@ -163,10 +163,15 @@ const TradeByCultivar = ({ cultivars }) => {
                   (filter === "offer" && user.want === true) ||
                   (filter === "want" && user.offer === true) ? (
                     <div key={index} className="block">
-                      <div className="has-text-weight-bold">
+                      <span className="has-text-weight-bold">
                         {user.username}
-                      </div>
-                      {user.email !== "" ? <div>{user.email}</div> : ""}
+                      </span>
+                      {user.email !== "" ? (
+                        <span>&nbsp;{user.email}</span>
+                      ) : null}
+                      {user.offerDescription !== "" ? (
+                        <div>({user.offerDescription})</div>
+                      ) : null}
                       {user.contactInfo !== "" ? (
                         <div>{user.contactInfo}</div>
                       ) : (

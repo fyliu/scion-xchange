@@ -55,7 +55,8 @@ const Trade = () => {
               users[user.username].cultivars.add({
                 name: cultivar.category + " - " + cultivar.name,
                 offer: user.offer,
-                want: user.want
+                want: user.want,
+                offerDescription: user.offerDescription
               });
             });
           });
