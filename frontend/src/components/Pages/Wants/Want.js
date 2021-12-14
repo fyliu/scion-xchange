@@ -5,6 +5,7 @@ import CultivarDataService from "services/cultivar.service";
 import UserService from "services/user.service";
 import AddCultivar from "components/AddCultivar";
 import EventBus from "common/EventBus";
+import CultivarsList from "components/CultivarsList";
 
 const Want = () => {
   const [categories, setCategories] = useState([]);
@@ -112,7 +113,11 @@ const Want = () => {
     });
     setCultivars([
       ...cultivars,
-      { ...cultivar, category: getCategoryName(cultivar.categoryId) }
+      {
+        ...cultivar,
+        category: getCategoryName(cultivar.categoryId),
+        offers: []
+      }
     ]);
   };
 
@@ -122,6 +127,10 @@ const Want = () => {
       setNewCultivar(false);
     }
   }, [wants]);
+
+  useEffect(() => {
+    setFilteredCultivars(cultivars);
+  }, [cultivars]);
 
   const formatQuantity = (units, value) => {
     return value > 1 ? units[1] : units[0];
@@ -159,6 +168,7 @@ const Want = () => {
   };
 
   const filterList = (e) => {
+    if (e.target.name !== "name") return;
     const filteredList = cultivars.filter((item) => {
       return (
         item.name.toLowerCase().search(e.target.value.toLowerCase()) !== -1
@@ -172,54 +182,11 @@ const Want = () => {
       <div className="container mb-5">
         <h4 className="title is-4">What I want...</h4>
 
-        <table className="table is-striped is-narrow is-fullwidth is-hoverable">
-          <thead>
-            <tr>
-              <th>Cultivar</th>
-              <th>Description</th>
-            </tr>
-          </thead>
-          <tbody>
-            {filteredCultivars &&
-              filteredCultivars.map((cultivar) => (
-                <tr key={cultivar.id}>
-                  <td>
-                    <div className="field is-grouped">
-                      <p className="control">
-                        <input
-                          type="checkbox"
-                          id={cultivar.id}
-                          name={cultivar.id}
-                          value={cultivar.id}
-                          checked={
-                            (wants[cultivar.id] && wants[cultivar.id].want) ||
-                            false
-                          }
-                          onChange={handleInputChange}
-                        />
-                        <label className="checkbox">
-                          {cultivar.category + " - " + cultivar.name}
-                        </label>
-                      </p>
-                      {quantityOffered(cultivar)}
-                    </div>
-                  </td>
-                  <td>
-                    {cultivar.offers.map((offer) => {
-                      return offer.description !== "" ? (
-                        <label key={offer.username}>
-                          <strong>{offer.username}</strong> :{" "}
-                          {offer.description}
-                        </label>
-                      ) : (
-                        ""
-                      );
-                    })}
-                  </td>
-                </tr>
-              ))}
-          </tbody>
-        </table>
+        <CultivarsList
+          cultivars={filteredCultivars}
+          wants={wants}
+          handleInputChange={handleInputChange}
+        />
         <button type="submit" onClick={() => updateWant()}>
           Update
         </button>

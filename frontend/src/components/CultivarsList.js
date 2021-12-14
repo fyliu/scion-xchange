@@ -1,119 +1,141 @@
-import React, { useState, useEffect } from "react";
-import CultivarDataService from "services/cultivar.service";
-import { Link } from "react-router-dom";
+import React from "react";
 
-const CultivarsList = () => {
-  const [cultivars, setCultivars] = useState([]);
-  const [currentCultivar, setCurrentCultivar] = useState(null);
-  const [currentIndex, setCurrentIndex] = useState(-1);
-  const [searchName, setSearchName] = useState("");
-
-  useEffect(() => {
-    retrieveCultivars();
-  }, []);
-
-  const onChangeSearchName = (e) => {
-    const searchName = e.target.value;
-    setSearchName(searchName);
+const CultivarsList = ({ cultivars, offers, wants, handleInputChange }) => {
+  const formatQuantity = (units, value) => {
+    return value > 1 ? units[1] : units[0];
   };
-
-  const retrieveCultivars = () => {
-    CultivarDataService.getAll()
-      .then((res) => {
-        setCultivars(res.data);
-      })
-      .catch((e) => {
-        console.log(e);
-      });
-  };
-
-  const setActiveCultivar = (cultivar, index) => {
-    setCurrentCultivar(cultivar);
-    setCurrentIndex(index);
-  };
-
-  const findByName = () => {
-    CultivarDataService.findByName(searchName)
-      .then((res) => {
-        setCultivars(res.data);
-        console.log(res.data);
-      })
-      .catch((e) => {
-        console.log(e);
-      });
+  const quantityOffered = (cultivar) => {
+    const quantity = cultivar.offers.reduce(
+      (totals, offer) => {
+        return {
+          offered: totals.offered + offer.offerQuantity,
+          offers: totals.offers + 1
+        };
+      },
+      { offered: 0, offers: 0 }
+    );
+    return quantity.offered > 0 && quantity.offers > 0 ? (
+      <label>
+        <span className="tag">
+          {quantity.offered} available from{" "}
+          {quantity.offers +
+            " " +
+            formatQuantity(["person", "people"], quantity.offers)}
+        </span>
+      </label>
+    ) : quantity.offers > 0 ? (
+      <label>
+        <span className="tag">
+          offered by{" "}
+          {quantity.offers +
+            " " +
+            formatQuantity(["person", "people"], quantity.offers)}
+        </span>
+      </label>
+    ) : null;
   };
 
   return (
-    <div className="list row">
-      <div className="col-md-8">
-        <div className="input-group mb-3">
-          <input
-            type="text"
-            className="form-control"
-            placeholder="Search by name"
-            value={searchName}
-            onChange={onChangeSearchName}
-          />
-          <div className="input-group-append">
-            <button
-              className="btn btn-outline-secondary"
-              type="button"
-              onClick={findByName}
-            >
-              Search
-            </button>
-          </div>
-        </div>
-      </div>
-      <div className="col-md-6">
-        <h4>Cultivars List</h4>
-
-        <ul className="list-group">
-          {cultivars &&
-            cultivars.map((cultivar, index) => (
-              <li
-                className={
-                  "list-group-item " + (index === currentIndex ? "active" : "")
-                }
-                onClick={() => setActiveCultivar(cultivar, index)}
-                key={index}
-              >
-                {cultivar.name} - {cultivar.category}
-              </li>
-            ))}
-        </ul>
-      </div>
-      <div className="col-md-6">
-        {currentCultivar ? (
-          <div>
-            <h4>Cultivar</h4>
-            <div>
-              <label>
-                <strong>Name:</strong>
-              </label>{" "}
-              {currentCultivar.name}
-            </div>
-            <div>
-              <label>
-                <strong>Category:</strong>
-              </label>{" "}
-              {currentCultivar.category}
-            </div>
-            <Link
-              to={"/cultivars/" + currentCultivar.id}
-              className="badge badge-warning"
-            >
-              Edit
-            </Link>
-          </div>
-        ) : (
-          <div>
-            <br />
-            <p>Please click on a Cultivar...</p>
-          </div>
-        )}
-      </div>
-    </div>
+    <table className="table is-striped is-narrow is-fullwidth is-hoverable">
+      <thead>
+        <tr>
+          <th>Cultivar</th>
+          {offers ? <th>Quantity</th> : ""}
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        {cultivars &&
+          cultivars.map((cultivar) => (
+            <tr key={cultivar.id}>
+              <td>
+                <div className="field is-grouped">
+                  <p className="control">
+                    <input
+                      type="checkbox"
+                      id={cultivar.id}
+                      name={cultivar.id}
+                      value={cultivar.id}
+                      checked={
+                        offers
+                          ? offers[cultivar.id] && offers[cultivar.id].offer
+                          : wants
+                          ? wants[cultivar.id] && wants[cultivar.id].want
+                          : false
+                      }
+                      onChange={handleInputChange}
+                    />
+                    <label className="checkbox">
+                      {cultivar.category + " - " + cultivar.name}
+                    </label>
+                  </p>
+                  {wants ? quantityOffered(cultivar) : ""}
+                </div>
+              </td>
+              {offers ? (
+                <>
+                  <td>
+                    {offers[cultivar.id] && offers[cultivar.id].offer ? (
+                      <p className="control">
+                        <input
+                          type="text"
+                          id="offerQuantity"
+                          name={cultivar.id}
+                          onChange={handleInputChange}
+                          placeholder="Quantity"
+                          value={
+                            (offers[cultivar.id] &&
+                              offers[cultivar.id].offerQuantity) ||
+                            ""
+                          }
+                        ></input>
+                      </p>
+                    ) : (
+                      ""
+                    )}
+                  </td>
+                  <td>
+                    {offers[cultivar.id] && offers[cultivar.id].offer ? (
+                      <div className="field">
+                        <p className="control is-expanded">
+                          <textarea
+                            className="textarea"
+                            id="offerDescription"
+                            name={cultivar.id}
+                            rows="1"
+                            onChange={handleInputChange}
+                            placeholder="Description: Flavor, size, color, growth habit..."
+                            value={
+                              offers[cultivar.id] &&
+                              offers[cultivar.id].offerDescription
+                            }
+                          />
+                        </p>
+                      </div>
+                    ) : (
+                      ""
+                    )}
+                  </td>
+                </>
+              ) : wants ? (
+                <td>
+                  {cultivar.offers.map((offer) => {
+                    return offer.description !== "" ? (
+                      <label key={offer.username}>
+                        <strong>{offer.username}</strong> : {offer.description}
+                      </label>
+                    ) : (
+                      ""
+                    );
+                  })}
+                </td>
+              ) : (
+                ""
+              )}
+            </tr>
+          ))}
+      </tbody>
+    </table>
   );
 };
 

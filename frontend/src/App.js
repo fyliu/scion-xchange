@@ -3,7 +3,6 @@ import { Switch, Route } from "react-router-dom";
 import "App.css";
 import "main.scss";
 
-import CultivarsList from "./components/CultivarsList";
 import Cultivar from "./components/Cultivar";
 import NavBar from "components/NavBar";
 import Login from "components/Pages/Login";
@@ -27,7 +26,6 @@ const App = () => {
           <Route exact path="/login" component={Login} />
           <Route exact path="/register" component={Register} />
           <Route exact path="/profile" component={Profile} />
-          <Route exact path="/cultivars" component={CultivarsList} />
           <Route exact path="/offer" component={Offer} />
           <Route exact path="/want" component={Want} />
           <Route exact path="/trade" component={Trade} />

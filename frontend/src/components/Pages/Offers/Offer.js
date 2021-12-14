@@ -3,6 +3,7 @@ import { useAbortableEffect } from "Utils";
 import CategoryDataService from "services/category.service";
 import CultivarDataService from "services/cultivar.service";
 import UserService from "services/user.service";
+import CultivarsList from "components/CultivarsList";
 import AddCultivar from "components/AddCultivar";
 import EventBus from "common/EventBus";
 
@@ -128,6 +129,10 @@ const Offer = () => {
   };
 
   useEffect(() => {
+    setFilteredCultivars(cultivars);
+  }, [cultivars]);
+
+  useEffect(() => {
     if (newCultivar) {
       updateOffer();
       setNewCultivar(false);
@@ -135,6 +140,7 @@ const Offer = () => {
   }, [offers]);
 
   const filterList = (e) => {
+    if (e.target.name !== "name") return;
     const filteredList = cultivars.filter((item) => {
       return (
         item.name.toLowerCase().search(e.target.value.toLowerCase()) !== -1
@@ -148,85 +154,11 @@ const Offer = () => {
       <div className="container mb-5">
         <h4 className="title is-4">What I can offer...</h4>
 
-        <table className="table is-striped is-narrow is-fullwidth is-hoverable">
-          <thead>
-            <tr>
-              <th>Cultivar</th>
-              <th>Quantity</th>
-              <th>Description</th>
-            </tr>
-          </thead>
-          <tbody>
-            {filteredCultivars &&
-              filteredCultivars.map((cultivar) => (
-                <tr key={cultivar.id}>
-                  <td>
-                    <div className="field is-grouped">
-                      <p className="control">
-                        <input
-                          type="checkbox"
-                          id={cultivar.id}
-                          name={cultivar.id}
-                          value={cultivar.id}
-                          checked={
-                            (offers[cultivar.id] &&
-                              offers[cultivar.id].offer) ||
-                            false
-                          }
-                          onChange={handleInputChange}
-                        />
-                        <label className="checkbox">
-                          {cultivar.category + " - " + cultivar.name}
-                        </label>
-                      </p>
-                    </div>
-                  </td>
-                  <td>
-                    {offers[cultivar.id] && offers[cultivar.id].offer ? (
-                      <p className="control">
-                        <input
-                          type="text"
-                          id="offerQuantity"
-                          name={cultivar.id}
-                          onChange={handleInputChange}
-                          placeholder="Quantity"
-                          value={
-                            (offers[cultivar.id] &&
-                              offers[cultivar.id].offerQuantity) ||
-                            ""
-                          }
-                        ></input>
-                      </p>
-                    ) : (
-                      ""
-                    )}
-                  </td>
-                  <td>
-                    {offers[cultivar.id] && offers[cultivar.id].offer ? (
-                      <div className="field">
-                        <p className="control is-expanded">
-                          <textarea
-                            className="textarea"
-                            id="offerDescription"
-                            name={cultivar.id}
-                            rows="1"
-                            onChange={handleInputChange}
-                            placeholder="Description: Flavor, size, color, growth habit..."
-                            value={
-                              offers[cultivar.id] &&
-                              offers[cultivar.id].offerDescription
-                            }
-                          />
-                        </p>
-                      </div>
-                    ) : (
-                      ""
-                    )}
-                  </td>
-                </tr>
-              ))}
-          </tbody>
-        </table>
+        <CultivarsList
+          cultivars={filteredCultivars}
+          offers={offers}
+          handleInputChange={handleInputChange}
+        />
         <button type="submit" onClick={() => updateOffer()}>
           Update
         </button>
