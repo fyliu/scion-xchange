@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import CultivarDataService from "../services/cultivar.service";
-import CategoryDataService from "../services/category.service";
+import CultivarDataService from "services/cultivar.service";
+import CategoryDataService from "services/category.service";
 
 const Cultivar = (props) => {
   const initialCultivarState = {

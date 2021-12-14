@@ -1,21 +1,21 @@
 import React, { useState, useEffect } from "react";
-import { useAbortableEffect } from "../Utils";
-import CategoryDataService from "../services/category.service";
-import CultivarDataService from "../services/cultivar.service";
-import UserService from "../services/user.service";
-import AddCultivar from "./AddCultivar";
-import EventBus from "../common/EventBus";
+import { useAbortableEffect } from "Utils";
+import CategoryDataService from "services/category.service";
+import CultivarDataService from "services/cultivar.service";
+import UserService from "services/user.service";
+import AddCultivar from "components/AddCultivar";
+import EventBus from "common/EventBus";
 
-const Want = () => {
+const Offer = () => {
   const [categories, setCategories] = useState([]);
   const [cultivars, setCultivars] = useState([]);
-  const [wants, setWants] = useState({});
+  const [offers, setOffers] = useState({});
   const [message, setMessage] = useState("");
   const [newCultivar, setNewCultivar] = useState(false);
 
   useAbortableEffect((status) => {
+    retrieveOffers(status);
     retrieveCultivars(status);
-    retrieveWants(status);
     retrieveCategories(status);
   }, []);
 
@@ -27,10 +27,7 @@ const Want = () => {
         }
       })
       .catch((e) => {
-        //console.log(e);
-        if (e.response && e.response.status === 403) {
-          EventBus.dispatch("logout");
-        }
+        console.log(e);
       });
   };
 
@@ -56,6 +53,7 @@ const Want = () => {
         if (!status.aborted) {
           moveOtherToEnd(res.data);
           setCultivars(res.data);
+          //console.log(res.data);
         }
       })
       .catch((e) => {
@@ -63,30 +61,45 @@ const Want = () => {
       });
   };
 
-  const retrieveWants = (status) => {
-    UserService.getWants()
+  const retrieveOffers = (status) => {
+    UserService.getOffers()
       .then((res) => {
         if (!status.aborted) {
-          setWants(res.data);
+          setOffers(res.data);
         }
       })
       .catch((e) => {
-        console.log(e);
+        //console.log(e);
+        if (e.response && e.response.status === 403) {
+          EventBus.dispatch("logout");
+        }
       });
   };
 
   const handleInputChange = (e) => {
-    //const name = e.target.id;
+    const name = e.target.id;
     const id = e.target.name;
-    const value = e.target.checked;
-
-    setWants({ ...wants, [id]: { ...wants[id], want: value } });
+    const value =
+      e.target.type === "checkbox" ? e.target.checked : e.target.value;
+    if (name === "offerDescription") {
+      setOffers({
+        ...offers,
+        [id]: { ...offers[id], offerDescription: value }
+      });
+    } else if (name === "offerQuantity") {
+      setOffers({
+        ...offers,
+        [id]: { ...offers[id], offerQuantity: value }
+      });
+    } else {
+      setOffers({ ...offers, [id]: { ...offers[id], offer: value } });
+    }
   };
 
-  const updateWant = () => {
-    UserService.updateWants(wants)
+  const updateOffer = () => {
+    UserService.updateOffers(offers)
       .then((res) => {
-        setMessage("Want was updated successfully!");
+        setMessage("Offer was updated successfully!");
       })
       .catch((e) => {
         console.log(e);
@@ -104,9 +117,9 @@ const Want = () => {
 
   const handleCultivarAdded = (cultivar) => {
     setNewCultivar(true);
-    setWants({
-      ...wants,
-      [cultivar.id]: { ...wants[cultivar.id], want: true }
+    setOffers({
+      ...offers,
+      [cultivar.id]: { ...offers[cultivar.id], offer: true }
     });
     setCultivars([
       ...cultivars,
@@ -116,55 +129,21 @@ const Want = () => {
 
   useEffect(() => {
     if (newCultivar) {
-      updateWant();
+      updateOffer();
       setNewCultivar(false);
     }
-  }, [wants]);
-
-  const formatQuantity = (units, value) => {
-    return value > 1 ? units[1] : units[0];
-  };
-
-  const quantityOffered = (cultivar) => {
-    const quantity = cultivar.offers.reduce(
-      (totals, offer) => {
-        return {
-          offered: totals.offered + offer.offerQuantity,
-          offers: totals.offers + 1
-        };
-      },
-      { offered: 0, offers: 0 }
-    );
-    return quantity.offered > 0 && quantity.offers > 0 ? (
-      <label>
-        <span className="tag">
-          {quantity.offered} available from{" "}
-          {quantity.offers +
-            " " +
-            formatQuantity(["person", "people"], quantity.offers)}
-        </span>
-      </label>
-    ) : quantity.offers > 0 ? (
-      <label>
-        <span className="tag">
-          offered by{" "}
-          {quantity.offers +
-            " " +
-            formatQuantity(["person", "people"], quantity.offers)}
-        </span>
-      </label>
-    ) : null;
-  };
+  }, [offers]);
 
   return (
     <>
       <div className="container mb-5">
-        <h4 className="title is-4">What I want...</h4>
+        <h4 className="title is-4">What I can offer...</h4>
 
         <table className="table is-striped is-narrow is-fullwidth is-hoverable">
           <thead>
             <tr>
               <th>Cultivar</th>
+              <th>Quantity</th>
               <th>Description</th>
             </tr>
           </thead>
@@ -181,7 +160,8 @@ const Want = () => {
                           name={cultivar.id}
                           value={cultivar.id}
                           checked={
-                            (wants[cultivar.id] && wants[cultivar.id].want) ||
+                            (offers[cultivar.id] &&
+                              offers[cultivar.id].offer) ||
                             false
                           }
                           onChange={handleInputChange}
@@ -190,26 +170,55 @@ const Want = () => {
                           {cultivar.category + " - " + cultivar.name}
                         </label>
                       </p>
-                      {quantityOffered(cultivar)}
                     </div>
                   </td>
                   <td>
-                    {cultivar.offers.map((offer) => {
-                      return offer.description !== "" ? (
-                        <label key={offer.username}>
-                          <strong>{offer.username}</strong> :{" "}
-                          {offer.description}
-                        </label>
-                      ) : (
-                        ""
-                      );
-                    })}
+                    {offers[cultivar.id] && offers[cultivar.id].offer ? (
+                      <p className="control">
+                        <input
+                          type="text"
+                          id="offerQuantity"
+                          name={cultivar.id}
+                          onChange={handleInputChange}
+                          placeholder="Quantity"
+                          value={
+                            (offers[cultivar.id] &&
+                              offers[cultivar.id].offerQuantity) ||
+                            ""
+                          }
+                        ></input>
+                      </p>
+                    ) : (
+                      ""
+                    )}
+                  </td>
+                  <td>
+                    {offers[cultivar.id] && offers[cultivar.id].offer ? (
+                      <div className="field">
+                        <p className="control is-expanded">
+                          <textarea
+                            className="textarea"
+                            id="offerDescription"
+                            name={cultivar.id}
+                            rows="1"
+                            onChange={handleInputChange}
+                            placeholder="Description: Flavor, size, color, growth habit..."
+                            value={
+                              offers[cultivar.id] &&
+                              offers[cultivar.id].offerDescription
+                            }
+                          />
+                        </p>
+                      </div>
+                    ) : (
+                      ""
+                    )}
                   </td>
                 </tr>
               ))}
           </tbody>
         </table>
-        <button type="submit" onClick={() => updateWant()}>
+        <button type="submit" onClick={() => updateOffer()}>
           Update
         </button>
         <p>{message}</p>
@@ -221,5 +230,4 @@ const Want = () => {
     </>
   );
 };
-
-export default Want;
+export default Offer;

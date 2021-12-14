@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import { useAbortableEffect } from "../Utils";
-import UserService from "../services/user.service";
+import { useAbortableEffect } from "Utils";
+import UserService from "services/user.service";
 import TradeByUser from "./TradeByUser";
 import TradeByCultivar from "./TradeByCultivar";
-import EventBus from "./../common/EventBus";
+import EventBus from "common/EventBus";
 
 const Trade = () => {
   const [cultivars, setCultivars] = useState([]);

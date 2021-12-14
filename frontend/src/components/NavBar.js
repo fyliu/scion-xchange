@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { Link, useHistory } from "react-router-dom";
-import EventBus from "../common/EventBus";
+import EventBus from "common/EventBus";
 
-import AuthService from "../services/auth.service";
+import AuthService from "services/auth.service";
 
 const NavBar = () => {
   const history = useHistory();

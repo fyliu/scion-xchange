@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import { useAbortableEffect } from "../Utils";
-import UserService from "../services/user.service";
+import { useAbortableEffect } from "Utils";
+import UserService from "services/user.service";
 
 const TradeByCultivar = ({ cultivars }) => {
   const [currentCultivar, setCurrentCultivar] = useState(null);
