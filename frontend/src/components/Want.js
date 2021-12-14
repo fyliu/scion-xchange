@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useAbortableEffect } from "../Utils";
 import CategoryDataService from "../services/category.service";
 import CultivarDataService from "../services/cultivar.service";
@@ -11,6 +11,7 @@ const Want = () => {
   const [cultivars, setCultivars] = useState([]);
   const [wants, setWants] = useState({});
   const [message, setMessage] = useState("");
+  const [newCultivar, setNewCultivar] = useState(false);
 
   useAbortableEffect((status) => {
     retrieveCultivars(status);
@@ -102,11 +103,23 @@ const Want = () => {
   };
 
   const handleCultivarAdded = (cultivar) => {
+    setNewCultivar(true);
+    setWants({
+      ...wants,
+      [cultivar.id]: { ...wants[cultivar.id], want: true }
+    });
     setCultivars([
       ...cultivars,
       { ...cultivar, category: getCategoryName(cultivar.categoryId) }
     ]);
   };
+
+  useEffect(() => {
+    if (newCultivar) {
+      updateWant();
+      setNewCultivar(false);
+    }
+  }, [wants]);
 
   const formatQuantity = (units, value) => {
     return value > 1 ? units[1] : units[0];
