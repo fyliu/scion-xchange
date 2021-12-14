@@ -9,6 +9,7 @@ import EventBus from "common/EventBus";
 const Offer = () => {
   const [categories, setCategories] = useState([]);
   const [cultivars, setCultivars] = useState([]);
+  const [filteredCultivars, setFilteredCultivars] = useState([]);
   const [offers, setOffers] = useState({});
   const [message, setMessage] = useState("");
   const [newCultivar, setNewCultivar] = useState(false);
@@ -53,7 +54,7 @@ const Offer = () => {
         if (!status.aborted) {
           moveOtherToEnd(res.data);
           setCultivars(res.data);
-          //console.log(res.data);
+          setFilteredCultivars(res.data);
         }
       })
       .catch((e) => {
@@ -69,7 +70,6 @@ const Offer = () => {
         }
       })
       .catch((e) => {
-        //console.log(e);
         if (e.response && e.response.status === 403) {
           EventBus.dispatch("logout");
         }
@@ -134,6 +134,15 @@ const Offer = () => {
     }
   }, [offers]);
 
+  const filterList = (e) => {
+    const filteredList = cultivars.filter((item) => {
+      return (
+        item.name.toLowerCase().search(e.target.value.toLowerCase()) !== -1
+      );
+    });
+    setFilteredCultivars(filteredList);
+  };
+
   return (
     <>
       <div className="container mb-5">
@@ -148,8 +157,8 @@ const Offer = () => {
             </tr>
           </thead>
           <tbody>
-            {cultivars &&
-              cultivars.map((cultivar) => (
+            {filteredCultivars &&
+              filteredCultivars.map((cultivar) => (
                 <tr key={cultivar.id}>
                   <td>
                     <div className="field is-grouped">
@@ -225,7 +234,10 @@ const Offer = () => {
       </div>
       <div className="container">
         <label className="has-text-weight-bold">Add Cultivar</label>
-        <AddCultivar onCultivarAdded={handleCultivarAdded} />
+        <AddCultivar
+          onCultivarAdded={handleCultivarAdded}
+          onChange={filterList}
+        />
       </div>
     </>
   );

@@ -9,6 +9,7 @@ import EventBus from "common/EventBus";
 const Want = () => {
   const [categories, setCategories] = useState([]);
   const [cultivars, setCultivars] = useState([]);
+  const [filteredCultivars, setFilteredCultivars] = useState([]);
   const [wants, setWants] = useState({});
   const [message, setMessage] = useState("");
   const [newCultivar, setNewCultivar] = useState(false);
@@ -56,6 +57,7 @@ const Want = () => {
         if (!status.aborted) {
           moveOtherToEnd(res.data);
           setCultivars(res.data);
+          setFilteredCultivars(res.data);
         }
       })
       .catch((e) => {
@@ -156,6 +158,15 @@ const Want = () => {
     ) : null;
   };
 
+  const filterList = (e) => {
+    const filteredList = cultivars.filter((item) => {
+      return (
+        item.name.toLowerCase().search(e.target.value.toLowerCase()) !== -1
+      );
+    });
+    setFilteredCultivars(filteredList);
+  };
+
   return (
     <>
       <div className="container mb-5">
@@ -169,8 +180,8 @@ const Want = () => {
             </tr>
           </thead>
           <tbody>
-            {cultivars &&
-              cultivars.map((cultivar) => (
+            {filteredCultivars &&
+              filteredCultivars.map((cultivar) => (
                 <tr key={cultivar.id}>
                   <td>
                     <div className="field is-grouped">
@@ -216,7 +227,10 @@ const Want = () => {
       </div>
       <div className="container">
         <label className="has-text-weight-bold">Add Cultivar</label>
-        <AddCultivar onCultivarAdded={handleCultivarAdded} />
+        <AddCultivar
+          onCultivarAdded={handleCultivarAdded}
+          onChange={filterList}
+        />
       </div>
     </>
   );

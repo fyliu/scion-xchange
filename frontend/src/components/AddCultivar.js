@@ -3,7 +3,7 @@ import { useAbortableEffect } from "Utils";
 import CultivarDataService from "services/cultivar.service";
 import CategoryDataService from "services/category.service";
 
-const AddCultivar = ({ onCultivarAdded }) => {
+const AddCultivar = ({ onCultivarAdded, onChange }) => {
   const initialCultivarState = {
     id: null,
     category: "",
@@ -40,6 +40,7 @@ const AddCultivar = ({ onCultivarAdded }) => {
   };
 
   const handleInputChange = (e) => {
+    onChange(e);
     setSubmitted(false);
     setMessage("");
     const { name, value } = e.target;
