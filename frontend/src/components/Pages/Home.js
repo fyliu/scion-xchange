@@ -3,7 +3,7 @@ import React from "react";
 const Home = () => {
   return (
     <div className="container content">
-      <h2 className="title is-4">How to use this tool</h2>
+      <h2 className="title is-4">How to use this app</h2>
       <ol>
         <li className="mb-5">
           <p>
@@ -69,18 +69,13 @@ const Home = () => {
       <ol>
         <li>
           This is running on a free account and it can take several seconds to
-          load if the tool has been inactive for some time.
+          load if the app has been inactive for some time.
         </li>
         <li>
           There is no way to change the username/email
           address/password/cultivars added
         </li>
         <li>The email address is not verified.</li>
-        <li>
-          If you see the page taking a long time or not loading any data, just
-          logout and log back in. It doesn't log you out when the login session
-          expires (in 24 hours) but it does restrict you from viewing anything.
-        </li>
       </ol>
     </div>
   );
