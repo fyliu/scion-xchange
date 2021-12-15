@@ -56,7 +56,8 @@ const Trade = () => {
                 name: cultivar.category + " - " + cultivar.name,
                 offer: user.offer,
                 want: user.want,
-                offerDescription: user.offerDescription
+                offerDescription: user.offerDescription,
+                offerQuantity: user.offerQuantity
               });
             });
           });

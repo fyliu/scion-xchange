@@ -40,7 +40,7 @@ const CultivarsList = ({ cultivars, offers, wants, handleInputChange }) => {
       <thead>
         <tr>
           <th>Cultivar</th>
-          {offers ? <th>Quantity</th> : ""}
+          <th>Quantity</th>
           <th>Description</th>
         </tr>
       </thead>
@@ -118,17 +118,32 @@ const CultivarsList = ({ cultivars, offers, wants, handleInputChange }) => {
                   </td>
                 </>
               ) : wants ? (
-                <td>
-                  {cultivar.offers.map((offer) => {
-                    return offer.description !== "" ? (
-                      <label key={offer.username}>
-                        <strong>{offer.username}</strong> : {offer.description}
+                <>
+                  <td>
+                    <p className="control">
+                      <label>
+                        {cultivar.offers.reduce((quantity, offer) => {
+                          return (
+                            quantity +
+                            (offer.offerQuantity ? offer.offerQuantity : 0)
+                          );
+                        }, 0) || null}
                       </label>
-                    ) : (
-                      ""
-                    );
-                  })}
-                </td>
+                    </p>
+                  </td>
+                  <td>
+                    {cultivar.offers.map((offer) => {
+                      return offer.description !== "" ? (
+                        <label key={offer.username}>
+                          <strong>{offer.username}</strong> :{" "}
+                          {offer.description}
+                        </label>
+                      ) : (
+                        ""
+                      );
+                    })}
+                  </td>
+                </>
               ) : (
                 ""
               )}
