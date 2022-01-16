@@ -47,7 +47,7 @@ const NavBar = () => {
           }}
         >
           <Link to={"/"} className="navbar-item">
-            Scion Exchange
+            Foothill Chapter Scion Exchange
           </Link>
         </div>
         <a
