@@ -4,6 +4,6 @@ module.exports = {
   // jwtRefreshExpiration: process.env.JWT_REFRESH_EXPIRATION
 
   /* for test */
-  jwtExpiration: 60, // 1 minute
-  jwtRefreshExpiration: 120 // 2 minutes
+  jwtExpiration: 3600, // 1 minute
+  jwtRefreshExpiration: 604800 // 2 minutes
 };
