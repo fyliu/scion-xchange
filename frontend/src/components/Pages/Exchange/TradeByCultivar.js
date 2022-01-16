@@ -120,7 +120,7 @@ const TradeByCultivar = ({ cultivars }) => {
                     (isOfferedByUser(cultivar) &&
                       inMyWant(cultivar) &&
                       filter === "want") ? (
-                    <tr>
+                    <tr key={cultivar.id}>
                       <td
                         className={
                           "list-group-item " +
