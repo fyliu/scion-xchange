@@ -143,9 +143,7 @@ const TradeByCultivar = ({ cultivars }) => {
                         )}
                       </td>
                     </tr>
-                  ) : (
-                    ""
-                  );
+                  ) : null;
                 })}
             </tbody>
           </table>
