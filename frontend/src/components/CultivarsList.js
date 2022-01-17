@@ -61,7 +61,7 @@ const CultivarsList = ({ cultivars, offers, wants, handleInputChange }) => {
                       }
                       onChange={handleInputChange}
                     />
-                    <label className="checkbox">
+                    <label className="checkbox" htmlFor={cultivar.id}>
                       {cultivar.category + " - " + cultivar.name}
                     </label>
                   </p>
