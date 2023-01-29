@@ -19,5 +19,8 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Fang Yi Liu",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "concurrently": "^7.6.0"
+  }
 }
