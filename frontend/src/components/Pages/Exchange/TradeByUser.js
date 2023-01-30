@@ -1,29 +1,9 @@
 import React, { useState } from "react";
-import { useAbortableEffect } from "Utils";
-import UserService from "services/user.service";
 
 const TradeByUser = ({ users }) => {
   //console.log(users);
   const [currentUser, setCurrentUser] = useState(null);
   const [currentIndex, setCurrentIndex] = useState(-1);
-  const [offers, setOffers] = useState({});
-
-  useAbortableEffect((status) => {
-    retrieveOffers(status);
-  }, []);
-
-  const retrieveOffers = (status) => {
-    UserService.getOffers()
-      .then((res) => {
-        if (!status.aborted) {
-          //console.log(res.data);
-          setOffers(res.data);
-        }
-      })
-      .catch((e) => {
-        console.log(e);
-      });
-  };
 
   const setActiveUser = (user, index) => {
     //console.log(user);
