@@ -132,40 +132,6 @@ const Want = () => {
     setFilteredCultivars(cultivars);
   }, [cultivars]);
 
-  const formatQuantity = (units, value) => {
-    return value > 1 ? units[1] : units[0];
-  };
-
-  const quantityOffered = (cultivar) => {
-    const quantity = cultivar.offers.reduce(
-      (totals, offer) => {
-        return {
-          offered: totals.offered + offer.offerQuantity,
-          offers: totals.offers + 1
-        };
-      },
-      { offered: 0, offers: 0 }
-    );
-    return quantity.offered > 0 && quantity.offers > 0 ? (
-      <label>
-        <span className="tag">
-          {quantity.offered} available from{" "}
-          {quantity.offers +
-            " " +
-            formatQuantity(["person", "people"], quantity.offers)}
-        </span>
-      </label>
-    ) : quantity.offers > 0 ? (
-      <label>
-        <span className="tag">
-          offered by{" "}
-          {quantity.offers +
-            " " +
-            formatQuantity(["person", "people"], quantity.offers)}
-        </span>
-      </label>
-    ) : null;
-  };
 
   const filterList = (e) => {
     if (e.target.name !== "name") return;
