@@ -50,7 +50,7 @@ const NavBar = () => {
             Scion Exchange
           </Link>
         </div>
-        <a
+        <span
           onClick={() => {
             setIsActive(!isActive);
           }}
@@ -63,7 +63,7 @@ const NavBar = () => {
           <span aria-hidden="true"></span>
           <span aria-hidden="true"></span>
           <span aria-hidden="true"></span>
-        </a>
+        </span>
       </div>
 
       <div
