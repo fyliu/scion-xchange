@@ -15,5 +15,5 @@ export const useAbortableEffect = (effect, dependencies) => {
         cleanUpFn();
       }
     };
-  }, [...dependencies]);
+  }, [...dependencies]); // eslint-disable-line react-hooks/exhaustive-deps
 };
