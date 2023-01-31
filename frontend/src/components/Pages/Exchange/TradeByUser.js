@@ -37,7 +37,7 @@ const TradeByUser = ({ users }) => {
             <tbody>
               {users &&
                 users.map((user, index) => (
-                  <tr key={user.username}>
+                  <tr key={user[0]}>
                     <td
                       className={
                         "list-group-item " +
